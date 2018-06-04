@@ -1,0 +1,304 @@
+<h2 class="mt-2">Update Student</h2>
+<ol class="breadcrumb-arrow">
+	<li><a [routerLink]="['/app/student']">Student</a></li>
+	<!-- <li><a [routerLink]="['/app/student']">Library</a></li> -->
+	<li class="active"><span>{{student.name}}</span></li>
+</ol>
+
+<div class=" ">
+	<nav>
+		<div class="nav nav-tabs" id="nav-tab" role="tablist">
+			<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" data-target="#classinfo" href="#" role="tab" aria-controls="categoryinfo"
+			 aria-selected="true">Student Info</a>
+			<a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" data-target="#classstudents" href="#" role="tab" aria-controls="catproducts"
+			 aria-selected="false">Fee Info</a>
+			 <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" data-target="#paymentinfo" href="#" role="tab" aria-controls="catproducts"
+			 aria-selected="false">Payment Info</a>
+		</div>
+	</nav>
+	<div class="tab-content pt-md-4 pl-3" id="nav-tabContent">
+		<div class="tab-pane fade show active" id="classinfo" role="tabpanel" aria-labelledby="classinfo-tab">
+			<div class="col-md-10 alert alert-danger" role="alert" *ngIf="(sf.submitted && !sf.valid)">
+				Please fill in the highlighted fields.
+			</div>
+		<form (ngSubmit)="sf.form.valid && addStudent();" #sf="ngForm" novalidate>
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Admission No.</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="admissionno" [(ngModel)]="student.admissionno" #admissionno="ngModel" required
+					 [ngClass]="{'has-error': sf.submitted && !admissionno.valid}" autofocus="">
+				</div>
+				<label class="col-sm-2 col-form-label">Student Name</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="name" [(ngModel)]="student.name" #name="ngModel" required [ngClass]="{'has-error': sf.submitted && !name.valid}">
+				</div>
+				<div class="col-sm-2">
+					<button type="button" class="btn btn-danger btn-sm text-white ng-star-inserted" (click)="doInactiveStudent(student)">
+						<i class="fa fa-power-off"></i> In Active
+					</button>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Admission for Class</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="admissionclass" [(ngModel)]="student.admissionclass" #admissionclass="ngModel"
+					 required [ngClass]="{'has-error': sf.submitted && !admissionclass.valid}">
+				</div>
+				<label class="col-sm-2 col-form-label">DOB</label>
+				<div class="col-sm-3">
+					<input type="text" placeholder="DD/MM/YYYY" mask='00/00/0000' class="form-control" name="studentdob" [(ngModel)]="student.studentdob" #studentdob="ngModel" required [ngClass]="{'has-error': sf.submitted && !studentdob.valid}">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Gender</label>
+				<div class="col-sm-3">
+					<select class="form-control" name="gender" [(ngModel)]="student.gender" #gender="ngModel">
+									<option value="M" selected>Male</option>
+									<option value="F">Female</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Father Name</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="fathername" [(ngModel)]="student.fathername" #fathername="ngModel" required [ngClass]="{'has-error': sf.submitted && !fathername.valid}">
+				</div>
+				<label class="col-sm-2 col-form-label">Father Age</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="fatherage" [(ngModel)]="student.fatherage" #fatherage="ngModel">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Father Qualification</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="fatherqualification" [(ngModel)]="student.fatherqualification" #fatherqualification="ngModel">
+				</div>
+				<label class="col-sm-2 col-form-label">Father DOB</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" placeholder="DD/MM/YYYY" mask='00/00/0000' name="fatherdob" [(ngModel)]="student.fatherdob" #fatherdob="ngModel">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Father Profession</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="fatherprofession" [(ngModel)]="student.fatherprofession" #fatherprofession="ngModel">
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Mother Name</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="mothername" [(ngModel)]="student.mothername" #mothername="ngModel" required [ngClass]="{'has-error': sf.submitted && !mothername.valid}">
+				</div>
+				<label class="col-sm-2 col-form-label">Mother Age</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="motherage" [(ngModel)]="student.motherage" #motherage="ngModel">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Mother Qualification</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="motherqualification" [(ngModel)]="student.motherqualification" #motherqualification="ngModel">
+				</div>
+				<label class="col-sm-2 col-form-label">Mother DOB</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" placeholder="DD/MM/YYYY" mask='00/00/0000' name="motherdob" [(ngModel)]="student.motherdob" #motherdob="ngModel">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Mother Profession</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="motherprofession" [(ngModel)]="student.motherprofession" #motherprofession="ngModel">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Address</label>
+				<div class="col-sm-8">
+					<textarea class="form-control" name="address" [(ngModel)]="student.address" #address="ngModel" required [ngClass]="{'has-error': sf.submitted && !address.valid}"
+					 [(ngModel)]="student.address" #address="ngModel"> </textarea>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Phone No.</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="phoneno" [(ngModel)]="student.phoneno" #phoneno="ngModel" mask='00000-00000'>
+				</div>
+				<label class="col-sm-2 col-form-label">Cell No.</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="cellno" [(ngModel)]="student.cellno" #cellno="ngModel" mask='(0000) 000-0000'>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Email Address</label>
+				<div class="col-sm-3">
+					<!-- <input type="email" class="form-control" name="emailaddress" [(ngModel)]="student.emailaddress" #emailaddress="ngModel" email [ngClass]="{'has-error': (emailaddress.dirty || emailaddress.touched)}" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"> -->
+					<input type="email" class="form-control" name="emailaddress" [(ngModel)]="student.emailaddress" #emailaddress="ngModel">
+				</div>
+			</div>
+			<div class="form-group">
+				<button type="submit" class="btn btn-bd-primary mb-4">Update</button>
+				<button type="button" (click)="ClearAll(sf)" class="btn btn-outline-secondary mb-4" >Reset</button>
+			</div>
+
+			
+		</form>
+		</div>
+		<div class="tab-pane fade" id="classstudents" role="tabpanel" aria-labelledby="classstudents-tab">
+			<a class="btn btn-bd-primary btn-sm mb-4" href="#">Add Fee</a>
+			<br/>
+			<table class="table table-sm table-bordered table-hover table-sortable">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Name</th>
+						<th scope="col">Price</th>
+						<th scope="col">SKU</th>
+						<th scope="col">In Stock</th>
+						<th scope="col">Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row">1 </th>
+						<td>
+							<a href="#">Electronics</a>
+						</td>
+						<td>0</td>
+						<td>@mdo</td>
+						<td>0</td>
+						<td>
+							<button class="btn btn-outline-success btn-sm">
+												<i class="fa fa-power-off"></i>
+											</button>
+							<button class="btn btn-outline-danger btn-sm">
+												<i class="fa fa-trash-o"></i>
+											</button>
+							<button class="btn btn-outline-warning btn-sm">
+												<i class="fa fa-edit"></i>
+											</button>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">2</th>
+						<td>
+							<a href="#">Apparel</a>
+						</td>
+						<td>0</td>
+						<td>@fat</td>
+						<td>10</td>
+						<td>
+							<button class="btn btn-outline-success btn-sm">
+												<i class="fa fa-power-off"></i>
+											</button>
+							<button class="btn btn-outline-danger btn-sm">
+												<i class="fa fa-trash-o"></i>
+											</button>
+							<button class="btn btn-outline-warning btn-sm">
+												<i class="fa fa-edit"></i>
+											</button>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">3</th>
+						<td>
+							<a href="#">TV</a>
+						</td>
+						<td>0</td>
+						<td>@fat</td>
+						<td>5</td>
+						<td>
+							<button class="btn btn-outline-success btn-sm">
+												<i class="fa fa-power-off"></i>
+											</button>
+							<button class="btn btn-outline-danger btn-sm">
+												<i class="fa fa-trash-o"></i>
+											</button>
+							<button class="btn btn-outline-warning btn-sm">
+												<i class="fa fa-edit"></i>
+											</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="tab-pane fade" id="paymentinfo" role="tabpanel" aria-labelledby="paymentinfo-tab">
+			<a class="btn btn-bd-primary btn-sm mb-4" href="#">Add Payment</a>
+			<br/>
+			<table class="table table-sm table-bordered table-hover table-sortable">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Name</th>
+						<th scope="col">Price</th>
+						<th scope="col">SKU</th>
+						<th scope="col">In Stock</th>
+						<th scope="col">Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row">1 </th>
+						<td>
+							<a href="#">Electronics</a>
+						</td>
+						<td>0</td>
+						<td>@mdo</td>
+						<td>0</td>
+						<td>
+							<button class="btn btn-outline-success btn-sm">
+												<i class="fa fa-power-off"></i>
+											</button>
+							<button class="btn btn-outline-danger btn-sm">
+												<i class="fa fa-trash-o"></i>
+											</button>
+							<button class="btn btn-outline-warning btn-sm">
+												<i class="fa fa-edit"></i>
+											</button>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">2</th>
+						<td>
+							<a href="#">Apparel</a>
+						</td>
+						<td>0</td>
+						<td>@fat</td>
+						<td>10</td>
+						<td>
+							<button class="btn btn-outline-success btn-sm">
+												<i class="fa fa-power-off"></i>
+											</button>
+							<button class="btn btn-outline-danger btn-sm">
+												<i class="fa fa-trash-o"></i>
+											</button>
+							<button class="btn btn-outline-warning btn-sm">
+												<i class="fa fa-edit"></i>
+											</button>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">3</th>
+						<td>
+							<a href="#">TV</a>
+						</td>
+						<td>0</td>
+						<td>@fat</td>
+						<td>5</td>
+						<td>
+							<button class="btn btn-outline-success btn-sm">
+												<i class="fa fa-power-off"></i>
+											</button>
+							<button class="btn btn-outline-danger btn-sm">
+												<i class="fa fa-trash-o"></i>
+											</button>
+							<button class="btn btn-outline-warning btn-sm">
+												<i class="fa fa-edit"></i>
+											</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

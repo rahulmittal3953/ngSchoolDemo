@@ -1,0 +1,34 @@
+<header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
+	<a class="navbar-brand mr-0 mr-md-2" href="#">
+		<img src="assets/img/bootstrap-stack.png" width="40">
+		
+	</a>
+	
+	<h5 class="my-0 mr-md-auto font-weight-normal pl-md-3 text-white"> Admin Console</h5>
+  <span class="text-white">New to here?</span>
+	<a class="btn btn-bd-download d-none d-lg-inline-block mb-3 mb-md-0 ml-md-3" [routerLink]="['/signup']">Sign Up</a>
+</header>
+<form class="form-signin" name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
+	<h1 class="h3 mb-3 font-weight-normal">Please login in</h1>
+	<label for="inputEmail" class="sr-only">User Name</label>
+	<input type="text"  name="username" [(ngModel)]="model.username" #username="ngModel" class="form-control border-upper-side" placeholder="User Name" required="" autofocus="">
+	<label for="inputPassword" class="sr-only">Password</label>
+	<input type="password" name="password" [(ngModel)]="model.password" #password="ngModel" class="form-control border-lower-side" placeholder="Password" required="">
+	
+	<div class="alert alert-danger" role="alert" *ngIf="(f.submitted && !username.valid) || (f.submitted && !password.valid)">
+		<h4 class="alert-heading">Oops!</h4>
+		<p>User Name & Password are required</p>
+	</div>
+	<div class="alert alert-danger" role="alert" *ngIf="error && (username.valid && password.valid)">
+		<h4 class="alert-heading">Oops!</h4>
+		<p >{{error}}</p>
+	</div>
+
+	<div class="checkbox mb-3">
+		<label>
+          <a [routerLink]="['/forgot-password']" class="text-purple"> Forgot Password </a>
+        </label>
+	</div>
+	<button  class="btn btn-lg btn-bd-primary btn-block mt-3" type="submit">Login</button>
+
+</form>

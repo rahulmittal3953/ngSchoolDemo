@@ -1,0 +1,46 @@
+<h2 class="mt-2">Add Class</h2>
+<nav aria-label="breadcrumb">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item">
+			<a [routerLink]="['/app/classes']">Classes</a>
+		</li>
+		<li class="breadcrumb-item active" aria-current="page">Add Class</li>
+	</ol>
+</nav>
+
+
+<div class=" ">
+	<nav>
+		<div class="nav nav-tabs" id="nav-tab" role="tablist">
+			<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" data-target="#classinfo" href="#" role="tab" aria-controls="categoryinfo"
+			 aria-selected="true">Class Info</a>
+		</div>
+	</nav>
+	<div class="tab-content pt-md-4 pl-3" id="nav-tabContent">
+		<div class="tab-pane fade show active" id="classinfo" role="tabpanel" aria-labelledby="classinfo-tab">
+			<div class="form-group row">
+				<label for="staticEmail" class="col-sm-2 col-form-label">Class Name</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" id="staticEmail" value="" placeholder="">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="inputPassword" class="col-sm-2 col-form-label">Show class </label>
+				<div class="col-sm-3">
+					<select id="show-title" name="show_title" class="form-control">
+											<option value="1" selected="selected">Show</option>
+												<option value="0">Hide</option>
+									  </select>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="inputPassword" class="col-sm-2 col-form-label">Description</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" id="inputPassword" placeholder="">
+				</div>
+			</div>
+			<button class="btn btn-bd-primary mb-4">Save</button>
+		</div>
+	
+	</div>
+</div>

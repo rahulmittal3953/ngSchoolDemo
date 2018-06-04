@@ -1,0 +1,30 @@
+<header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
+	<a class="navbar-brand mr-0 mr-md-2" href="https://getbootstrap.com/" aria-label="Bootstrap">
+	</a>
+	<img src="https://themes.getbootstrap.com/wp-content/themes/bootstrap-marketplace/assets/images/elements/bootstrap-stack.png"
+	 srcset="https://themes.getbootstrap.com/wp-content/themes/bootstrap-marketplace/assets/images/elements/bootstrap-stack.png 1x, https://themes.getbootstrap.com/wp-content/themes/bootstrap-marketplace/assets/images/elements/bootstrap-stack@2x.png 2x"
+	 style="width:3%">
+	<h5 class="my-0 mr-md-auto font-weight-normal pl-md-3 text-white"> Admin Console</h5>
+  <span class="text-white">Already have an account?</span>
+	<a class="btn btn-bd-download d-none d-lg-inline-block mb-3 mb-md-0 ml-md-3" [routerLink]="['/login']">Log in</a>
+</header>
+<form class="form-signin">
+	<h1 class="h3 mb-3 font-weight-normal">Sign Up here</h1>
+	<label for="inputEmail" class="sr-only">Email</label>
+	<input type="email" class="form-control border-upper-side" placeholder="Email" required="" autofocus="">
+	
+  <label for="inputPassword" class="sr-only">Name</label>
+	<input type="input" class="form-control border-none-side" placeholder="Name" required="">
+
+  <label for="inputPassword" class="sr-only">Password</label>
+	<input type="password"  class="form-control border-lower-side" placeholder="Password" required="">
+	<!--<div class="alert alert-danger" role="alert">
+		<h4 class="alert-heading">Error!</h4>
+		<p>User Name is required</p>
+		<hr>
+		<p class="mb-0">Password is required</p>
+	</div>
+-->
+<button class="btn btn-lg btn-bd-primary btn-block mt-3" type="submit">Submit</button>
+
+</form>

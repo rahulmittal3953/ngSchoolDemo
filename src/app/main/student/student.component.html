@@ -1,0 +1,125 @@
+<h3 class="mt-2">Student</h3>
+<hr/>
+<a class="btn btn-bd-primary btn-sm mb-4" [routerLink]="['/app/addstudent']">Add New Student</a>
+<!-- <table class="table table-sm table-bordered table-hover table-sortable">
+	<thead>
+		<tr>
+			<th scope="col">#</th>
+			<th scope="col">Student Name</th>
+			<th scope="col">Admission No.</th>
+			<th scope="col">Current Class</th>
+			<th scope="col">Father's Name</th>
+			<th scope="col">Mother's Name</th>
+			<th scope="col">Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let student of students">
+			<th scope="row">{{student.id}} </th>
+			<td><a [routerLink]="['/app/updatestudent']">{{student.name}}</a></td>
+			<td>{{student.admissionno}}</td>
+			<td>{{student.admissionclass}}</td>
+			<td>{{student.fathername}}</td>
+			<td>{{student.mothername}}</td>
+			<td>
+					<button class="btn btn-outline-success btn-sm">
+								<i class="fa fa-power-off"></i>
+							</button>
+					<button class="btn btn-outline-danger btn-sm">
+								<i class="fa fa-trash-o"></i>
+							</button>
+					<button class="btn btn-outline-warning btn-sm">
+								<i class="fa fa-edit"></i>
+							</button>
+				</td>
+		</tr>
+	</tbody>
+</table> -->
+
+<div class="form-group row">
+		<div class="col-sm-6 input-group">
+				<input type="text" class="form-control" placeholder="Please type here to search..." aria-describedby="basic-addon2"
+				 #searchVal (keyup)="filterData(searchVal.value)">
+				<div class="input-group-append">
+				  <span class="input-group-text" id="basic-addon2"><i class="fa fa-search"></i></span>
+				  
+				</div>
+		</div>
+		<div class="col-sm-2">
+			<button class="btn btn-outline-secondary">Remove Filter</button>
+		</div>
+	</div>
+{{searchStudent}}
+<div class="table-responsive">
+<data-table id="persons-grid" class="table table-sm"
+        headerTitle="Students"
+        [limit]="10"
+        [items]="items"
+        [itemCount]="itemCount"
+        (reload)="reloadItems($event)"
+		[pagination] = "true"
+		[rowTooltip]="rowTooltip"
+		[indexColumn] = "false"
+		[substituteRows]="false"
+		
+        >
+		<data-table-column
+            [property]="'id'"
+            [header]="'#'"
+			[width]="55"
+			[sortable]="true"
+			>
+		</data-table-column>
+		<data-table-column
+            [property]="'name'"
+            [header]="'Student Name'"
+            [sortable]="true"
+			[resizable]="true">
+			<ng-template #dataTableCell let-item="item">
+				<a href="javascript:(0)" (click)="viewStudent(item)">{{item.name}}</a>
+			</ng-template>
+		</data-table-column>
+		<data-table-column
+            [property]="'admissionno'"
+            [header]="'Admission No.'"
+            [sortable]="true"
+            [resizable]="true">
+		</data-table-column>
+		<data-table-column
+            [property]="'admissionclass'"
+            [header]="'Admission Class'"
+            [sortable]="true"
+            [resizable]="true">
+		</data-table-column>
+		<data-table-column
+            [property]="'fathername'"
+            [header]="'Father Name'"
+            [sortable]="true"
+            [resizable]="true">
+        </data-table-column>
+		<data-table-column
+			[property]="'mothername'"
+			[header]="'Mother Name'"
+			[sortable]="true"
+			[resizable]="true">
+		</data-table-column>
+		<data-table-column
+            [property]="'active'"
+            [header]="'Actions'"
+            [resizable]="true">
+            <ng-template #dataTableCell let-item="item">
+				<!-- <button class="btn btn-outline-success btn-sm"  title="Click to active">
+					<i class="fa fa-power-off"></i>
+				</button> -->
+				<button class="btn btn-danger btn-sm text-white" (click)="doInactiveStudent(item)" title="Inactive this student">
+					<i class="fa fa-power-off"></i>
+				</button>
+				<button class="btn btn-warning btn-sm text-white" (click)="editStudent(item)" title="Edit this student">
+					<i class="fa fa-edit"></i>
+				</button>
+            </ng-template>
+		</data-table-column>
+		
+	</data-table>
+</div>
+	<div class="mt-4"></div>

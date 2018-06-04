@@ -1,0 +1,18 @@
+<app-header></app-header>
+<div class="container-fluid">
+	<div class="row flex-xl-nowrap">
+		<div class="col-12 col-md-3 col-xl-2 bd-sidebar">
+			<app-sidenav></app-sidenav>
+		</div>
+		<main class="col-12 col-md-9 col-xl-10 py-md-0 pl-md-3 bd-content" role="main">
+			<router-outlet></router-outlet>
+		</main>
+	</div>
+</div>
+<simple-notifications></simple-notifications>
+<ng-progress [color]="'#ffc107'" [thick]="true"></ng-progress>
+<!-- <ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1"
+              [direction]="'leftToRightIncreased'"
+			 [color]="'yellow'"  [thick]="true" [ease]="'linear'"
+			 [showSpinner] ="true"
+></ng-progress> -->

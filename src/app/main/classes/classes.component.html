@@ -1,0 +1,89 @@
+<h2 class="mt-2">Classes</h2>
+<hr/>
+<a class="btn btn-bd-primary btn-sm mb-4" [routerLink]="['/app/addclass']">Add New Class</a>
+<div class="form-group row">
+	<div class="col-sm-6 input-group">
+			<input type="text" class="form-control" placeholder="Please type here to search..." aria-describedby="basic-addon2"
+			 #searchVal (keyup)="filterData(searchVal.value)">
+			<div class="input-group-append">
+			  <span class="input-group-text" id="basic-addon2"><i class="fa fa-search"></i></span>
+			  
+			</div>
+	</div>
+	<div class="col-sm-2">
+		<button class="btn btn-outline-secondary">Remove Filter</button>
+	</div>
+</div>
+{{searchStudent}}
+<div class="table-responsive">
+<data-table id="persons-grid" class="table table-sm"
+	headerTitle="Classes"
+	[limit]="10"
+	[items]="items"
+	[itemCount]="itemCount"
+	(reload)="reloadItems($event)"
+	[pagination] = "true"
+	[rowTooltip]="rowTooltip"
+	[indexColumn] = "false"
+	[substituteRows]="false"
+	
+	>
+	<data-table-column
+		[property]="'id'"
+		[header]="'#'"
+		[width]="55"
+		[sortable]="true"
+		>
+	</data-table-column>
+	<data-table-column
+		[property]="'name'"
+		[header]="'Class Name'"
+		[sortable]="true"
+		[resizable]="true">
+		<ng-template #dataTableCell let-item="item">
+			<a href="javascript:(0)" (click)="viewStudent(item)">{{item.name}}</a>
+		</ng-template>
+	</data-table-column>
+	<data-table-column
+		[property]="'description'"
+		[header]="'Class Description'"
+		[sortable]="true"
+		[resizable]="true">
+	</data-table-column>
+	<data-table-column
+		[property]="'isactive'"
+		[header]="'Active/ Inactive'"
+		[sortable]="true"
+		[resizable]="true">
+		<ng-template #dataTableCell let-item="item">
+			<span *ngIf="item.isactive" class="badge-success">
+				Active
+			</span>
+			<span *ngIf="!item.isactive" class="badge-danger">
+					In-Active
+			</span>
+		</ng-template>
+	</data-table-column>
+	<data-table-column
+		[property]="'active'"
+		[header]="'Actions'"
+		[resizable]="true">
+		<ng-template #dataTableCell let-item="item">
+			<!-- <button class="btn btn-outline-success btn-sm"  title="Click to active">
+				<i class="fa fa-power-off"></i>
+			</button> -->
+			<button *ngIf="item.isactive" class="btn btn-danger btn-sm text-white" (click)="doInactiveStudent(item)" title="Click to active the class">
+					<i class="fa fa-power-off"></i>
+				</button>
+				<button *ngIf="!item.isactive" class="btn btn-success btn-sm text-white" (click)="doInactiveStudent(item)" title="Click to inactive the class">
+					<i class="fa fa-power-off"></i>
+				</button>
+			<button class="btn btn-warning btn-sm text-white" (click)="editStudent(item)" title="Edit this student">
+				<i class="fa fa-edit"></i>
+			</button>
+		</ng-template>
+	</data-table-column>
+	
+</data-table>
+</div>
+<div class="mt-4"></div>

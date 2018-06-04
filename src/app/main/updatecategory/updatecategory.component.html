@@ -1,0 +1,205 @@
+<h2 class="mt-2">Categories</h2>
+<nav aria-label="breadcrumb">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item">
+			<a [routerLink]="['/app/categories']">Categories</a>
+		</li>
+		<li class="breadcrumb-item active" aria-current="page">Apparel</li>
+	</ol>
+</nav>
+
+
+<div class=" ">
+	<nav>
+		<div class="nav nav-tabs" id="nav-tab" role="tablist">
+			<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" data-target="#categoryinfo" href="#" role="tab" aria-controls="categoryinfo"
+			 aria-selected="true">Category Info</a>
+			<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" data-target="#subcategories" href="#" role="tab" aria-controls="subcategories"
+			 aria-selected="false">Subcategories</a>
+			<a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" data-target="#catproducts" href="#" role="tab" aria-controls="catproducts"
+			 aria-selected="false">Products</a>
+		</div>
+	</nav>
+	<div class="tab-content pt-md-4 pl-3" id="nav-tabContent">
+		<div class="tab-pane fade show active" id="categoryinfo" role="tabpanel" aria-labelledby="categoryinfo-tab">
+			<div class="form-group row">
+				<label for="staticEmail" class="col-sm-2 col-form-label">Category Name</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" id="staticEmail" value="" placeholder="">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="inputPassword" class="col-sm-2 col-form-label">Show category title</label>
+				<div class="col-sm-3">
+					<select id="show-title" name="show_title" class="form-control">
+											<option value="1" selected="selected">Show</option>
+												<option value="0">Hide</option>
+									  </select>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="inputPassword" class="col-sm-2 col-form-label">Description</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" id="inputPassword" placeholder="">
+				</div>
+			</div>
+			<button class="btn btn-bd-primary mb-4">Update</button>
+		</div>
+		<div class="tab-pane fade" id="subcategories" role="tabpanel" aria-labelledby="subcategories-tab">
+			<a class="btn btn-bd-primary btn-sm mb-4" href="#">New Category</a>
+			<br/>
+			<table class="table table-sm table-bordered table-hover table-sortable">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Category</th>
+						<th scope="col">Featured</th>
+						<th scope="col">Subcat</th>
+						<th scope="col">Products</th>
+						<th scope="col">Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row">1 </th>
+						<td>
+							<a href="update-category.html">Electronics</a>
+						</td>
+						<td>0</td>
+						<td>@mdo</td>
+						<td>0</td>
+						<td>
+							<button class="btn btn-outline-success btn-sm">
+												<i class="fa fa-power-off"></i>
+											</button>
+							<button class="btn btn-outline-danger btn-sm">
+												<i class="fa fa-trash-o"></i>
+											</button>
+							<button class="btn btn-outline-warning btn-sm">
+												<i class="fa fa-edit"></i>
+											</button>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">2</th>
+						<td>
+							<a href="update-category.html">Apparel</a>
+						</td>
+						<td>0</td>
+						<td>@fat</td>
+						<td>10</td>
+						<td>
+							<button class="btn btn-outline-success btn-sm">
+												<i class="fa fa-power-off"></i>
+											</button>
+							<button class="btn btn-outline-danger btn-sm">
+												<i class="fa fa-trash-o"></i>
+											</button>
+							<button class="btn btn-outline-warning btn-sm">
+												<i class="fa fa-edit"></i>
+											</button>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">3</th>
+						<td>
+							<a href="update-category.html">TV</a>
+						</td>
+						<td>0</td>
+						<td>@fat</td>
+						<td>5</td>
+						<td>
+							<button class="btn btn-outline-success btn-sm">
+												<i class="fa fa-power-off"></i>
+											</button>
+							<button class="btn btn-outline-danger btn-sm">
+												<i class="fa fa-trash-o"></i>
+											</button>
+							<button class="btn btn-outline-warning btn-sm">
+												<i class="fa fa-edit"></i>
+											</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="tab-pane fade" id="catproducts" role="tabpanel" aria-labelledby="catproducts-tab">
+			<a class="btn btn-bd-primary btn-sm mb-4" href="#">Add Product</a>
+			<br/>
+			<table class="table table-sm table-bordered table-hover table-sortable">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Name</th>
+						<th scope="col">Price</th>
+						<th scope="col">SKU</th>
+						<th scope="col">In Stock</th>
+						<th scope="col">Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row">1 </th>
+						<td>
+							<a href="#">Electronics</a>
+						</td>
+						<td>0</td>
+						<td>@mdo</td>
+						<td>0</td>
+						<td>
+							<button class="btn btn-outline-success btn-sm">
+												<i class="fa fa-power-off"></i>
+											</button>
+							<button class="btn btn-outline-danger btn-sm">
+												<i class="fa fa-trash-o"></i>
+											</button>
+							<button class="btn btn-outline-warning btn-sm">
+												<i class="fa fa-edit"></i>
+											</button>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">2</th>
+						<td>
+							<a href="#">Apparel</a>
+						</td>
+						<td>0</td>
+						<td>@fat</td>
+						<td>10</td>
+						<td>
+							<button class="btn btn-outline-success btn-sm">
+												<i class="fa fa-power-off"></i>
+											</button>
+							<button class="btn btn-outline-danger btn-sm">
+												<i class="fa fa-trash-o"></i>
+											</button>
+							<button class="btn btn-outline-warning btn-sm">
+												<i class="fa fa-edit"></i>
+											</button>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">3</th>
+						<td>
+							<a href="#">TV</a>
+						</td>
+						<td>0</td>
+						<td>@fat</td>
+						<td>5</td>
+						<td>
+							<button class="btn btn-outline-success btn-sm">
+												<i class="fa fa-power-off"></i>
+											</button>
+							<button class="btn btn-outline-danger btn-sm">
+												<i class="fa fa-trash-o"></i>
+											</button>
+							<button class="btn btn-outline-warning btn-sm">
+												<i class="fa fa-edit"></i>
+											</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

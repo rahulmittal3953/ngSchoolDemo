@@ -64,7 +64,7 @@
 		
         >
 		<data-table-column
-            [property]="'id'"
+            [property]="'studentId'"
             [header]="'#'"
 			[width]="55"
 			[sortable]="true"
@@ -76,18 +76,12 @@
             [sortable]="true"
 			[resizable]="true">
 			<ng-template #dataTableCell let-item="item">
-				<a href="javascript:(0)" (click)="viewStudent(item)">{{item.name}}</a>
+				<a href="javascript:(0)" (click)="viewStudent(item)">{{item.firstName + " " + item.lastName}}</a>
 			</ng-template>
 		</data-table-column>
 		<data-table-column
             [property]="'admissionno'"
             [header]="'Admission No.'"
-            [sortable]="true"
-            [resizable]="true">
-		</data-table-column>
-		<data-table-column
-            [property]="'admissionclass'"
-            [header]="'Admission Class'"
             [sortable]="true"
             [resizable]="true">
 		</data-table-column>
@@ -104,6 +98,14 @@
 			[resizable]="true">
 		</data-table-column>
 		<data-table-column
+			[header]="'Class'"
+			[sortable]="true"
+			[resizable]="true">
+			<ng-template #dataTableCell let-item="item">
+				{{item.studentClass.name}}
+            </ng-template>
+		</data-table-column>
+		<data-table-column
             [property]="'active'"
             [header]="'Actions'"
             [resizable]="true">
@@ -111,9 +113,9 @@
 				<!-- <button class="btn btn-outline-success btn-sm"  title="Click to active">
 					<i class="fa fa-power-off"></i>
 				</button> -->
-				<button class="btn btn-danger btn-sm text-white" (click)="doInactiveStudent(item)" title="Inactive this student">
+				<!-- <button class="btn btn-danger btn-sm text-white" (click)="doInactiveStudent(item)" title="Inactive this student">
 					<i class="fa fa-power-off"></i>
-				</button>
+				</button> -->
 				<button class="btn btn-warning btn-sm text-white" (click)="editStudent(item)" title="Edit this student">
 					<i class="fa fa-edit"></i>
 				</button>

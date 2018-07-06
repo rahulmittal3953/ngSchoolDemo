@@ -16,12 +16,22 @@ import { UpdateCategoryComponent } from "./main/updatecategory/updatecategory.co
 import { ClassesComponent } from "./main/classes/classes.component";
 import { UpdateClassComponent } from "./main/updateclass/updateclass.component";
 import { AddClassComponent } from "./main/addclass/addclass.component";
+import { ClassDetailComponent } from './main/classdetail/classdetail.component';
 
 import { StudentComponent } from "./main/student/student.component";
 import { AddStudentComponent } from "./main/addstudent/addstudent.component";
 import { UpdateStudentComponent } from "./main/updatestudent/updatestudent.component";
 import { StudentDetailComponent } from './main/studentdetail/studentdetail.component';
 
+import { FeeTypeComponent } from './main/feetype/feetype.component';
+import { AddFeeTypeComponent } from './main/feetype/addfeetype/addfeetype.component';
+import { UpdateFeeTypeComponent } from './main/feetype/updatefeetype/updatefeetype.component';
+import { FeeTypeDetailComponent } from './main/feetype/feetypedetail/feetypedetail.component';
+
+import { ClassFeeComponent } from './main/classfee/classfee.component';
+import { AddClassFeeComponent } from './main/classfee/addclassfee/addclassfee.component';
+import { ClassFeeDetailComponent } from './main/classfee/classfeedetail/classfeedetail.component';
+import { UpdateClassFeeComponent } from './main/classfee/updateclassfee/updateclassfee.component';
 
 
 const routes = [
@@ -31,17 +41,35 @@ const routes = [
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'app', component: MainComponent,  canActivate: [AuthGuard],
       children : [
-        { path: "dashboard", component: DashboardComponent },
+        
         { path: "categories", component: CategoriesComponent },
         { path: "updatecategory", component: UpdateCategoryComponent },
-        { path: "classes", component: ClassesComponent },
-        { path: "updateclass", component: UpdateClassComponent },
-        { path: "addclass", component: AddClassComponent },
+
+        { path: "dashboard", component: DashboardComponent },
+        
         { path: "student", component: StudentComponent },
         { path: "addstudent", component: AddStudentComponent },
         { path: "updatestudent/:id", component: UpdateStudentComponent },
-        { path: "studentdetail/:id", component: StudentDetailComponent }
+        { path: "studentdetail/:id", component: StudentDetailComponent },
+
+        { path: "classes", component: ClassesComponent },
+        { path: "addclass", component: AddClassComponent },
+        { path: "updateclass/:id", component: UpdateClassComponent },
+        { path: "classdetail/:id", component: ClassDetailComponent },
+
+        { path: "feetype", component: FeeTypeComponent },
+        { path: "addfeetype", component: AddFeeTypeComponent },
+        { path: "updatefeetype/:id", component:  UpdateFeeTypeComponent},
+        { path: "feetypedetail/:id", component:  FeeTypeDetailComponent},
+
+        { path: "classfee", component: ClassFeeComponent },
+        { path: "addclassfee", component: AddClassFeeComponent },
+        { path: "classfeedetail/:id", component: ClassFeeDetailComponent },
+        { path: "updateclassfee/:id", component: UpdateClassFeeComponent }
         
+        
+        
+
       ]
   }
   

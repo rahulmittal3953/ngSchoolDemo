@@ -9,7 +9,7 @@ import { MockBackend, MockConnection } from "@angular/http/testing";
 import { Student } from "../models/student";
 import { Class } from "../models/class";
 
-import studentsData from './student.data';
+import {StudentData} from './student.data';
 import classesData from './class.data';
 
 export function fakeBackendFactory(
@@ -25,7 +25,7 @@ export function fakeBackendFactory(
       lastName: "User"
     };
 
-   let student :Student [] = studentsData;
+   let student :Student [] = StudentData;
    let classd :Class [] = classesData;
 
     // wrap in timeout to simulate server api call

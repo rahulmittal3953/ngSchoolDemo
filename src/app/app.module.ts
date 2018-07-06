@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,  ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { NgxMaskModule } from "ngx-mask";
@@ -25,6 +25,8 @@ import { AuthenticationService } from './services/authentication.service';
 import { UserService } from './services/user.service';
 import { StudentService } from './services/student.service';
 import { ClassService } from './services/class.service';
+import { FeeTypeService } from './services/feetype.service';
+import { ClassFeeService } from './services/classfee.service';
 
 
 import { HeaderComponent } from './main/header/header.component';
@@ -44,41 +46,43 @@ import { UpdateCategoryComponent } from './main/updatecategory/updatecategory.co
 import { ClassesComponent } from "./main/classes/classes.component";
 import { UpdateClassComponent } from "./main/updateclass/updateclass.component";
 import { AddClassComponent } from "./main/addclass/addclass.component";
+import { ClassDetailComponent } from './main/classdetail/classdetail.component';
 
 import { StudentComponent } from "./main/student/student.component";
 import { AddStudentComponent } from "./main/addstudent/addstudent.component";
 import { UpdateStudentComponent } from "./main/updatestudent/updatestudent.component";
 import { StudentDetailComponent } from "./main/studentdetail/studentdetail.component";
 
+import { FeeTypeComponent } from './main/feetype/feetype.component';
+import { AddFeeTypeComponent } from './main/feetype/addfeetype/addfeetype.component';
+import { UpdateFeeTypeComponent } from './main/feetype/updatefeetype/updatefeetype.component';
+import { FeeTypeDetailComponent } from './main/feetype/feetypedetail/feetypedetail.component';
+
+import { ClassFeeComponent } from './main/classfee/classfee.component';
+import { AddClassFeeComponent } from './main/classfee/addclassfee/addclassfee.component';
+import { ClassFeeDetailComponent } from './main/classfee/classfeedetail/classfeedetail.component';
+import { UpdateClassFeeComponent } from './main/classfee/updateclassfee/updateclassfee.component';
+
+
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HeaderComponent,
-    SideNavComponent,
-    LoginComponent,
-    MainComponent,
-    ForgotPasswordComponent,
-    SignupComponent,
-    DashboardComponent,
-    CategoriesComponent,
-    UpdateCategoryComponent,
-    ClassesComponent,
-    UpdateClassComponent,
-    AddClassComponent,
-    StudentComponent,
-    AddStudentComponent,
-    UpdateStudentComponent,
-    StudentDetailComponent
+    AppComponent, HeaderComponent, SideNavComponent, LoginComponent, MainComponent, ForgotPasswordComponent,
+    SignupComponent, DashboardComponent, 
+    CategoriesComponent, UpdateCategoryComponent,
+    ClassesComponent, UpdateClassComponent, AddClassComponent, ClassDetailComponent,
+    StudentComponent, AddStudentComponent, UpdateStudentComponent, StudentDetailComponent,
+    FeeTypeComponent, AddFeeTypeComponent, UpdateFeeTypeComponent, FeeTypeDetailComponent,
+    ClassFeeComponent, AddClassFeeComponent, ClassFeeDetailComponent, UpdateClassFeeComponent
   ],
   imports: [
-      BrowserModule, AppRouting, FormsModule, HttpModule,NgxMaskModule.forRoot(),
+      BrowserModule, AppRouting, FormsModule, ReactiveFormsModule, HttpModule,NgxMaskModule.forRoot(),
       SimpleNotificationsModule.forRoot({
         timeOut: 3000,
         showProgressBar: true,
         pauseOnHover: true,
         clickToClose: true,
-        maxLength: 100,
+        maxLength: 250,
         preventDuplicates:true
       }),BrowserAnimationsModule,DataTableModule.forRoot(),
       NgProgressModule
@@ -89,10 +93,12 @@ import { StudentDetailComponent } from "./main/studentdetail/studentdetail.compo
     UserService ,
     StudentService,
     ClassService,
+    FeeTypeService,
+    ClassFeeService//s,
     // providers used to create fake backend
-    fakeBackendProvider,
-    MockBackend,
-    BaseRequestOptions
+    //fakeBackendProvider,
+    //MockBackend,
+   // BaseRequestOptions
   ],
   bootstrap: [AppComponent]
 })

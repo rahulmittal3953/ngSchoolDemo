@@ -3,6 +3,7 @@ import { DataTableResource } from 'angular5-data-table';
 import { Router } from "@angular/router";
 import { NgProgress } from 'ngx-progressbar';
 import {NgForm} from '@angular/forms';
+import { NotificationsService } from "angular2-notifications";
 
 
 import { StudentService } from "../../services/student.service";
@@ -25,7 +26,8 @@ export class StudentComponent implements OnInit{
   constructor(
       private studentService: StudentService,
       private router: Router,
-      private ngProgress: NgProgress) { 
+      private ngProgress: NgProgress,
+      private notif : NotificationsService) { 
   }
   
   ngOnInit() {
@@ -43,8 +45,15 @@ export class StudentComponent implements OnInit{
         this.itemResource = new DataTableResource(this.students);
         this.reloadItems(this.params);
         this.itemResource.count().then(count => this.itemCount = count);
-        //console.log("call studdent service" +this.students);
         this.ngProgress.done();
+        if(this.students.length == 0){
+          this.notif.info("Information", "There are no Student details in the System.");
+        }
+      },
+      error =>{
+        console.log(error);
+        this.ngProgress.done();
+        this.notif.error("Failure", "While fetching Student details, please try again.");
       });
   }
 
@@ -60,18 +69,18 @@ export class StudentComponent implements OnInit{
   }
 
   editStudent(student: Student){
-    console.log('Clicked: ' + student.name);
+    console.log('Clicked: ' + student.firstName);
     this.studentService.studentData = student;
-    this.router.navigate(["/app/updatestudent/"+student.id]);
+    this.router.navigate(["/app/updatestudent/"+student.studentId]);
   }
   viewStudent(student: Student){
-    console.log('Clicked: ' + student.name);
+    console.log('Clicked: ' + student.firstName);
     this.studentService.studentData = student;
-    this.router.navigate(["/app/studentdetail/"+student.id]);
+    this.router.navigate(["/app/studentdetail/"+student.studentId]);
   }
 
   doInactiveStudent(student: Student){
-    console.log('Clicked: ' + student.name);
+    console.log('Clicked: ' + student.firstName);
   }
 
   rowDoubleClick(rowEvent) {
@@ -91,7 +100,7 @@ export class StudentComponent implements OnInit{
       this.reloadItems(this.params);
     }
    // this.items.filter(val => this.items = val);
-   this.items = this.students.filter(student => student.name.toLowerCase() === val.toLowerCase())
+   this.items = this.students.filter(student => student.firstName.toLowerCase() === val.toLowerCase())
    //console.log(JSON.parse(this.students));
   }
 }

@@ -6,18 +6,18 @@ import {NgForm} from '@angular/forms';
 import { NotificationsService } from "angular2-notifications";
 
 
-import { StudentClass } from "../../models/studentclass";
-import { ClassService } from "../../services/class.service";
+import { FeeTypeService } from "../../../services/feetype.service";
+import { ClassFeeType } from "../../../models/classfeetype";
 
 @Component({
-  templateUrl: "./addclass.component.html"
+  templateUrl: "./addfeetype.component.html"
 })
-export class AddClassComponent {
+export class AddFeeTypeComponent {
 
-  studentClass : StudentClass = new StudentClass();
+  classFeeType : ClassFeeType = new ClassFeeType();
 
   constructor(
-    private classService: ClassService,
+    private feeTypeService: FeeTypeService,
     private router: Router,
     private ngProgress: NgProgress,
     private notif : NotificationsService) { 
@@ -26,21 +26,21 @@ ngOnInit() {}
 
 
 addClass() {
-  console.log("in add student method" + JSON.stringify(this.studentClass));
+  console.log("in add AddFeeTypeComponent method" + JSON.stringify(this.classFeeType));
   this.ngProgress.start();
   window.scroll(0,0);
-  this.classService
-    .addClass(this.studentClass)
+  this.feeTypeService
+    .addFeeType(this.classFeeType)
     .subscribe(result => {
       //this.students = result;
       console.log(result);
       this.ngProgress.done();
-      this.notif.success("Success", "Class details has been saved successfully.");
+      this.notif.success("Success", "Fee Type details has been saved successfully.");
     },
     error =>{
       console.log(error);
       this.ngProgress.done();
-      this.notif.error("Failure", "While saving the Class details, please try again.");
+      this.notif.error("Failure", "While saving the Fee Type details, please try again.");
     }
   );
 

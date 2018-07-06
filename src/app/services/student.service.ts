@@ -3,43 +3,86 @@ import { Http, Headers, RequestOptions, Response } from "@angular/http";
 import { Observable } from "rxjs";
 import "rxjs/add/operator/map";
 
-import { AuthenticationService } from "../services/authentication.service";
 import { Student } from "../models/student";
 import { Status } from "../models/status";
 
 @Injectable()
 export class StudentService {
+  
   studentData : Student;
+  apiURl : String = "http://localhost:8080";
   
   constructor(
-    private http: Http,
-    private authenticationService: AuthenticationService
+    private http: Http
   ) {}
 
   getStudents(): Observable<Student[]> {
-    // add authorization header with jwt token
+  
     let headers = new Headers({
-      Authorization: "Bearer " + this.authenticationService.token
+      'Content-Type': 'application/json'
+    });
+    let options = new RequestOptions({ headers: headers });
+  
+      // get users from api
+      return this.http
+        .get(this.apiURl +"/api/students", options)
+        .map((response: Response) => response.json());
+
+  }
+
+  addStudent(student: Student): Observable<Student> {
+    console.log("we are in the service at addStudent method" + student);
+    console.log(JSON.stringify(student));
+
+    let headers = new Headers({
+      'Content-Type': 'application/json'
     });
     let options = new RequestOptions({ headers: headers });
 
-    // get users from api
-    return this.http
-      .get("/api/students", options)
-      .map((response: Response) => response.json());
-  }
 
-  addStudent(student: Student): Observable<Status> {
-    console.log("we are in the service at addStudent method" + student);
     return this.http
       .post(
-        "/api/student",
-        JSON.stringify({ student: student })
-      )
-      .map((response: Response) => {
+        this.apiURl + "/api/students",
+        JSON.stringify(student),
+        options
+      ).map((response: Response) => {
         // login successful if there's a jwt token in the response
         return response.json();
-      });
+      })
+  }
+
+  getStudent(studentId: any): Observable<Student> {
+    let headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+    let options = new RequestOptions({ headers: headers });
+  
+      // get users from api
+      return this.http
+        .get(this.apiURl +"/api/students/"+studentId, options)
+        .map((response: Response) => response.json());
+
+  }
+
+  updateStudent(student: Student): Observable<Student> {
+    console.log("we are in the service at addStudent method" + student);
+    console.log(JSON.stringify(student));
+
+    let headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+    let options = new RequestOptions({ headers: headers });
+
+
+    return this.http
+      .put(
+        this.apiURl + "/api/students",
+        JSON.stringify(student),
+        options
+      ).map((response: Response) => {
+        // login successful if there's a jwt token in the response
+        return response.json();
+      })
   }
 
 }

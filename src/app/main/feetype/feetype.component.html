@@ -1,6 +1,6 @@
-<h2 class="mt-2">Classes</h2>
+<h2 class="mt-2">Fee Type</h2>
 <hr/>
-<a class="btn btn-bd-primary btn-sm mb-4" [routerLink]="['/app/addclass']">Add New Class</a>
+<a class="btn btn-bd-primary btn-sm mb-4" [routerLink]="['/app/addfeetype']">Add New Fee Type</a>
 <div class="form-group row">
 	<div class="col-sm-6 input-group">
 			<input type="text" class="form-control" placeholder="Please type here to search..." aria-describedby="basic-addon2"
@@ -29,7 +29,7 @@
 	
 	>
 	<data-table-column
-		[property]="'studentClassId'"
+		[property]="'classFeeTypeId'"
 		[header]="'#'"
 		[width]="55"
 		[sortable]="true"
@@ -37,7 +37,7 @@
 	</data-table-column>
 	<data-table-column
 		[property]="'name'"
-		[header]="'Class Name'"
+		[header]="'Fee Type Name'"
 		[sortable]="true"
 		[resizable]="true">
 		<ng-template #dataTableCell let-item="item">
@@ -46,23 +46,15 @@
 	</data-table-column>
 	<data-table-column
 		[property]="'description'"
-		[header]="'Class Description'"
+		[header]="'Fee Type Description'"
 		[sortable]="true"
 		[resizable]="true">
 	</data-table-column>
 	<data-table-column
-		[property]="'active'"
-		[header]="'Active/ Inactive'"
+		[property]="'frequency'"
+		[header]="'Frequency'"
 		[sortable]="true"
 		[resizable]="true">
-		<ng-template #dataTableCell let-item="item">
-			<span *ngIf="item.active" class="badge-success">
-				Active
-			</span>
-			<span *ngIf="!item.active" class="badge-danger">
-					In-Active
-			</span>
-		</ng-template>
 	</data-table-column>
 	<data-table-column
 		[property]="'active'"

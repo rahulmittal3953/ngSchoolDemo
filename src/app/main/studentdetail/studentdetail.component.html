@@ -2,7 +2,7 @@
 <ol class="breadcrumb-arrow">
 	<li><a [routerLink]="['/app/student']">Student</a></li>
 	<!-- <li><a [routerLink]="['/app/student']">Library</a></li> -->
-	<li class="active"><span>{{student.name}}</span></li>
+	<li class="active"><span>{{student.firstName + " " + student.lastName}}</span></li>
 </ol>
 
 <div class="">
@@ -28,29 +28,32 @@
 					<input type="text" class="form-control-plaintext" name="admissionno" [(ngModel)]="student.admissionno" #admissionno="ngModel" required
 					 [ngClass]="{'has-error': sf.submitted && !admissionno.valid}" autofocus="" disabled>
 				</div>
-				<label class="col-sm-2 col-form-label">Student Name</label>
+				<label class="col-sm-2 col-form-label">Admission for Class</label>
 				<div class="col-sm-3">
-					<input type="text" class="form-control-plaintext" name="name" [(ngModel)]="student.name" #name="ngModel" required [ngClass]="{'has-error': sf.submitted && !name.valid}"
-					disabled>
+					<select class="form-control-plaintext" name="studentClass" [(ngModel)]="student.studentClass" #studentClass="ngModel"
+					[compareWith]="fnCompareStudentClass" required [ngClass]="{'has-error': sf.submitted && !studentClass.valid}" disabled>
+					 <option *ngFor="let admclas of admissionClasses" [ngValue]="admclas">{{admclas.name}}</option>
+					 </select>
 				</div>
 				<div class="col-sm-2">
-					<button type="button" class="btn btn-danger btn-sm text-white ng-star-inserted" (click)="doInactiveStudent(student)">
-						<i class="fa fa-power-off"></i> In Active
-					</button>
+					<!-- <button type="button" class="btn btn-danger btn-sm text-white ng-star-inserted" (click)="doInactiveStudent(student)">
+						<i class="fa fa-power-off"></i>
+					</button> -->
 					<button type="button" class="btn btn-warning btn-sm text-white ng-star-inserted" (click)="editStudent(student)">
-						<i class="fa fa-edit"></i> Edit
+						<i class="fa fa-edit"></i>
 					</button>
 				</div>
 			</div>
 			<div class="form-group row">
-				<label class="col-sm-2 col-form-label">Admission for Class</label>
+				<label class="col-sm-2 col-form-label">Student First Name</label>
 				<div class="col-sm-3">
-					<input type="text" class="form-control-plaintext" name="admissionclass" [(ngModel)]="student.admissionclass" #admissionclass="ngModel"
-					 required [ngClass]="{'has-error': sf.submitted && !admissionclass.valid}" disabled>
+					<input type="text" class="form-control-plaintext" name="firstName" [(ngModel)]="student.firstName" #firstName="ngModel" required
+					 [ngClass]="{'has-error': sf.submitted && !firstName.valid}" autofocus="" disabled>
 				</div>
-				<label class="col-sm-2 col-form-label">DOB</label>
+				<label class="col-sm-2 col-form-label">Student Last Name</label>
 				<div class="col-sm-3">
-					<input type="text" placeholder="DD/MM/YYYY" mask='00/00/0000' class="form-control-plaintext" name="studentdob" [(ngModel)]="student.studentdob" #studentdob="ngModel" required [ngClass]="{'has-error': sf.submitted && !studentdob.valid}" disabled>
+					<input type="text" class="form-control-plaintext" name="lastName" [(ngModel)]="student.lastName" #lastName="ngModel"
+					 required [ngClass]="{'has-error': sf.submitted && !lastName.valid}" disabled>
 				</div>
 			</div>
 			<div class="form-group row">
@@ -60,6 +63,10 @@
 									<option value="M" selected>Male</option>
 									<option value="F">Female</option>
 					</select>
+				</div>
+				<label class="col-sm-2 col-form-label">DOB</label>
+				<div class="col-sm-3">
+					<input type="text" placeholder="DD/MM/YYYY" mask='00/00/0000' class="form-control-plaintext" name="studentdob" [(ngModel)]="student.studentdob" #studentdob="ngModel" required [ngClass]="{'has-error': sf.submitted && !studentdob.valid}" disabled>
 				</div>
 			</div>
 

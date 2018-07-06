@@ -2,28 +2,28 @@ import { Component, OnInit } from "@angular/core";
 import { DataTableResource } from 'angular5-data-table';
 import { Router } from "@angular/router";
 import { NgProgress } from 'ngx-progressbar';
-import {NgForm} from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import { NotificationsService } from "angular2-notifications";
 
-import { ClassService } from "../../services/class.service";
-import { StudentClass } from "../../models/studentclass";
+import { FeeTypeService } from "../../services/feetype.service";
+import { ClassFeeType } from "../../models/classfeetype";
 
 @Component({
-  templateUrl: "./classes.component.html"
+  templateUrl: "./feetype.component.html"
 })
-export class ClassesComponent implements OnInit{
+export class FeeTypeComponent implements OnInit{
 
   searchClass :String;
-  studentClasses : StudentClass[] =[];
+  classFeeTypes : ClassFeeType[] =[];
 
 
-  itemResource = new DataTableResource(this.studentClasses);
+  itemResource = new DataTableResource(this.classFeeTypes);
   items = [];
   itemCount = 0;
   params = {offset: 0, limit: 10};
 
   constructor(
-    private classService: ClassService,
+    private feeTypeService: FeeTypeService,
     private router: Router,
     private ngProgress: NgProgress,
     private notif : NotificationsService) { 
@@ -37,23 +37,23 @@ export class ClassesComponent implements OnInit{
   getClassData(){
     console.log("call Class service");
     this.ngProgress.start();
-    this.classService
-      .getClasses()
+    this.feeTypeService
+      .getFeeTypes()
       .subscribe(result => {
-        this.studentClasses = result;
+        this.classFeeTypes = result;
         //this.items = this.students;
-        this.itemResource = new DataTableResource(this.studentClasses);
+        this.itemResource = new DataTableResource(this.classFeeTypes);
         this.reloadItems(this.params);
         this.itemResource.count().then(count => this.itemCount = count);
         this.ngProgress.done();
-        if(this.studentClasses.length == 0){
-          this.notif.info("Information", "There are no Class details in the System.");
+        if(this.classFeeTypes.length == 0){
+          this.notif.info("Information", "There are no Fee Type in the System.");
         }
       },
       error =>{
         console.log(error);
         this.ngProgress.done();
-        this.notif.error("Failure", "While fetching Class details, please try again.");
+        this.notif.error("Failure", "While fetching Fee Type details, please try again.");
       });
   }
 
@@ -68,20 +68,20 @@ rowClick(rowEvent) {
     console.log('Clicked: ' + rowEvent.row.item.name);
 }
 
-editClass(classd: StudentClass){
-  console.log('Clicked: ' + classd.name);
-  this.classService.classData = classd;
-  this.router.navigate(["/app/updateclass/"+classd.studentClassId]);
+editClass(classFeeType: ClassFeeType){
+  console.log('Clicked: ' + classFeeType.name);
+  this.feeTypeService.feeType = classFeeType;
+  this.router.navigate(["/app/updatefeetype/"+classFeeType.classFeeTypeId]);
 }
 
-viewClass(classd: StudentClass){
-  console.log('Clicked: ' + classd.name);
-  this.classService.classData = classd;
-  this.router.navigate(["/app/classdetail/"+classd.studentClassId]);
+viewClass(classFeeType: ClassFeeType){
+  console.log('Clicked: ' + ClassFeeType.name);
+  this.feeTypeService.feeType = classFeeType;
+  this.router.navigate(["/app/feetypedetail/"+classFeeType.classFeeTypeId]);
 }
 
-doInactiveClass(classd: StudentClass){
-  console.log('Clicked: ' + classd.name);
+doInactiveClass(classFeeType: ClassFeeType){
+  console.log('Clicked: ' + classFeeType.name);
 }
 
 rowDoubleClick(rowEvent) {
@@ -97,11 +97,11 @@ filterData(val:string){
   //console.log(val);
   if(val === '')
   {
-    this.items = this.studentClasses;
+    this.items = this.classFeeTypes;
     this.reloadItems(this.params);
   }
  // this.items.filter(val => this.items = val);
- this.items = this.studentClasses.filter(student => student.name.toLowerCase() === val.toLowerCase())
+ this.items = this.classFeeTypes.filter(student => student.name.toLowerCase() === val.toLowerCase())
  //console.log(JSON.parse(this.students));
 }
 

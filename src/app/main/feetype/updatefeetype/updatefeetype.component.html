@@ -1,0 +1,53 @@
+<h2 class="mt-2">Update Fee Type</h2>
+<ol class="breadcrumb-arrow">
+	<li><a [routerLink]="['/app/feetype']">Fee Type</a></li>
+	<li class="active"><span>{{classFeeType.name}}</span></li>
+</ol>
+
+
+<div class=" ">
+	<nav>
+		<div class="nav nav-tabs" id="nav-tab" role="tablist">
+			<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" data-target="#feetypeinfo" href="#" role="tab" aria-controls="categoryinfo"
+			 aria-selected="true">Fee Type Info</a>
+		</div>
+	</nav>
+	<div class="tab-content pt-md-4 pl-3" id="nav-tabContent">
+		<div class="tab-pane fade show active" id="feetypeinfo" role="tabpanel" aria-labelledby="classinfo-tab">
+			<div class="col-md-10 alert alert-danger" role="alert" *ngIf="(classFeeTypeForm.submitted && !classFeeTypeForm.valid)">
+				Please fill in the highlighted fields.
+			</div>
+			<form (ngSubmit)="classFeeTypeForm.form.valid && updateFeeType();" #classFeeTypeForm="ngForm" novalidate>
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Fee Type Name</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="name" [(ngModel)]="classFeeType.name" #name="ngModel" required
+					 [ngClass]="{'has-error': classFeeTypeForm.submitted && !name.valid}" >
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Description</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="description" [(ngModel)]="classFeeType.description" #description="ngModel" required 
+					[ngClass]="{'has-error': classFeeTypeForm.submitted && !description.valid}"/>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="inputPassword" class="col-sm-2 col-form-label">Frequency</label>
+				<div class="col-sm-3">
+					<select class="form-control" name="frequency" [(ngModel)]="classFeeType.frequency" #frequency="ngModel" required
+					[ngClass]="{'has-error': classFeeTypeForm.submitted && !frequency.valid}" >
+						<option value="12">Yearly</option>
+						<option value="1">Monthly</option>
+						<option value="0">One Time</option>
+						<option value="2">Per Term</option>
+					</select>
+				</div>
+			</div>
+			<button class="btn btn-bd-primary mb-4">Save</button>
+			<!-- <button type="button" (click)="ClearAll(classFeeTypeForm)" class="btn btn-outline-secondary mb-4" >Reset</button> -->
+		</form>
+		</div>
+	
+	</div>
+</div>

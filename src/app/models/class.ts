@@ -1,7 +1,7 @@
 export class Class {
-id : String =""
-name: string = ""
-description: string = ""
-isactive : boolean =true;
+id : string;
+name: string;
+description: string;
+isactive : boolean = true;
 
 }

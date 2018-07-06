@@ -3,20 +3,19 @@ import { Http, Headers, RequestOptions, Response } from "@angular/http";
 import { Observable } from "rxjs";
 import "rxjs/add/operator/map";
 
-import { Class } from "../models/class";
-import { StudentClass } from "../models/studentclass";
+import { ClassFeeType } from "../models/ClassFeeType";
 
 @Injectable()
-export class ClassService {
-  classData : StudentClass;
+export class FeeTypeService {
+  feeType : ClassFeeType;
   apiURl : String = "http://localhost:8080";
   
   constructor(
     private http: Http
   ) {}
 
-  getClasses(): Observable<StudentClass[]> {
-    console.log("we are in the service at Get Class method");
+  getFeeTypes(): Observable<ClassFeeType[]> {
+    console.log("we are in the service at Get FeeTypeService method");
     let headers = new Headers({
       'Content-Type': 'application/json'
     });
@@ -24,16 +23,16 @@ export class ClassService {
   
       // get users from api
       return this.http
-        .get(this.apiURl +"/api/studentclass", options)
+        .get(this.apiURl +"/api/feetype", options)
         .map((response: Response) => {
           console.log(response.json())
           return response.json();
         });
   }
 
-  addClass(studentClass: StudentClass): Observable<StudentClass> {
-    console.log("we are in the service at studentClass method" + studentClass);
-    console.log(JSON.stringify(studentClass));
+  addFeeType(classFeeType: ClassFeeType): Observable<ClassFeeType> {
+    console.log("we are in the service at studentClass method" + classFeeType);
+    console.log(JSON.stringify(classFeeType));
 
     let headers = new Headers({
       'Content-Type': 'application/json'
@@ -42,8 +41,8 @@ export class ClassService {
 
     return this.http
       .post(
-        this.apiURl + "/api/studentclass",
-        JSON.stringify(studentClass),
+        this.apiURl + "/api/feetype",
+        JSON.stringify(classFeeType),
         options
       ).map((response: Response) => {
         // login successful if there's a jwt token in the response
@@ -51,7 +50,7 @@ export class ClassService {
       })
   }
 
-  getClass(StudentClassId: any): Observable<StudentClass> {
+  getFeeType(id: any): Observable<ClassFeeType> {
     let headers = new Headers({
       'Content-Type': 'application/json'
     });
@@ -59,14 +58,14 @@ export class ClassService {
   
       // get users from api
       return this.http
-        .get(this.apiURl +"/api/studentclass/"+StudentClassId, options)
+        .get(this.apiURl +"/api/feetype/"+id, options)
         .map((response: Response) => response.json());
 
   }
 
-  updateClass(studentClass: StudentClass): Observable<StudentClass> {
-    console.log("we are in the service at studentClass method" + studentClass);
-    console.log(JSON.stringify(studentClass));
+  updateFeeType(classFeeType: ClassFeeType): Observable<ClassFeeType> {
+    console.log("we are in the service at studentClass method" + classFeeType);
+    console.log(JSON.stringify(classFeeType));
 
     let headers = new Headers({
       'Content-Type': 'application/json'
@@ -76,8 +75,8 @@ export class ClassService {
 
     return this.http
       .put(
-        this.apiURl + "/api/studentclass",
-        JSON.stringify(studentClass),
+        this.apiURl + "/api/feetype",
+        JSON.stringify(classFeeType),
         options
       ).map((response: Response) => {
         // login successful if there's a jwt token in the response

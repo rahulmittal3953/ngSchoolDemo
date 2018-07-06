@@ -2,28 +2,28 @@ import { Component, OnInit } from "@angular/core";
 import { DataTableResource } from 'angular5-data-table';
 import { Router } from "@angular/router";
 import { NgProgress } from 'ngx-progressbar';
-import {NgForm} from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import { NotificationsService } from "angular2-notifications";
 
-import { ClassService } from "../../services/class.service";
-import { StudentClass } from "../../models/studentclass";
+import { ClassFee } from "../../models/classfee";
+import { ClassFeeService } from "../../services/classfee.service";
 
 @Component({
-  templateUrl: "./classes.component.html"
+  templateUrl: "./classfee.component.html"
 })
-export class ClassesComponent implements OnInit{
+export class ClassFeeComponent implements OnInit{
 
   searchClass :String;
-  studentClasses : StudentClass[] =[];
+  classFees : ClassFee[] =[];
 
 
-  itemResource = new DataTableResource(this.studentClasses);
+  itemResource = new DataTableResource(this.classFees);
   items = [];
   itemCount = 0;
   params = {offset: 0, limit: 10};
 
   constructor(
-    private classService: ClassService,
+    private classFeeService: ClassFeeService,
     private router: Router,
     private ngProgress: NgProgress,
     private notif : NotificationsService) { 
@@ -37,23 +37,24 @@ export class ClassesComponent implements OnInit{
   getClassData(){
     console.log("call Class service");
     this.ngProgress.start();
-    this.classService
-      .getClasses()
+    this.classFeeService
+      .getclassFees()
       .subscribe(result => {
-        this.studentClasses = result;
+        this.classFees = result;
+        console.log( "Fee for Class ----> " + JSON.stringify(this.classFees));
         //this.items = this.students;
-        this.itemResource = new DataTableResource(this.studentClasses);
+        this.itemResource = new DataTableResource(this.classFees);
         this.reloadItems(this.params);
         this.itemResource.count().then(count => this.itemCount = count);
         this.ngProgress.done();
-        if(this.studentClasses.length == 0){
-          this.notif.info("Information", "There are no Class details in the System.");
+        if(this.classFees.length == 0){
+          this.notif.info("Information", "There are no Class Fee in the System.");
         }
       },
       error =>{
         console.log(error);
         this.ngProgress.done();
-        this.notif.error("Failure", "While fetching Class details, please try again.");
+        this.notif.error("Failure", "While fetching Class Fee details, please try again.");
       });
   }
 
@@ -68,20 +69,20 @@ rowClick(rowEvent) {
     console.log('Clicked: ' + rowEvent.row.item.name);
 }
 
-editClass(classd: StudentClass){
-  console.log('Clicked: ' + classd.name);
-  this.classService.classData = classd;
-  this.router.navigate(["/app/updateclass/"+classd.studentClassId]);
+editClass(classFee: ClassFee){
+  console.log('Clicked: ' + classFee.name);
+  this.classFeeService.classFee = classFee;
+  this.router.navigate(["/app/updateclassfee/"+classFee.classFeeId]);
 }
 
-viewClass(classd: StudentClass){
-  console.log('Clicked: ' + classd.name);
-  this.classService.classData = classd;
-  this.router.navigate(["/app/classdetail/"+classd.studentClassId]);
+viewClass(classFee: ClassFee){
+  console.log('Clicked: ' + classFee.name);
+  this.classFeeService.classFee = classFee;
+  this.router.navigate(["/app/classfeedetail/"+classFee.classFeeId]);
 }
 
-doInactiveClass(classd: StudentClass){
-  console.log('Clicked: ' + classd.name);
+doInactiveClass(classFee: ClassFee){
+  console.log('Clicked: ' + classFee.name);
 }
 
 rowDoubleClick(rowEvent) {
@@ -97,11 +98,11 @@ filterData(val:string){
   //console.log(val);
   if(val === '')
   {
-    this.items = this.studentClasses;
+    this.items = this.classFees;
     this.reloadItems(this.params);
   }
  // this.items.filter(val => this.items = val);
- this.items = this.studentClasses.filter(student => student.name.toLowerCase() === val.toLowerCase())
+ this.items = this.classFees.filter(student => student.name.toLowerCase() === val.toLowerCase())
  //console.log(JSON.parse(this.students));
 }
 

@@ -10,10 +10,11 @@ import { Student } from "../../models/student";
 import { DataTableResource } from "angular5-data-table";
 import { StudentService } from "../../services/student.service";
 
+
 @Component({
-  templateUrl: "./updateclass.component.html"
+  templateUrl: "./classdetail.component.html"
 })
-export class UpdateClassComponent implements OnInit{
+export class ClassDetailComponent implements OnInit{
   studentClass : StudentClass = new StudentClass();
   index:any;
 
@@ -57,7 +58,7 @@ export class UpdateClassComponent implements OnInit{
        error =>{
          console.log(error);
          this.ngProgress.done();
-         this.notif.error("Failure", "While fetching Class detail, please try again.");
+         this.notif.error("Failure", "While fetching Student detail, please try again.");
        });
     }else {
      this.studentClass=this.classService.classData
@@ -67,32 +68,16 @@ export class UpdateClassComponent implements OnInit{
 
   }
 
-  updateClass() {
-    console.log("in Update student method" + JSON.stringify(this.studentClass));
-    this.ngProgress.start();
-    window.scroll(0, 0);
-    this.classService
-      .updateClass(this.studentClass)
-      .subscribe(result => {
-        //this.students = result;
-        console.log(result);
-        this.ngProgress.done();
-        this.notif.success("Success", "Class details has been updated successfully.");
-      },
-        error => {
-          console.log(error);
-          this.ngProgress.done();
-          this.notif.error("Failure", "While updating the Class details, please try again.");
-        }
-      );
+  editClass(studentClass: StudentClass){
+    console.log('Clicked: ' + studentClass.name);
+    this.classService.classData = studentClass;
+    this.router.navigate(["/app/updateclass/"+studentClass.studentClassId]);
   }
-
-  ClearAll(form: NgForm) {
-    console.log("res");
-    form.resetForm();
-  }
-
   
+  doInactiveClass(studentClass: StudentClass){
+    console.log('Clicked: ' + studentClass.name);
+  }
+
   reloadItems(params) {
     console.log("reload");
     this.itemResource.query(params).then(items => this.items = items);

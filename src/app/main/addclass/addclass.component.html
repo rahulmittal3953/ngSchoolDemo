@@ -1,12 +1,8 @@
 <h2 class="mt-2">Add Class</h2>
-<nav aria-label="breadcrumb">
-	<ol class="breadcrumb">
-		<li class="breadcrumb-item">
-			<a [routerLink]="['/app/classes']">Classes</a>
-		</li>
-		<li class="breadcrumb-item active" aria-current="page">Add Class</li>
-	</ol>
-</nav>
+<ol class="breadcrumb-arrow">
+	<li><a [routerLink]="['/app/classes']">Classes</a></li>
+	<li class="active"><span>Add Class</span></li>
+</ol>
 
 
 <div class=" ">
@@ -18,28 +14,37 @@
 	</nav>
 	<div class="tab-content pt-md-4 pl-3" id="nav-tabContent">
 		<div class="tab-pane fade show active" id="classinfo" role="tabpanel" aria-labelledby="classinfo-tab">
+			<div class="col-md-10 alert alert-danger" role="alert" *ngIf="(classForm.submitted && !classForm.valid)">
+				Please fill in the highlighted fields.
+			</div>
+			<form (ngSubmit)="classForm.form.valid && addClass();" #classForm="ngForm" novalidate>
 			<div class="form-group row">
-				<label for="staticEmail" class="col-sm-2 col-form-label">Class Name</label>
+				<label class="col-sm-2 col-form-label">Class Name</label>
 				<div class="col-sm-3">
-					<input type="text" class="form-control" id="staticEmail" value="" placeholder="">
+					<input type="text" class="form-control" name="name" [(ngModel)]="studentClass.name" #name="ngModel" required
+					 [ngClass]="{'has-error': classForm.submitted && !name.valid}" >
 				</div>
 			</div>
 			<div class="form-group row">
-				<label for="inputPassword" class="col-sm-2 col-form-label">Show class </label>
+				<label class="col-sm-2 col-form-label">Description</label>
 				<div class="col-sm-3">
-					<select id="show-title" name="show_title" class="form-control">
-											<option value="1" selected="selected">Show</option>
-												<option value="0">Hide</option>
-									  </select>
+					<input type="text" class="form-control" name="description" [(ngModel)]="studentClass.description" #description="ngModel" required
+					 [ngClass]="{'has-error': classForm.submitted && !description.valid}" >
 				</div>
 			</div>
 			<div class="form-group row">
-				<label for="inputPassword" class="col-sm-2 col-form-label">Description</label>
+				<label for="inputPassword" class="col-sm-2 col-form-label">Active</label>
 				<div class="col-sm-3">
-					<input type="text" class="form-control" id="inputPassword" placeholder="">
+					<select class="form-control" name="active" [(ngModel)]="studentClass.active" #active="ngModel" required
+					[ngClass]="{'has-error': classForm.submitted && !active.valid}" >
+						<option value="true" selected="selected">Yes</option>
+						<option value="false">No</option>
+					</select>
 				</div>
 			</div>
 			<button class="btn btn-bd-primary mb-4">Save</button>
+			<button type="button" (click)="ClearAll(classForm)" class="btn btn-outline-secondary mb-4" >Reset</button>
+		</form>
 		</div>
 	
 	</div>

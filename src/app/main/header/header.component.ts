@@ -20,7 +20,7 @@ export class HeaderComponent  implements OnInit{
     // reset login status
     //this.authenticationService.logout();\
     const userdetails = JSON.parse(localStorage.getItem("currentUser"));
-    this.userfullname = userdetails.userfullname;
+    this.userfullname = userdetails.username;
     //console.log("header --> "  +userdetails.userfullname);
   }
   logout(){

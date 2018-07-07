@@ -9,6 +9,8 @@ import { NotificationsService } from "angular2-notifications";
 import { FeeTypeService } from "../../../services/feetype.service";
 import { ClassFeeType } from "../../../models/classfeetype";
 
+import { Frequencies } from "../../../models/frequencymeta";
+
 @Component({
   templateUrl: "./feetypedetail.component.html"
 })
@@ -16,6 +18,7 @@ export class FeeTypeDetailComponent {
 
   classFeeType : ClassFeeType = new ClassFeeType();
   index:any;
+  frequencies = Frequencies;
 
   constructor(
     private feeTypeService: FeeTypeService,

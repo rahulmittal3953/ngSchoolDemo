@@ -84,38 +84,40 @@ removeFeeParams(i: number) {
 }
 
 addClassFee(model: FormGroup) {
-  console.log("in add addClassFee method" + JSON.stringify(this.classFee));
-  console.log(model);
-  //this.classFee = model;
-  this.classFee.name = model.controls.name.value;
-  this.classFee.startDate = model.controls.startDate.value;
-  this.classFee.endDate = model.controls.endDate.value;
-  this.classFee.description = model.controls.description.value;
-  this.classFee.classFeeParams = model.controls.classFeeParams.value;
+  if (this.classFeeForm.valid) {
+    console.log("in add addClassFee method" + JSON.stringify(this.classFee));
+    console.log(model);
+    //this.classFee = model;
+    this.classFee.name = model.controls.name.value;
+    this.classFee.startDate = model.controls.startDate.value;
+    this.classFee.endDate = model.controls.endDate.value;
+    this.classFee.description = model.controls.description.value;
+    this.classFee.classFeeParams = model.controls.classFeeParams.value;
 
-  this.ngProgress.start();
-  window.scroll(0,0);
-  this.classFeeService
-    .addClassFee(this.classFee)
-    .subscribe(result => {
-      //this.students = result;
-      console.log(result);
-      this.ngProgress.done();
-      this.notif.success("Success", "Class Fee details has been saved successfully.");
-    },
-    error =>{
-      console.log(error);
-      this.ngProgress.done();
-      this.notif.error("Failure", "While saving the Class Fee details, please try again.");
-    }
-  );
-
+    this.ngProgress.start();
+    window.scroll(0,0);
+    this.classFeeService
+      .addClassFee(this.classFee)
+      .subscribe(result => {
+        //this.students = result;
+        console.log(result);
+        this.ngProgress.done();
+        this.notif.success("Success", "Class Fee details has been saved successfully.");
+      },
+      error =>{
+        console.log(error);
+        this.ngProgress.done();
+        this.notif.error("Failure", "While saving the Class Fee details, please try again.");
+      }
+    );
+  }
 
 }
 
-ClearAll(form: NgForm){
-  console.log("res"); 
-  form.resetForm();
+ClearAll(){
+  if (this.classFeeForm.valid) {
+    this.classFeeForm.reset();
+  }
 }
 
 }

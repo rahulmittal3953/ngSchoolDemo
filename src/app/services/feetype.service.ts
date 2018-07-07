@@ -9,6 +9,7 @@ import { ClassFeeType } from "../models/ClassFeeType";
 export class FeeTypeService {
   feeType : ClassFeeType;
   apiURl : String = "http://localhost:8080";
+  varout:String = '';
   
   constructor(
     private http: Http
@@ -83,4 +84,37 @@ export class FeeTypeService {
         return response.json();
       })
   }
+
+  
+  displayFrequency(val : String){
+  switch(val) { 
+      case "Y": { 
+         this.varout = 'Yearly' 
+         break; 
+      } 
+      case "M": { 
+          this.varout = 'Monthly'
+         break; 
+      } 
+      case "OT": {
+          this.varout = 'One Time' 
+         break;    
+      } 
+      case "PT": { 
+          this.varout = 'Per Term' 
+         break; 
+      }
+      case "PF": { 
+          this.varout = 'Per Family'
+          break; 
+       }    
+      default: { 
+          this.varout = ''
+         break;              
+      } 
+   }
+
+  return this.varout;
+}
+
 }

@@ -9,12 +9,15 @@ import { NotificationsService } from "angular2-notifications";
 import { FeeTypeService } from "../../../services/feetype.service";
 import { ClassFeeType } from "../../../models/classfeetype";
 
+import { Frequencies } from "../../../models/frequencymeta";
+
 @Component({
   templateUrl: "./addfeetype.component.html"
 })
 export class AddFeeTypeComponent {
 
   classFeeType : ClassFeeType = new ClassFeeType();
+  frequencies = Frequencies;
 
   constructor(
     private feeTypeService: FeeTypeService,
@@ -51,5 +54,4 @@ ClearAll(form: NgForm){
   console.log("res"); 
   form.resetForm();
 }
-
 }

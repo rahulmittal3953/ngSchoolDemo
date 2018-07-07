@@ -41,13 +41,18 @@
 			<div class="form-group row">
 				<label for="inputPassword" class="col-sm-2 col-form-label">Frequency</label>
 				<div class="col-sm-3">
-					<select class="form-control-plaintext" disabled name="frequency" [(ngModel)]="classFeeType.frequency" #frequency="ngModel" required
+					<!-- <select class="form-control-plaintext" disabled name="frequency" [(ngModel)]="classFeeType.frequency" #frequency="ngModel" required
 					[ngClass]="{'has-error': classFeeTypeForm.submitted && !frequency.valid}" >
-						<option value="12">Yearly</option>
-						<option value="1">Monthly</option>
-						<option value="0">One Time</option>
-						<option value="2">Per Term</option>
-					</select>
+						<option value="Y">Yearly</option>
+						<option value="M">Monthly</option>
+						<option value="OT">One Time</option>
+						<option value="PT">Per Term</option>
+						<option value="PF">Per Family</option>
+					</select> -->
+					<select class="form-control-plaintext" disabled name="frequency" [(ngModel)]="classFeeType.frequency" #frequency="ngModel" required
+						[ngClass]="{'has-error': classFeeTypeForm.submitted && !frequency.valid}" >
+					 		<option *ngFor="let freq of frequencies" [ngValue]="freq.id">{{freq.name}}</option>
+					 </select>
 				</div>
 			</div>
 		</form>

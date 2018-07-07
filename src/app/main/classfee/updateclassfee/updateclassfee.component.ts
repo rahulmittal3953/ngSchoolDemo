@@ -143,32 +143,33 @@ fnCompareFeeType(a:ClassFeeType,b :ClassFeeType){
 
 
 updateClassFee(model: FormGroup) {
-  console.log("in add UpdateFeeTypeComponent method" + JSON.stringify(this.classFee));
-  console.log(model);
-  //this.classFee = model;
-  this.classFee.name = model.controls.name.value;
-  this.classFee.startDate = model.controls.startDate.value;
-  this.classFee.endDate = model.controls.endDate.value;
-  this.classFee.description = model.controls.description.value;
-  this.classFee.classFeeParams = model.controls.classFeeParams.value;
-  
-  this.ngProgress.start();
-  window.scroll(0,0);
-  this.classFeeService
-    .updateClassFee(this.classFee)
-    .subscribe(result => {
-      //this.students = result;
-      console.log(result);
-      this.ngProgress.done();
-      this.notif.success("Success", "Class Fee details has been saved successfully.");
-    },
-    error =>{
-      console.log(error);
-      this.ngProgress.done();
-      this.notif.error("Failure", "While saving the Class Fee details, please try again.");
-    }
-  );
-
+  if (this.classFeeForm.valid) {
+    console.log("in add UpdateFeeTypeComponent method" + JSON.stringify(this.classFee));
+    console.log(model);
+    //this.classFee = model;
+    this.classFee.name = model.controls.name.value;
+    this.classFee.startDate = model.controls.startDate.value;
+    this.classFee.endDate = model.controls.endDate.value;
+    this.classFee.description = model.controls.description.value;
+    this.classFee.classFeeParams = model.controls.classFeeParams.value;
+    
+    this.ngProgress.start();
+    window.scroll(0,0);
+    this.classFeeService
+      .updateClassFee(this.classFee)
+      .subscribe(result => {
+        //this.students = result;
+        console.log(result);
+        this.ngProgress.done();
+        this.notif.success("Success", "Class Fee details has been saved successfully.");
+      },
+      error =>{
+        console.log(error);
+        this.ngProgress.done();
+        this.notif.error("Failure", "While saving the Class Fee details, please try again.");
+      }
+    );
+  }
 
 }
 

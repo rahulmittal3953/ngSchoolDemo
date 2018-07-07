@@ -4,11 +4,16 @@ import { NgProgress } from 'ngx-progressbar';
 
 import { NotificationsService } from "angular2-notifications";
 import {NgForm} from '@angular/forms';
-import { StudentClass } from "../../models/studentclass";
-import { ClassService } from "../../services/class.service";
-import { Student } from "../../models/student";
 import { DataTableResource } from "angular5-data-table";
-import { StudentService } from "../../services/student.service";
+
+
+import { StudentClass } from "../../../models/studentclass";
+import { ClassService } from "../../../services/class.service";
+import { StudentService } from "../../../services/student.service";
+
+import { Student } from "../../../models/student";
+
+
 
 @Component({
   templateUrl: "./updateclass.component.html"

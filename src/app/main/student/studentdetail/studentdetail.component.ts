@@ -5,11 +5,11 @@ import { NgProgress } from 'ngx-progressbar';
 import { NotificationsService } from "angular2-notifications";
 import {NgForm} from '@angular/forms';
 
-import { StudentService } from "../../services/student.service";
-import { Student } from "../../models/student";
+import { StudentService } from "../../../services/student.service";
+import { Student } from "../../../models/student";
 
-import { ClassService } from "../../services/class.service";
-import { StudentClass } from "../../models/studentclass";
+import { ClassService } from "../../../services/class.service";
+import { StudentClass } from "../../../models/studentclass";
 
 
 @Component({

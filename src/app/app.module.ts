@@ -44,14 +44,14 @@ import { CategoriesComponent } from './main/categories/categories.component';
 import { UpdateCategoryComponent } from './main/updatecategory/updatecategory.component';
 
 import { ClassesComponent } from "./main/classes/classes.component";
-import { UpdateClassComponent } from "./main/updateclass/updateclass.component";
-import { AddClassComponent } from "./main/addclass/addclass.component";
-import { ClassDetailComponent } from './main/classdetail/classdetail.component';
+import { UpdateClassComponent } from "./main/classes/updateclass/updateclass.component";
+import { AddClassComponent } from "./main/classes/addclass/addclass.component";
+import { ClassDetailComponent } from './main/classes/classdetail/classdetail.component';
 
 import { StudentComponent } from "./main/student/student.component";
-import { AddStudentComponent } from "./main/addstudent/addstudent.component";
-import { UpdateStudentComponent } from "./main/updatestudent/updatestudent.component";
-import { StudentDetailComponent } from "./main/studentdetail/studentdetail.component";
+import { AddStudentComponent } from "./main/student/addstudent/addstudent.component";
+import { UpdateStudentComponent } from "./main/student/updatestudent/updatestudent.component";
+import { StudentDetailComponent } from "./main/student/studentdetail/studentdetail.component";
 
 import { FeeTypeComponent } from './main/feetype/feetype.component';
 import { AddFeeTypeComponent } from './main/feetype/addfeetype/addfeetype.component';

@@ -37,10 +37,10 @@ export class ClassFeeDetailComponent {
 }
 ngOnInit() {
   this.classFeeForm = this._fb.group({
-    name: ['', [Validators.required, Validators.minLength(5)]],
-    description: ['',[Validators.required]],
-    startDate:['',[Validators.required]],
-    endDate:['',[Validators.required]],
+    name: [{value: '', disabled: true}, [Validators.required, Validators.minLength(5)]],
+    description: [{value: '', disabled: true},[Validators.required]],
+    startDate:[{value: '', disabled: true},[Validators.required]],
+    endDate:[{value: '', disabled: true},[Validators.required]],
     classFeeParams: this._fb.array([
         //this.initAddFeeParams(),
     ])
@@ -106,9 +106,9 @@ getFeeTypeData(){
 initAddFeeParams() {
   // initialize our address
   return this._fb.group({
-      classFeeParamsId : [''],
-      classFeeType : ['', Validators.required],
-      feeAmount : ['', Validators.required]
+      classFeeParamsId : [{value: '', disabled: true}],
+      classFeeType : [{value: '', disabled: true}, Validators.required],
+      feeAmount : [{value: '', disabled: true}, Validators.required]
   });
 }
 

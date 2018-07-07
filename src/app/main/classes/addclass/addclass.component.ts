@@ -6,8 +6,8 @@ import {NgForm} from '@angular/forms';
 import { NotificationsService } from "angular2-notifications";
 
 
-import { StudentClass } from "../../models/studentclass";
-import { ClassService } from "../../services/class.service";
+import { StudentClass } from "../../../models/studentclass";
+import { ClassService } from "../../../services/class.service";
 
 @Component({
   templateUrl: "./addclass.component.html"

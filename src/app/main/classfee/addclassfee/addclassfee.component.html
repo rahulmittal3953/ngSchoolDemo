@@ -14,7 +14,7 @@
 	</nav>
 	<div class="tab-content pt-md-4 pl-3" id="nav-tabContent">
 		<div class="tab-pane fade show active" id="classfee" role="tabpanel" aria-labelledby="classinfo-tab">
-			<div class="col-md-10 alert alert-danger" role="alert" *ngIf="(classFeeForm.submitted && !classFeeForm.valid)">
+			<div class="col-md-10 alert alert-danger" role="alert" *ngIf="(!classFeeForm.valid)">
 				Please fill in the highlighted fields.
 			</div>
 			<form [formGroup]="classFeeForm" (ngSubmit)="addClassFee(classFeeForm);" novalidate>
@@ -67,7 +67,7 @@
 											[ngClass]="{'has-error': !classFeeForm.controls.classFeeParams.controls[i].controls.classFeeType.valid}">
 												 <option *ngFor="let feetype of classFeeTypes" [ngValue]="feetype">{{feetype.name}}</option>
 										</select>
-										 <label class="col-form-label">Frequency : {{classFeeForm.controls.classFeeParams.controls[i].controls.classFeeType.value.frequency}}</label> 
+										 <label class="col-form-label">Frequency :  {{feeTypeService.displayFrequency(classFeeForm.controls.classFeeParams.controls[i].controls.classFeeType.value.frequency)}}</label> 
 									</div>
 									
 									<label class="col-sm-2 col-form-label">Fee Amount</label>
@@ -87,8 +87,8 @@
 			</div>
 			
 
-			<button class="btn btn-bd-primary mb-4" type="submit" >Save</button>
-			<!-- <button type="button" (click)="ClearAll(classFeeForm)" class="btn btn-outline-secondary mb-4" >Reset</button> -->
+			<button type="submit" class="btn btn-bd-primary mb-4" >Save</button>
+			<button type="button" (click)="ClearAll()" class="btn btn-outline-secondary mb-4" >Reset</button>
 		</form>
 		</div>
 	

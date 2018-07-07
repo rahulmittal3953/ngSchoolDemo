@@ -84,7 +84,7 @@ removeFeeParams(i: number) {
 }
 
 addClassFee(model: FormGroup) {
-  console.log("in add AddFeeTypeComponent method" + JSON.stringify(this.classFee));
+  console.log("in add addClassFee method" + JSON.stringify(this.classFee));
   console.log(model);
   //this.classFee = model;
   this.classFee.name = model.controls.name.value;

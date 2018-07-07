@@ -33,6 +33,8 @@ import { AddClassFeeComponent } from './main/classfee/addclassfee/addclassfee.co
 import { ClassFeeDetailComponent } from './main/classfee/classfeedetail/classfeedetail.component';
 import { UpdateClassFeeComponent } from './main/classfee/updateclassfee/updateclassfee.component';
 
+import { GenerateClassFeeComponent } from './main/generateclassfee/generateclassfee.component';
+
 
 const routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -65,7 +67,9 @@ const routes = [
         { path: "classfee", component: ClassFeeComponent },
         { path: "addclassfee", component: AddClassFeeComponent },
         { path: "classfeedetail/:id", component: ClassFeeDetailComponent },
-        { path: "updateclassfee/:id", component: UpdateClassFeeComponent }
+        { path: "updateclassfee/:id", component: UpdateClassFeeComponent },
+
+        { path: "generateclassfee", component: GenerateClassFeeComponent }
         
         
         

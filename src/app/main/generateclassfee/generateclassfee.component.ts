@@ -1,0 +1,148 @@
+import { Component, OnInit } from "@angular/core";
+import { Validators, FormGroup, FormArray, FormBuilder } from '@angular/forms';
+import { DataTableResource } from 'angular5-data-table';
+import { Router } from "@angular/router";
+import { NgProgress } from 'ngx-progressbar';
+import {NgForm} from '@angular/forms';
+import { NotificationsService } from "angular2-notifications";
+
+
+import { ClassFeeService } from "../../services/classfee.service";
+import { ClassFee } from "../../models/classfee";
+
+import { ClassService } from "../../services/class.service";
+import { StudentClass } from "../../models/studentclass";
+
+import {FeeTypeService } from "../../services/feetype.service";
+import { ClassFeeType } from "../../models/classfeetype";
+
+@Component({
+  templateUrl: "./generateclassfee.component.html"
+})
+export class GenerateClassFeeComponent {
+
+  classFees : ClassFee[] =[];
+  studentClassesData : StudentClass[] =[];
+  public generateClassFeeForm: FormGroup; // our form model
+
+
+  constructor(
+    private classFeeService: ClassFeeService,
+    private router: Router,
+    private ngProgress: NgProgress,
+    private notif : NotificationsService,
+    private _fb: FormBuilder,
+    private feeTypeService: FeeTypeService,
+    private classService: ClassService) { 
+}
+ngOnInit() {
+
+  this.getClassFeeData();
+  this.getClassData();
+  this.generateClassFeeForm = this._fb.group({
+    classFee: ['', [Validators.required]],
+    studentClasses: this._fb.array([
+        this.initAddStudentClasses(),
+    ])
+});
+
+}
+
+initAddStudentClasses() {
+  // initialize our address
+  return this._fb.group({
+    studentClass : ['', Validators.required]
+  });
+}
+
+addStudentClasses() {
+  // add address to the list
+  const control = <FormArray>this.generateClassFeeForm.controls['studentClasses'];
+  control.push(this.initAddStudentClasses());
+}
+
+removeStudentClasses(i: number) {
+  // remove address from the list
+  const control = <FormArray>this.generateClassFeeForm.controls['studentClasses'];
+  control.removeAt(i);
+}
+
+
+generateClassFee(model: FormGroup) {
+  if (this.generateClassFeeForm.valid) {
+    let outResponse = {
+      classFee : model.controls.classFee.value,
+      studentClasses : model.controls.studentClasses.value
+    }
+  console.log(outResponse)
+
+    this.ngProgress.start();
+    window.scroll(0,0);
+    this.ngProgress.done();
+
+    this.classFeeService
+      .generateStudentFee(model.controls.classFee.value, model.controls.studentClasses.value)
+      .subscribe(result => {
+        //this.students = result;
+        console.log(result);
+        this.ngProgress.done();
+        this.notif.success("Success", "Generate Fee has been submitted successfully.");
+      },
+      error =>{
+        console.log(error);
+        this.ngProgress.done();
+        this.notif.error("Failure", "While proceesing the Generate Fee, please try again.");
+      }
+    );
+
+  }
+
+}
+
+ClearAll(){
+  if (this.generateClassFeeForm.valid) {
+    this.generateClassFeeForm.reset();
+  }
+}
+
+getClassFeeData(){
+  console.log("call Class service");
+  this.ngProgress.start();
+  this.classFeeService
+    .getclassFees()
+    .subscribe(result => {
+      this.classFees = result;
+      //console.log( "Fee for Class ----> " + JSON.stringify(this.classFees));
+      this.ngProgress.done();
+      if(this.classFees.length == 0){
+        this.notif.info("Information", "There are no Class Fee in the System.");
+      }
+    },
+    error =>{
+      console.log(error);
+      this.ngProgress.done();
+      this.notif.error("Failure", "While fetching Class Fee details, please try again.");
+    });
+}
+
+getClassData(){
+  console.log("call Class service");
+  this.ngProgress.start();
+  this.classService
+    .getClasses()
+    .subscribe(result => {
+      this.studentClassesData = result;
+      //console.log( "Student Class Data ----> " + JSON.stringify(this.studentClassesData));
+      this.ngProgress.done();
+      if(this.studentClassesData.length == 0){
+        this.notif.info("Information", "There are no Student Class details in the System.");
+      }
+    },
+    error =>{
+      console.log(error);
+      this.ngProgress.done();
+      this.notif.error("Failure", "While fetching Student Class details, please try again.");
+    });
+}
+
+}

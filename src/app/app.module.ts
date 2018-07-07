@@ -63,6 +63,8 @@ import { AddClassFeeComponent } from './main/classfee/addclassfee/addclassfee.co
 import { ClassFeeDetailComponent } from './main/classfee/classfeedetail/classfeedetail.component';
 import { UpdateClassFeeComponent } from './main/classfee/updateclassfee/updateclassfee.component';
 
+import { GenerateClassFeeComponent } from './main/generateclassfee/generateclassfee.component';
+
 
 
 @NgModule({
@@ -73,7 +75,8 @@ import { UpdateClassFeeComponent } from './main/classfee/updateclassfee/updatecl
     ClassesComponent, UpdateClassComponent, AddClassComponent, ClassDetailComponent,
     StudentComponent, AddStudentComponent, UpdateStudentComponent, StudentDetailComponent,
     FeeTypeComponent, AddFeeTypeComponent, UpdateFeeTypeComponent, FeeTypeDetailComponent,
-    ClassFeeComponent, AddClassFeeComponent, ClassFeeDetailComponent, UpdateClassFeeComponent
+    ClassFeeComponent, AddClassFeeComponent, ClassFeeDetailComponent, UpdateClassFeeComponent,
+    GenerateClassFeeComponent
   ],
   imports: [
       BrowserModule, AppRouting, FormsModule, ReactiveFormsModule, HttpModule,NgxMaskModule.forRoot(),

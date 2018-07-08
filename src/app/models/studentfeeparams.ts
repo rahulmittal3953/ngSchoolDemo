@@ -1,9 +1,6 @@
-import { StudentFee } from "./studentfee";
-
 export class StudentFeeParams{
-    studentFeeId: String;
+    studentFeeParamsId: String;
     paramType: String;
     name: String;
     value: String;
-    studenFee: StudentFee;
 }

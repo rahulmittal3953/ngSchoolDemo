@@ -5,6 +5,7 @@ import "rxjs/add/operator/map";
 
 import { Student } from "../models/student";
 import { Status } from "../models/status";
+import { StudentFee } from "../models/studentfee";
 
 @Injectable()
 export class StudentService {
@@ -83,6 +84,19 @@ export class StudentService {
         // login successful if there's a jwt token in the response
         return response.json();
       })
+  }
+
+  getStudentFee(studentId: any): Observable<StudentFee> {
+    let headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+    let options = new RequestOptions({ headers: headers });
+  
+      // get users from api
+      return this.http
+        .get(this.apiURl +"/api/studentfees/"+studentId, options)
+        .map((response: Response) => response.json());
+
   }
 
 }

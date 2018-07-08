@@ -1,14 +1,19 @@
 import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { NgProgress } from 'ngx-progressbar';
+
 import { NotificationsService } from "angular2-notifications";
-import { NgForm } from '@angular/forms';
+import {NgForm} from '@angular/forms';
+import { DataTableResource } from 'angular5-data-table';
 
 import { StudentService } from "../../../services/student.service";
 import { Student } from "../../../models/student";
 
 import { ClassService } from "../../../services/class.service";
 import { StudentClass } from "../../../models/studentclass";
+import { StudentFee } from "../../../models/studentfee";
+import { StudentFeeParams } from "../../../models/studentfeeparams";
+import { FeeTypeService } from "../../../services/feetype.service";
 
 
 @Component({
@@ -20,13 +25,22 @@ export class UpdateStudentComponent implements OnInit {
   index: any;
   admissionClasses : StudentClass[] =[];
 
+  studentFee : StudentFee = new StudentFee();
+
+  studentFeeParams: StudentFeeParams[] = [];
+  itemResource = new DataTableResource(this.studentFeeParams);
+  items = [];
+  itemCount = 0;
+  params = {offset: 0, limit: 10};
+
   constructor(
     private studentService: StudentService,
     private notif: NotificationsService,
     private router: Router,
     private ngProgress: NgProgress,
     private route: ActivatedRoute,
-    private classService: ClassService
+      private classService: ClassService,
+      private feeTypeService: FeeTypeService
   ) {
     this.route.params.subscribe(params => {
       this.index = params['id'];
@@ -46,6 +60,7 @@ export class UpdateStudentComponent implements OnInit {
         .subscribe(result => {
           if(result){
             this.student = result;
+            this.getStudentFee();
           } else{
             this.notif.info("Information", "No such record not found in the system, please try again.");
           }
@@ -59,6 +74,7 @@ export class UpdateStudentComponent implements OnInit {
   } else {
       this.student = this.studentService.studentData
       this.ngProgress.done();
+       this.getStudentFee();
     }
   }
 
@@ -116,4 +132,40 @@ export class UpdateStudentComponent implements OnInit {
     return a && b && a.studentClassId == b.studentClassId; 
 
   }
+
+  getStudentFee(){
+    console.log("call Student service for student Fee");
+    this.ngProgress.start();
+    this.studentService
+      .getStudentFee(this.index)
+      .subscribe(result => {
+        this.studentFee = result;
+        if(!this.studentFee){
+          this.notif.info("Information", "There are no Student Fee details in the System.");
+        }else{
+          this.studentFeeParams = result.studentFeeParams;
+          this.ngProgress.done();
+          this.itemResource = new DataTableResource(this.studentFeeParams);
+          this.reloadItems(this.params);
+          this.itemResource.count().then(count => this.itemCount = count);
+        }
+      },
+      error =>{
+        console.log(error);
+        this.ngProgress.done();
+        this.notif.error("Failure", "While fetching Student Fee details, please try again.");
+      });
+  }
+
+  reloadItems(params) {
+    console.log("reload");
+    this.itemResource.query(params).then(items => this.items = items);
+}
+
+// special properties:
+
+rowClick(rowEvent) {
+    console.log('Clicked: ' + rowEvent.row.item.name);
+}
+
 }

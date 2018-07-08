@@ -152,80 +152,56 @@
 		<div class="tab-pane fade" id="classstudents" role="tabpanel" aria-labelledby="classstudents-tab">
 			<a class="btn btn-bd-primary btn-sm mb-4" href="#">Add Fee</a>
 			<br/>
-			<table class="table table-sm table-bordered table-hover table-sortable">
-				<thead>
-					<tr>
-						<th scope="col">#</th>
-						<th scope="col">Name</th>
-						<th scope="col">Price</th>
-						<th scope="col">SKU</th>
-						<th scope="col">In Stock</th>
-						<th scope="col">Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<th scope="row">1 </th>
-						<td>
-							<a href="#">Electronics</a>
-						</td>
-						<td>0</td>
-						<td>@mdo</td>
-						<td>0</td>
-						<td>
-							<button class="btn btn-outline-success btn-sm">
-												<i class="fa fa-power-off"></i>
-											</button>
-							<button class="btn btn-outline-danger btn-sm">
-												<i class="fa fa-trash-o"></i>
-											</button>
-							<button class="btn btn-outline-warning btn-sm">
-												<i class="fa fa-edit"></i>
-											</button>
-						</td>
-					</tr>
-					<tr>
-						<th scope="row">2</th>
-						<td>
-							<a href="#">Apparel</a>
-						</td>
-						<td>0</td>
-						<td>@fat</td>
-						<td>10</td>
-						<td>
-							<button class="btn btn-outline-success btn-sm">
-												<i class="fa fa-power-off"></i>
-											</button>
-							<button class="btn btn-outline-danger btn-sm">
-												<i class="fa fa-trash-o"></i>
-											</button>
-							<button class="btn btn-outline-warning btn-sm">
-												<i class="fa fa-edit"></i>
-											</button>
-						</td>
-					</tr>
-					<tr>
-						<th scope="row">3</th>
-						<td>
-							<a href="#">TV</a>
-						</td>
-						<td>0</td>
-						<td>@fat</td>
-						<td>5</td>
-						<td>
-							<button class="btn btn-outline-success btn-sm">
-												<i class="fa fa-power-off"></i>
-											</button>
-							<button class="btn btn-outline-danger btn-sm">
-												<i class="fa fa-trash-o"></i>
-											</button>
-							<button class="btn btn-outline-warning btn-sm">
-												<i class="fa fa-edit"></i>
-											</button>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+			<div class="table-responsive">
+					<data-table id="persons-grid" class="table table-sm"
+							headerTitle="Student Fee"
+							[limit]="10"
+							[items]="items"
+							[itemCount]="itemCount"
+							(reload)="reloadItems($event)"
+							[pagination] = "true"
+							[rowTooltip]="rowTooltip"
+							[indexColumn] = "true"
+							[substituteRows]="false"
+							
+							>
+							<data-table-column
+								[property]="'name'"
+								[header]="'Fee'"
+								[sortable]="true"
+								[resizable]="true">
+							</data-table-column>
+							<data-table-column
+								[property]="'paramType'"
+								[header]="'Frequency'"
+								[sortable]="true"
+								[resizable]="true">
+								<ng-template #dataTableCell let-item="item">
+									{{feeTypeService.displayFrequency(item.paramType)}}
+								</ng-template>
+							</data-table-column>
+							<data-table-column
+								[property]="'value'"
+								[header]="'Amount'"
+								[sortable]="true"
+								[resizable]="true">
+								<ng-template #dataTableCell let-item="item">
+										<i class="fa fa-inr"></i> {{item.value}}
+									</ng-template>
+							</data-table-column>
+							<data-table-column
+								[property]="'active'"
+								[header]="'Actions'"
+								[resizable]="true">
+								<ng-template #dataTableCell let-item="item">
+									<button class="btn btn-success btn-sm text-white" title="Pay Fee">
+										<i class="fa fa-inr"></i> Pay
+									</button>
+								</ng-template>
+							</data-table-column>
+							
+						</data-table>
+					</div>
 		</div>
 		<div class="tab-pane fade" id="paymentinfo" role="tabpanel" aria-labelledby="paymentinfo-tab">
 			<a class="btn btn-bd-primary btn-sm mb-4" href="#">Add Payment</a>

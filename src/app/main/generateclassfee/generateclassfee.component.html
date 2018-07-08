@@ -31,15 +31,16 @@
 					</span>
 				</div>
 				</div> 
-				<div *ngFor="let feeparam of generateClassFeeForm.controls.studentClasses.controls; let i=index">
+				<div *ngFor="let studentCla of generateClassFeeForm.controls.studentClasses.controls; let i=index">
 						<!-- Angular assigns array index as group name by default 0, 1, 2, ... -->
 						<div [formGroupName]="i">
 								<div class="form-group row">
 									<label class="col-sm-2 col-form-label">{{i+1}} : Student Class</label>
 									<div class="col-sm-3">
 										 <!-- <input type="text" formControlName="classFeeParamsId"/> -->
-										<select class="form-control" formControlName="studentClass" required
-											[ngClass]="{'has-error': !generateClassFeeForm.controls.studentClasses.controls[i].controls.studentClass.valid}">
+										<select class="form-control" formControlName="0" required
+										[ngClass]="{'has-error': !generateClassFeeForm.controls.studentClasses.controls[i].controls.valid}">
+										
 												 <option *ngFor="let studClass of studentClassesData" [ngValue]="studClass">{{studClass.name}}</option>
 										</select>
 									</div>

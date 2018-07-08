@@ -15,14 +15,17 @@ import { StudentClass } from "../../models/studentclass";
 
 import {FeeTypeService } from "../../services/feetype.service";
 import { ClassFeeType } from "../../models/classfeetype";
+import { GenerateFee } from "../../models/generatefee";
 
 @Component({
   templateUrl: "./generateclassfee.component.html"
 })
 export class GenerateClassFeeComponent {
-
+  
+  generateFee : GenerateFee = new GenerateFee();
   classFees : ClassFee[] =[];
   studentClassesData : StudentClass[] =[];
+  
   public generateClassFeeForm: FormGroup; // our form model
 
 
@@ -51,7 +54,7 @@ ngOnInit() {
 initAddStudentClasses() {
   // initialize our address
   return this._fb.group({
-    studentClass : ['', Validators.required]
+    0 :['', Validators.required]
   });
 }
 
@@ -70,18 +73,24 @@ removeStudentClasses(i: number) {
 
 generateClassFee(model: FormGroup) {
   if (this.generateClassFeeForm.valid) {
-    let outResponse = {
-      classFee : model.controls.classFee.value,
-      studentClasses : model.controls.studentClasses.value
-    }
-  console.log(outResponse)
+
+
+    let tempStudentClasses: StudentClass[] = model.controls.studentClasses.value;
+    let outStudentClasses: StudentClass[]=[];
+    tempStudentClasses.forEach(element => {
+      outStudentClasses.push(element[0]);
+    });
+
+
+    this.generateFee.classFee = model.controls.classFee.value
+    this.generateFee.studentClasses = outStudentClasses;
+    console.log(this.generateFee);
 
     this.ngProgress.start();
     window.scroll(0,0);
-    this.ngProgress.done();
 
     this.classFeeService
-      .generateStudentFee(model.controls.classFee.value, model.controls.studentClasses.value)
+      .generateStudentFee(this.generateFee)
       .subscribe(result => {
         //this.students = result;
         console.log(result);

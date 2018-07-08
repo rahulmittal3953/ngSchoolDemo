@@ -120,4 +120,11 @@ ClearAll(){
   }
 }
 
+displayFrequency(model){
+  if(model.value)
+    return this.feeTypeService.displayFrequency(model.value.frequency)
+  else return '';
+  
+}
+
 }

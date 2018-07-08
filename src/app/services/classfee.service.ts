@@ -6,6 +6,7 @@ import "rxjs/add/operator/map";
 import { ClassFeeType } from "../models/ClassFeeType";
 import { ClassFee } from "../models/classfee";
 import {StudentClass } from "../models/studentclass";
+import { GenerateFee } from "../models/generatefee";
 
 @Injectable()
 export class ClassFeeService {
@@ -86,9 +87,9 @@ export class ClassFeeService {
       })
   }
 
-  generateStudentFee(classFee: ClassFee, studentClass: StudentClass[]): Observable<ClassFee> {
-    console.log("we are in the service at generateStudentFee method" + classFee);
-    console.log(JSON.stringify(classFee));
+  generateStudentFee(generateFee: GenerateFee): Observable<GenerateFee> {
+    console.log("we are in the service at generateStudentFee method" + generateFee);
+    console.log(JSON.stringify(generateFee));
 
     let headers = new Headers({
       'Content-Type': 'application/json'
@@ -98,10 +99,7 @@ export class ClassFeeService {
     return this.http
       .post(
         this.apiURl + "/api/generatestudentfee",
-        { 
-            "classFee": JSON.stringify(classFee),
-            "studentClass": JSON.stringify(studentClass)
-        },
+        generateFee,
         options
       ).map((response: Response) => {
         // login successful if there's a jwt token in the response

@@ -67,7 +67,7 @@
 											[ngClass]="{'has-error': !classFeeForm.controls.classFeeParams.controls[i].controls.classFeeType.valid}">
 												 <option *ngFor="let feetype of classFeeTypes" [ngValue]="feetype">{{feetype.name}}</option>
 										</select>
-										 <label class="col-form-label">Frequency :  {{feeTypeService.displayFrequency(classFeeForm.controls.classFeeParams.controls[i].controls.classFeeType.value.frequency)}}</label> 
+										 <label class="col-form-label">Frequency :  {{displayFrequency(classFeeForm.controls.classFeeParams.controls[i].controls.classFeeType)}}</label> 
 									</div>
 									
 									<label class="col-sm-2 col-form-label">Fee Amount</label>

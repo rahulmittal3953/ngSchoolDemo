@@ -150,8 +150,55 @@
 		</form>
 		</div>
 		<div class="tab-pane fade" id="classstudents" role="tabpanel" aria-labelledby="classstudents-tab">
-			<a class="btn btn-bd-primary btn-sm mb-4" href="#">Add Fee</a>
-			<br/>
+			<div class="row mb-3 h5">
+					<div class="col-xl-3 col-sm-6">
+						<div class="card text-white bg-primary o-hidden p-2">
+							<div class="">
+								Total Fee : 
+								<span class="pull-right" *ngIf="studentFee">
+									<i class="fa fa-inr"></i> {{studentFee.studentFeeAmt || 0}}
+								</span>
+								<span class="pull-right" *ngIf="!studentFee">
+										<i class="fa fa-inr"></i> 0
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-3 col-sm-6">
+						<div class="card text-white bg-success o-hidden p-2">
+								<div class="">
+										Fee Paid : 
+										<span class="pull-right" *ngIf="studentFee">
+											<i class="fa fa-inr"></i> {{studentFee.studentPaidFeeAmt || 0}}
+										</span>
+										<span class="pull-right" *ngIf="!studentFee">
+											<i class="fa fa-inr"></i> 0
+										</span>
+								</div>
+						</div>
+					</div>
+					<div class="col-xl-3 col-sm-6">
+						<div class="card text-white bg-danger o-hidden p-2">
+								<div class="">
+										Balance Fee : 
+										<span class="pull-right" *ngIf="studentFee">
+											<i class="fa fa-inr"></i> {{studentFee.studentBalanceFeeAmt || studentFee.studentFeeAmt || 0}}
+										</span>
+										<span class="pull-right" *ngIf="!studentFee">
+												<i class="fa fa-inr"></i> 0
+										</span>
+								</div>
+						</div>
+					</div>
+					<div class="col-xl-3 col-sm-6">
+							<div class="">
+								<div class="">
+									<button class="btn btn-bd-primary">Add Fee</button>
+									<button class="btn btn-outline-success">Pay Fee</button>
+								</div>
+							</div>
+					</div>
+				</div>
 			<div class="table-responsive">
 					<data-table id="persons-grid" class="table table-sm"
 							headerTitle="Student Fee"
@@ -189,7 +236,7 @@
 										<i class="fa fa-inr"></i> {{item.value}}
 									</ng-template>
 							</data-table-column>
-							<data-table-column
+							<!-- <data-table-column
 								[property]="'active'"
 								[header]="'Actions'"
 								[resizable]="true">
@@ -198,7 +245,7 @@
 										<i class="fa fa-inr"></i> Pay
 									</button>
 								</ng-template>
-							</data-table-column>
+							</data-table-column> -->
 							
 						</data-table>
 					</div>

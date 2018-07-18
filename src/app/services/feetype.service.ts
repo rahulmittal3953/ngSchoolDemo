@@ -8,7 +8,7 @@ import { ClassFeeType } from "../models/ClassFeeType";
 @Injectable()
 export class FeeTypeService {
   feeType : ClassFeeType;
-  apiURl : String = "http://localhost:8080";
+  apiURl : String = "https://ngschooldemo.herokuapp.com";
   varout:String = '';
   
   constructor(

@@ -9,7 +9,7 @@ import { StudentClass } from "../models/studentclass";
 @Injectable()
 export class ClassService {
   classData : StudentClass;
-  apiURl : String = "http://localhost:8080";
+  apiURl : String = "https://ngschooldemo.herokuapp.com";
   
   constructor(
     private http: Http

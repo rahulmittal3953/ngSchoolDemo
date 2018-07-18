@@ -11,7 +11,7 @@ import { GenerateFee } from "../models/generatefee";
 @Injectable()
 export class ClassFeeService {
   classFee : ClassFee;
-  apiURl : String = "http://localhost:8080";
+  apiURl : String = "https://ngschooldemo.herokuapp.com";
   
   constructor(
     private http: Http

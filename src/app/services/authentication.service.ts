@@ -7,7 +7,7 @@ import { AppUser } from "../models/appuser";
 @Injectable()
 export class AuthenticationService {
   public token: string;
-  apiURl : String = "http://localhost:8080";
+  apiURl : String = "https://ngschooldemo.herokuapp.com";
   public appuser : AppUser;
 
   constructor(private http: Http) {
@@ -17,7 +17,7 @@ export class AuthenticationService {
   }
 
   login(username: string, password: string): Observable<boolean> {
-    console.log("we are in the service" + username + "--" + password);
+    //console.log("we are in the service" + username + "--" + password);
     
     let headers = new Headers({
       'Content-Type': 'application/json'
@@ -25,8 +25,8 @@ export class AuthenticationService {
     let options = new RequestOptions({ headers: headers });
 
     this.appuser = { id: '', username: username, 
-      password: password, email: 'abc@abc.com',userId : username,
-      userType: 'W658789798ASAS'};
+      password: password, email: username,userId : username,
+      userType: 'Admin'};
 
 
     return this.http

@@ -115,6 +115,7 @@ export class StudentDetailComponent implements OnInit{
 
   getStudentFee(){
     console.log("call Student service for student Fee");
+    console.log(this.index);
     this.ngProgress.start();
     this.studentService
       .getStudentFee(this.index)

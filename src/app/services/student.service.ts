@@ -11,7 +11,7 @@ import { StudentFee } from "../models/studentfee";
 export class StudentService {
   
   studentData : Student;
-  apiURl : String = "http://localhost:8080";
+  apiURl : String = "https://ngschooldemo.herokuapp.com";
   
   constructor(
     private http: Http

@@ -5,6 +5,7 @@ import "rxjs/add/operator/map";
 
 import { AuthenticationService } from "../services/authentication.service";
 import { User } from "../models/user";
+import { serviceBaseURL } from "../models/baseurls";
 
 @Injectable()
 export class UserService {

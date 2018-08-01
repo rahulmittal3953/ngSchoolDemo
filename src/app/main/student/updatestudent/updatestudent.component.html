@@ -192,14 +192,54 @@
 									</div>
 							</div>
 						</div>
-						<div class="col-xl-3 col-sm-6">
-								<div class="">
+						
+					</div>
+					<div class="row">
+							<div class="col-xl-12 col-sm-12">
 									<div class="">
-										<button class="btn btn-bd-primary">Add Fee</button>
-										<button class="btn btn-outline-success">Pay Fee</button>
+										<div class="">
+											<button class="btn btn-bd-primary">Add Fee</button>
+											<button class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModal">Pay Fee</button>
+											<button class="btn btn-outline-danger">Add Discount</button>
+										</div>
+									</div>
+							</div>
+							
+							<!-- Modal -->
+							<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<form (ngSubmit)="payFeeForm.form.valid && payFee(studentFee);" #payFeeForm="ngForm" novalidate>
+											<div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLabel">Pay Fee</h5>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+											</div>
+											<div class="modal-body">
+												<div class="form-group">
+														<div class="col-md-12 alert alert-danger" role="alert" *ngIf="(payFeeForm.submitted && !payFeeForm.valid)">
+																Please fill in the highlighted fields.
+														</div>
+														<label class="col-sm-12 col-form-label">Amount</label>
+														<div class="col-sm-12">
+															<input type="text" class="form-control"  mask='0000000000' name="payfeeamount" [(ngModel)]="payFeeAmount" #payFeeAmountTxt="ngModel" required [ngClass]="{'has-error': payFeeForm.submitted && !payFeeAmountTxt.valid}">
+														</div>
+														<label class="col-sm-12 col-form-label">Comments</label>
+														<div class="col-sm-12">
+															 <input type="text" class="form-control"   name="payFeeComments" [(ngModel)]="payFeeComments" #payFeeCommentsTxt="ngModel" required [ngClass]="{'has-error': payFeeForm.submitted && !payFeeCommentsTxt.valid}">
+														</div>
+													</div>
+											</div>
+											<div class="modal-footer">
+											<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+											<button type="submit" class="btn btn-primary">Save changes</button>
+											</div>
+										</form>
 									</div>
 								</div>
-						</div>
+							</div>
+							
 					</div>
 			<div class="table-responsive">
 					<data-table id="persons-grid" class="table table-sm"

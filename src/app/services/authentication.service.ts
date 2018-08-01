@@ -3,11 +3,12 @@ import { Http, Headers, RequestOptions, Response } from "@angular/http";
 import { Observable } from "rxjs";
 import "rxjs/add/operator/map";
 import { AppUser } from "../models/appuser";
+import { serviceBaseURL } from "../models/baseurls";
 
 @Injectable()
 export class AuthenticationService {
   public token: string;
-  apiURl : String = "http://localhost:8080";
+  apiURl : String = serviceBaseURL;
   public appuser : AppUser;
 
   constructor(private http: Http) {
@@ -25,8 +26,8 @@ export class AuthenticationService {
     let options = new RequestOptions({ headers: headers });
 
     this.appuser = { id: '', username: username, 
-      password: password, email: 'abc@abc.com',userId : username,
-      userType: 'W658789798ASAS'};
+      password: password, email: username, userId : username,
+      userType: 'Admin'};
 
 
     return this.http

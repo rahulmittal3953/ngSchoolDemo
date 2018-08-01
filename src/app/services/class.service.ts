@@ -5,11 +5,12 @@ import "rxjs/add/operator/map";
 
 import { Class } from "../models/class";
 import { StudentClass } from "../models/studentclass";
+import { serviceBaseURL } from "../models/baseurls";
 
 @Injectable()
 export class ClassService {
   classData : StudentClass;
-  apiURl : String = "http://localhost:8080";
+  apiURl : String = serviceBaseURL;
   
   constructor(
     private http: Http

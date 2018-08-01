@@ -16,7 +16,7 @@
 	</nav>
 	<div class="tab-content pt-md-4 pl-3" id="nav-tabContent">
 		<div class="tab-pane fade show active" id="classinfo" role="tabpanel" aria-labelledby="classinfo-tab">
-			<form (ngSubmit)="classForm.form.valid && addClass();" #classForm="ngForm" novalidate>
+			<form (ngSubmit)="classForm.form.valid" #classForm="ngForm" novalidate>
 				<div class="form-group row">
 					<label class="col-sm-2 col-form-label">Class Name</label>
 					<div class="col-sm-3">

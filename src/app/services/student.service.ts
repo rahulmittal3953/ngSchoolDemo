@@ -6,12 +6,14 @@ import "rxjs/add/operator/map";
 import { Student } from "../models/student";
 import { Status } from "../models/status";
 import { StudentFee } from "../models/studentfee";
+import { serviceBaseURL } from "../models/baseurls";
+import { PayStudentFee } from "../models/paystudentfee";
 
 @Injectable()
 export class StudentService {
   
   studentData : Student;
-  apiURl : String = "http://localhost:8080";
+  apiURl : String = serviceBaseURL;
   
   constructor(
     private http: Http
@@ -97,6 +99,27 @@ export class StudentService {
         .get(this.apiURl +"/api/studentfees/"+studentId, options)
         .map((response: Response) => response.json());
 
+  }
+
+
+  addStudentPayment(payStudentFee: PayStudentFee): Observable<StudentFee> {
+    console.log("we are in the service at addStudent method" + PayStudentFee);
+    console.log(JSON.stringify(payStudentFee));
+
+    let headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http
+      .post(
+        this.apiURl + "/api/studentfees/" + payStudentFee.studentFee.studentFeeId + "/payment",
+        JSON.stringify(payStudentFee),
+        options
+      ).map((response: Response) => {
+        // login successful if there's a jwt token in the response
+        return response.json();
+      })
   }
 
 }

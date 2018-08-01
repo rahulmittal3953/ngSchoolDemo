@@ -4,11 +4,12 @@ import { Observable } from "rxjs";
 import "rxjs/add/operator/map";
 
 import { ClassFeeType } from "../models/ClassFeeType";
+import { serviceBaseURL } from "../models/baseurls";
 
 @Injectable()
 export class FeeTypeService {
   feeType : ClassFeeType;
-  apiURl : String = "http://localhost:8080";
+  apiURl : String = serviceBaseURL;
   varout:String = '';
   
   constructor(

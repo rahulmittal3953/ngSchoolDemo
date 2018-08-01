@@ -119,7 +119,8 @@ export class StudentDetailComponent implements OnInit{
     this.studentService
       .getStudentFee(this.index)
       .subscribe(result => {
-        this.studentFee = result;
+        this.studentFee = (result.studentFeeId) ?  result : null;
+
         if(!this.studentFee){
           this.notif.info("Information", "There are no Student Fee details in the System.");
         }else{
@@ -148,5 +149,8 @@ rowClick(rowEvent) {
     console.log('Clicked: ' + rowEvent.row.item.name);
 }
 
+rowTooltip(item) { 
+  return item.name; 
+}
 }
   

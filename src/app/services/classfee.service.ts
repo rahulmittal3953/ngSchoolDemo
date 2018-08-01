@@ -7,11 +7,12 @@ import { ClassFeeType } from "../models/ClassFeeType";
 import { ClassFee } from "../models/classfee";
 import {StudentClass } from "../models/studentclass";
 import { GenerateFee } from "../models/generatefee";
+import { serviceBaseURL } from "../models/baseurls";
 
 @Injectable()
 export class ClassFeeService {
   classFee : ClassFee;
-  apiURl : String = "http://localhost:8080";
+  apiURl : String = serviceBaseURL;
   
   constructor(
     private http: Http

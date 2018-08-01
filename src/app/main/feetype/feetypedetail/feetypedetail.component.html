@@ -17,7 +17,7 @@
 			<div class="col-md-10 alert alert-danger" role="alert" *ngIf="(classFeeTypeForm.submitted && !classFeeTypeForm.valid)">
 				Please fill in the highlighted fields.
 			</div>
-			<form (ngSubmit)="classFeeTypeForm.form.valid && addClass();" #classFeeTypeForm="ngForm" novalidate>
+			<form (ngSubmit)="classFeeTypeForm.form.valid" #classFeeTypeForm="ngForm" novalidate>
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label">Fee Type Name</label>
 				<div class="col-sm-3">

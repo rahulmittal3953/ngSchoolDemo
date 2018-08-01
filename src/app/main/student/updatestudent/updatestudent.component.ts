@@ -14,6 +14,8 @@ import { StudentClass } from "../../../models/studentclass";
 import { StudentFee } from "../../../models/studentfee";
 import { StudentFeeParams } from "../../../models/studentfeeparams";
 import { FeeTypeService } from "../../../services/feetype.service";
+import { PayStudentFee } from "../../../models/paystudentfee";
+import { StudentPaymentHistory } from "../../../models/studentpaymenthistory";
 
 
 @Component({
@@ -22,16 +24,24 @@ import { FeeTypeService } from "../../../services/feetype.service";
 export class UpdateStudentComponent implements OnInit {
 
   student: Student = new Student();
+  payStudentFee : PayStudentFee = new PayStudentFee();
+  
+  studentPaymentHistory: StudentPaymentHistory[] = [];
+
   index: any;
   admissionClasses : StudentClass[] =[];
 
   studentFee : StudentFee = new StudentFee();
+
 
   studentFeeParams: StudentFeeParams[] = [];
   itemResource = new DataTableResource(this.studentFeeParams);
   items = [];
   itemCount = 0;
   params = {offset: 0, limit: 10};
+
+  payFeeAmount:String;
+  payFeeComments:String;
 
   constructor(
     private studentService: StudentService,
@@ -139,12 +149,15 @@ export class UpdateStudentComponent implements OnInit {
     this.studentService
       .getStudentFee(this.index)
       .subscribe(result => {
-        this.studentFee = result;
+        this.studentFee = (result.studentFeeId) ?  result : null;
+        
         if(!this.studentFee){
           this.notif.info("Information", "There are no Student Fee details in the System.");
         }else{
           this.studentFeeParams = result.studentFeeParams;
+          this.studentPaymentHistory = result.studentPaymentHistories;
           this.ngProgress.done();
+
           this.itemResource = new DataTableResource(this.studentFeeParams);
           this.reloadItems(this.params);
           this.itemResource.count().then(count => this.itemCount = count);
@@ -158,14 +171,51 @@ export class UpdateStudentComponent implements OnInit {
   }
 
   reloadItems(params) {
-    console.log("reload");
-    this.itemResource.query(params).then(items => this.items = items);
-}
+      console.log("reload");
+      this.itemResource.query(params).then(items => this.items = items);
+  }
 
-// special properties:
+  // special properties:
 
-rowClick(rowEvent) {
-    console.log('Clicked: ' + rowEvent.row.item.name);
-}
+  rowClick(rowEvent) {
+      console.log('Clicked: ' + rowEvent.row.item.name);
+  }
+  rowTooltip(item) { 
+    return item.name; 
+  }
+
+  payFee(studentFee: StudentFee) {
+    console.log("pay Fee" + studentFee);
+    // let payStudentFee = {
+    //   studentFee : studentFee,
+    //   payFeeAmount : this.payFeeAmount,
+    //   payFeeComments: this.payFeeComments
+    // }
+    //console.log(payStudentFee);
+    this.payStudentFee.paymentAmount = this.payFeeAmount;
+    this.payStudentFee.paymentComments = this.payFeeComments;
+    this.payStudentFee.studentFee = studentFee;
+
+    console.log(this.payStudentFee);
+
+    this.ngProgress.start();
+    window.scroll(0, 0);
+    this.studentService
+      .addStudentPayment(this.payStudentFee)
+      .subscribe(result => {
+        //this.students = result;
+        console.log(result);
+        this.studentFee = result;
+        this.ngProgress.done();
+        this.notif.success("Success", "Amount has been paid successfully.");
+      },
+        error => {
+          console.log(error);
+          this.ngProgress.done();
+          this.notif.error("Failure", "While doing payment, please try again.");
+        }
+      );
+
+  }
 
 }

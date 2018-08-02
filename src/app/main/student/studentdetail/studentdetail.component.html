@@ -150,160 +150,185 @@
 		</form>
 		</div>
 		<div class="tab-pane fade" id="classstudents" role="tabpanel" aria-labelledby="classstudents-tab">
-			<div class="row mb-3 h5">
-					<div class="col-xl-3 col-sm-6">
-						<div class="card text-white bg-primary o-hidden p-2">
-							<div class="">
-								Total Fee : 
-								<span class="pull-right" *ngIf="studentFee">
-									<i class="fa fa-inr"></i> {{studentFee.studentFeeAmt || 0}}
-								</span>
-								<span class="pull-right" *ngIf="!studentFee">
-										<i class="fa fa-inr"></i> 0
-								</span>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-3 col-sm-6">
-						<div class="card text-white bg-success o-hidden p-2">
+				<div class="row mb-3 h5">
+						<div class="col-xl-3 col-sm-6">
+							<div class="card text-white bg-primary o-hidden p-2">
 								<div class="">
-										Fee Paid : 
-										<span class="pull-right" *ngIf="studentFee">
-											<i class="fa fa-inr"></i> {{studentFee.studentPaidFeeAmt || 0}}
-										</span>
-										<span class="pull-right" *ngIf="!studentFee">
+									Total Fee : 
+									<span class="pull-right" *ngIf="studentFee">
+										<i class="fa fa-inr"></i> {{studentFee.studentFeeAmt || 0}}
+									</span>
+									<span class="pull-right" *ngIf="!studentFee">
 											<i class="fa fa-inr"></i> 0
-										</span>
-								</div>
-						</div>
-					</div>
-					<div class="col-xl-3 col-sm-6">
-						<div class="card text-white bg-danger o-hidden p-2">
-								<div class="">
-										Balance Fee : 
-										<span class="pull-right" *ngIf="studentFee">
-											<i class="fa fa-inr"></i> {{studentFee.studentBalanceFeeAmt || studentFee.studentFeeAmt || 0}}
-										</span>
-										<span class="pull-right" *ngIf="!studentFee">
-												<i class="fa fa-inr"></i> 0
-										</span>
-								</div>
-						</div>
-					</div>
-					<div class="col-xl-3 col-sm-6">
-							<div class="">
-								<div class="">
-									<button class="btn btn-bd-primary">Add Fee</button>
-									<button class="btn btn-outline-success">Pay Fee</button>
+									</span>
 								</div>
 							</div>
+						</div>
+						<div class="col-xl-3 col-sm-6">
+							<div class="card text-white bg-success o-hidden p-2">
+									<div class="">
+											Fee Paid : 
+											<span class="pull-right" *ngIf="studentFee">
+												<i class="fa fa-inr"></i> {{studentFee.studentPaidFeeAmt || 0}}
+											</span>
+											<span class="pull-right" *ngIf="!studentFee">
+												<i class="fa fa-inr"></i> 0
+											</span>
+									</div>
+							</div>
+						</div>
+						<div class="col-xl-3 col-sm-6">
+							<div class="card text-white bg-danger o-hidden p-2">
+									<div class="">
+											Balance Fee : 
+											<span class="pull-right" *ngIf="studentFee">
+												<i class="fa fa-inr"></i> {{studentFee.studentBalanceFeeAmt || 0}}
+											</span>
+											<span class="pull-right" *ngIf="!studentFee">
+													<i class="fa fa-inr"></i> 0
+											</span>
+									</div>
+							</div>
+						</div>
+						
 					</div>
-				</div>
-			     <div class="table-responsive">
-					<data-table id="persons-grid" class="table table-sm"
-							headerTitle="Student Fee"
-							[limit]="10"
-							[items]="items"
-							[itemCount]="itemCount"
-							(reload)="reloadItems($event)"
-							[pagination] = "true"
-							[rowTooltip]="rowTooltip"
-							[indexColumn] = "true"
-							[substituteRows]="false"
-
-							>
-							<data-table-column
-								[property]="'name'"
-								[header]="'Fee'"
-								[sortable]="true"
-								[resizable]="true">
-							</data-table-column>
-							<data-table-column
-								[property]="'paramType'"
-								[header]="'Frequency'"
-								[sortable]="true"
-								[resizable]="true">
-								<ng-template #dataTableCell let-item="item">
-									{{feeTypeService.displayFrequency(item.paramType)}}
-								</ng-template>
-							</data-table-column>
-							<data-table-column
-								[property]="'value'"
-								[header]="'Amount'"
-								[sortable]="true"
-								[resizable]="true">
-								<ng-template #dataTableCell let-item="item">
-										<i class="fa fa-inr"></i> {{item.value}}
-									</ng-template>
-							</data-table-column>
-							<!-- <data-table-column
-								[property]="'active'"
-								[header]="'Actions'"
-								[resizable]="true">
-								<ng-template #dataTableCell let-item="item">
-									<button class="btn btn-success btn-sm text-white" title="Pay Fee">
-										<i class="fa fa-inr"></i> Pay
-									</button>
-								</ng-template>
-							</data-table-column> -->
+					<div class="row">
+							<div class="col-xl-12 col-sm-12">
+									<div class="">
+										<div class="">
+											<button class="btn btn-bd-primary">Add Fee</button>
+											<button class="btn btn-outline-success" data-toggle="modal" data-target="#paymentModal">Pay Fee</button>
+											<button class="btn btn-outline-danger">Add Discount</button>
+										</div>
+									</div>
+							</div>
 							
-						</data-table>
 					</div>
+				<div class="table-responsive">
+						<data-table id="persons-grid" class="table table-sm"
+								headerTitle="Student Fee"
+								[limit]="10"
+								[items]="studentFeeItems"
+								[itemCount]="studentFeeItemCount"
+								(reload)="reloadStudentFeeItems($event)"
+								[pagination] = "true"
+								[rowTooltip]="rowTooltip"
+								[indexColumn] = "true"
+								[substituteRows]="false"
+								
+								>
+								<data-table-column
+									[property]="'name'"
+									[header]="'Fee'"
+									[resizable]="true">
+								</data-table-column>
+								<data-table-column
+									[property]="'paramType'"
+									[header]="'Frequency'"
+									[resizable]="true">
+									<ng-template #dataTableCell let-item="item">
+										{{feeTypeService.displayFrequency(item.paramType)}}
+									</ng-template>
+								</data-table-column>
+								<data-table-column
+									[property]="'value'"
+									[header]="'Amount'"
+									[resizable]="true">
+									<ng-template #dataTableCell let-item="item">
+											<i class="fa fa-inr"></i> {{item.value}}
+										</ng-template>
+								</data-table-column>
+								<!-- <data-table-column
+									[property]="'active'"
+									[header]="'Actions'"
+									[resizable]="true">
+									<ng-template #dataTableCell let-item="item">
+										<button class="btn btn-success btn-sm text-white" title="Pay Fee">
+											<i class="fa fa-inr"></i> Pay
+										</button>
+									</ng-template>
+								</data-table-column> -->
+								
+							</data-table>
+						</div>
 		</div>
-		<div class="tab-pane fade" id="paymentinfo" role="tabpanel" aria-labelledby="paymentinfo-tab">
-			<a class="btn btn-bd-primary btn-sm mb-4" href="#">Add Payment</a>
+		<div class="tab-pane fade mb-5" id="paymentinfo" role="tabpanel" aria-labelledby="paymentinfo-tab">
+				<button class="btn btn-outline-success" data-toggle="modal" data-target="#paymentModal">Add Payment</button>
 			<br/>
-	       <div class="table-responsive">
-                <data-table id="payments-grid" class="table table-sm"
-                    headerTitle="Student Payment"
-                    [limit]="10"
-                    [items]="itemsPayment"
-                    [itemCount]="itemCountPayment"
-                    (reload)="reloadItems($event)"
-                    [pagination] = "true"
-                    [rowTooltip]="rowTooltip"
-                    [indexColumn] = "true"
-                    [substituteRows]="false"
-                    [sortBy]="'studentFeePaymentId'"
-                    [sortAsc]="false"
-                    [indexColumnHeader]="'#'"
-                    >
-                    <data-table-column
-                        [property]="'studentFeePaymentId'"
-                        [header]="'Payment ID'"
-                        [sortable]="true"
-                        [resizable]="true">
-                    </data-table-column>
-                    <data-table-column
-                        [property]="'payamentStatus'"
-                        [header]="'Payment Status'"
-                        [sortable]="true"
-                        [resizable]="true">
-                    </data-table-column>
-                    <data-table-column
-                        [property]="'startDate'"
-                        [header]="'Payment Date'"
-                        [sortable]="true"
-                        [resizable]="true">
-                       
-                    </data-table-column>
-                    <data-table-column
-                        [property]="'studentFeePaymentAmt'"
-                        [header]="'Payment Amount'"
-                        [sortable]="true"
-                        [resizable]="true">
-                        <ng-template #dataTableCell let-item="item">
-                                <i class="fa fa-inr"></i> {{item.studentFeePaymentAmt}}
-                            </ng-template>
-                    </data-table-column>
-                    <data-table-column
-                        [property]="'studentFeePaymentCmt'"
-                        [header]="'Payment Comment'"
-                        [sortable]="true"
-                        [resizable]="true">
-                    </data-table-column>
-                </data-table>
-            </div>
+			<div class="table-responsive">
+					<data-table id="payments-grid" class="table table-sm"
+						headerTitle="Student Payment"
+						[limit]="10"
+						[items]="studentPaymentHistoryItems"
+						[itemCount]="studentPaymentHistoryItemCount"
+						(reload)="reloadStudentPaymentHistoryItems($event)"
+						[pagination] = "true"
+						[rowTooltip]="rowTooltip"
+						[indexColumn] = "true"
+						[substituteRows]="false"
+						[indexColumnHeader]="'#'"
+						>
+						<data-table-column
+							[property]="'payamentStatus'"
+							[header]="'Payment Status'"
+							[resizable]="true">
+						</data-table-column>
+						<data-table-column
+							[property]="'startDate'"
+							[header]="'Payment Date'"
+							[resizable]="true">
+						   
+						</data-table-column>
+						<data-table-column
+							[property]="'studentFeePaymentAmt'"
+							[header]="'Payment Amount'"
+							[resizable]="true">
+							<ng-template #dataTableCell let-item="item">
+									<i class="fa fa-inr"></i> {{item.studentFeePaymentAmt}}
+								</ng-template>
+						</data-table-column>
+						<data-table-column
+							[property]="'studentFeePaymentCmt'"
+							[header]="'Payment Comment'"
+							[resizable]="true">
+						</data-table-column>
+					</data-table>
+				</div>
 		</div>
 	</div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<form (ngSubmit)="payFeeForm.form.valid && payFee(studentFee);" #payFeeForm="ngForm" novalidate>
+					<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Pay Fee</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+								<div class="col-md-12 alert alert-danger" role="alert" *ngIf="(payFeeForm.submitted && !payFeeForm.valid)">
+										Please fill in the highlighted fields.
+								</div>
+								<label class="col-sm-12 col-form-label">Amount</label>
+								<div class="col-sm-12">
+									<input type="text" class="form-control"  mask='0000000000' name="payfeeamount" [(ngModel)]="payFeeAmount" #payFeeAmountTxt="ngModel" required [ngClass]="{'has-error': payFeeForm.submitted && !payFeeAmountTxt.valid}">
+								</div>
+								<label class="col-sm-12 col-form-label">Comments</label>
+								<div class="col-sm-12">
+									 <input type="text" class="form-control"   name="payFeeComments" [(ngModel)]="payFeeComments" #payFeeCommentsTxt="ngModel" required [ngClass]="{'has-error': payFeeForm.submitted && !payFeeCommentsTxt.valid}">
+								</div>
+							</div>
+					</div>
+					<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Save changes</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>

@@ -14,6 +14,8 @@ import { StudentClass } from "../../../models/studentclass";
 import { StudentFee } from "../../../models/studentfee";
 import { StudentFeeParams } from "../../../models/studentfeeparams";
 import { FeeTypeService } from "../../../services/feetype.service";
+import {StudentPaymentHistory } from "../../../models/studentpaymenthistory";
+import { PayStudentFee } from "../../../models/paystudentfee";
 
 
 @Component({
@@ -21,20 +23,28 @@ import { FeeTypeService } from "../../../services/feetype.service";
 })
 export class StudentDetailComponent implements OnInit{
   
-  student : Student = new Student();
-  index:any;
-  admissionClasses : StudentClass[] =[];
+  student: Student = new Student();
+  payStudentFee : PayStudentFee = new PayStudentFee();
   studentFee : StudentFee = new StudentFee();
-
+  
+  index: any;
+  admissionClasses : StudentClass[] =[];
   studentFeeParams: StudentFeeParams[] = [];
-  studentPaymentHistories: StudentPaymentHistory[] = [];
-  itemResource = new DataTableResource(this.studentFeeParams);
-  itemResourcePayment = new DataTableResource(this.studentPaymentHistories);
-  items = [];
-  itemCount = 0;
-  itemsPayment = [];
-  itemCountPayment = 0;
+  studentPaymentHistory: StudentPaymentHistory[] = [];
+  
+  studentFeeItemResource = new DataTableResource(this.studentFeeParams);
+  studentFeeItems = [];
+  studentFeeItemCount = 0;
+
+  studentPaymentHistoryItemResource = new DataTableResource(this.studentPaymentHistory);
+  studentPaymentHistoryItems = [];
+  studentPaymentHistoryItemCount = 0;
+
+
   params = {offset: 0, limit: 10};
+
+  payFeeAmount:String;
+  payFeeComments:String;
   
   constructor(
       private studentService: StudentService, 
@@ -63,7 +73,6 @@ export class StudentDetailComponent implements OnInit{
         if(result){
           this.student = result;
           this.getStudentFee();
-          this.getStudentPayment();
         } else{
           this.notif.info("Information", "No such record not found in the system, please try again.");
         }
@@ -79,7 +88,6 @@ export class StudentDetailComponent implements OnInit{
     //this.notif.info("Good News", "Student detail is loaded successfuly.");
     this.ngProgress.done();
     this.getStudentFee();
-    this.getStudentPayment();
    }
   }
   
@@ -131,10 +139,11 @@ export class StudentDetailComponent implements OnInit{
           this.notif.info("Information", "There are no Student Fee details in the System.");
         }else{
           this.studentFeeParams = result.studentFeeParams;
+          this.studentPaymentHistory = result.studentPaymentHistories;
+          this.resetStudentFeeAndPaymentGrid();
+
           this.ngProgress.done();
-          this.itemResource = new DataTableResource(this.studentFeeParams);
-          this.reloadItems(this.params);
-          this.itemResource.count().then(count => this.itemCount = count);
+
         }
       },
       error =>{
@@ -144,53 +153,78 @@ export class StudentDetailComponent implements OnInit{
       });
   }
 
-  getStudentPayment(){
-    console.log("call Student service for student Payment");
-    this.ngProgress.start();
-    this.studentService
-      .getStudentPayment(this.index)
-      .subscribe(result => {
-        //console.log("=====PaymentService Start======");
-        // console.log(result);
-         //console.log("=====PaymentService End======");
-        this.studentPaymentHistories = (result.studentPaymentHistories) ?  result : null;
 
-        if(!this.studentPaymentHistories){
-          this.notif.info("Information", "There are no Student Payment details in the System.");
-        }else{
-          this.studentPaymentHistories = result.studentPaymentHistories;
-          this.ngProgress.done();
-          this.itemResourcePayment = new DataTableResource(this.studentPaymentHistories);
-          this.reloadItemsPayment(this.params);
-          this.itemResourcePayment.count().then(count => this.itemCountPayment = count);
-        }
-      },
-      error =>{
-        console.log(error);
-        this.ngProgress.done();
-        this.notif.error("Failure", "While fetching Student Payment details, please try again.");
-      });
+  reloadStudentFeeItems(params) {
+    console.log("reload  --> reloadStudentFeeItems");
+    this.studentFeeItemResource.query(params).then(items => this.studentFeeItems = items);
   }
 
-  reloadItems(params) {
-    console.log("reload");
-    this.itemResource.query(params).then(items => this.items = items);
-    this.itemResourcePayment.query(params).then(itemsPayment => this.itemsPayment = itemsPayment);
-}
-
-reloadItemsPayment(params) {
-    console.log("reload Payment");
-    this.itemResourcePayment.query(params).then(itemsPayment => this.itemsPayment = itemsPayment);
-}
+  reloadStudentPaymentHistoryItems(params) {
+    console.log("reload --> reloadStudentPaymentHistoryItems");
+    this.studentPaymentHistoryItemResource.query(params).then(items => this.studentPaymentHistoryItems = items);
+  }
 
 // special properties:
 
-rowClick(rowEvent) {
-    console.log('Clicked: ' + rowEvent.row.item.name);
-}
+  rowClick(rowEvent) {
+      console.log('Clicked: ' + rowEvent.row.item.name);
+  }
 
-rowTooltip(item) { 
-  return item.name; 
-}
+  rowTooltip(item) { 
+    return item.name; 
+  }
+
+  payFee(studentFee: StudentFee) {
+    console.log("pay Fee" + studentFee);
+    // let payStudentFee = {
+    //   studentFee : studentFee,
+    //   payFeeAmount : this.payFeeAmount,
+    //   payFeeComments: this.payFeeComments
+    // }
+    //console.log(payStudentFee);
+    this.payStudentFee.paymentAmount = this.payFeeAmount;
+    this.payStudentFee.paymentComments = this.payFeeComments;
+    this.payStudentFee.studentFee = studentFee;
+
+    console.log(this.payStudentFee);
+
+    this.ngProgress.start();
+    window.scroll(0, 0);
+    this.studentService
+      .addStudentPayment(this.payStudentFee)
+      .subscribe(result => {
+        //this.students = result;
+        console.log(result);
+        this.studentFee = result;
+        this.studentFeeParams= result.studentFeeParams;
+        this.studentPaymentHistory = result.studentPaymentHistories;
+
+        this.resetStudentFeeAndPaymentGrid();
+
+        this.ngProgress.done();
+        this.notif.success("Success", "Amount has been paid successfully.");
+      },
+        error => {
+          console.log(error);
+          this.ngProgress.done();
+          this.notif.error("Failure", "While doing payment, please try again.");
+        }
+      );
+
+  }
+
+  resetStudentFeeAndPaymentGrid()
+  {
+
+    this.studentFeeItemResource = new DataTableResource(this.studentFeeParams);
+    this.reloadStudentFeeItems(this.params);
+    this.studentFeeItemResource.count().then(count => this.studentFeeItemCount = count);
+
+    this.studentPaymentHistoryItemResource = new DataTableResource(this.studentPaymentHistory);
+    this.reloadStudentPaymentHistoryItems(this.params);
+    this.studentPaymentHistoryItemResource.count().then(count => this.studentPaymentHistoryItemCount = count);
+
+  }
+
 }
   

@@ -8,6 +8,7 @@ import { Status } from "../models/status";
 import { StudentFee } from "../models/studentfee";
 import { serviceBaseURL } from "../models/baseurls";
 import { PayStudentFee } from "../models/paystudentfee";
+import { StudentPaymentHistory } from "../models/studentpaymenthistory";
 
 @Injectable()
 export class StudentService {

@@ -25,19 +25,22 @@ export class UpdateStudentComponent implements OnInit {
 
   student: Student = new Student();
   payStudentFee : PayStudentFee = new PayStudentFee();
+  studentFee : StudentFee = new StudentFee();
   
-  studentPaymentHistory: StudentPaymentHistory[] = [];
-
   index: any;
   admissionClasses : StudentClass[] =[];
-
-  studentFee : StudentFee = new StudentFee();
-
-
   studentFeeParams: StudentFeeParams[] = [];
-  itemResource = new DataTableResource(this.studentFeeParams);
-  items = [];
-  itemCount = 0;
+  studentPaymentHistory: StudentPaymentHistory[] = [];
+  
+  studentFeeItemResource = new DataTableResource(this.studentFeeParams);
+  studentFeeItems = [];
+  studentFeeItemCount = 0;
+
+  studentPaymentHistoryItemResource = new DataTableResource(this.studentPaymentHistory);
+  studentPaymentHistoryItems = [];
+  studentPaymentHistoryItemCount = 0;
+
+
   params = {offset: 0, limit: 10};
 
   payFeeAmount:String;
@@ -156,11 +159,10 @@ export class UpdateStudentComponent implements OnInit {
         }else{
           this.studentFeeParams = result.studentFeeParams;
           this.studentPaymentHistory = result.studentPaymentHistories;
+          this.resetStudentFeeAndPaymentGrid();
+
           this.ngProgress.done();
 
-          this.itemResource = new DataTableResource(this.studentFeeParams);
-          this.reloadItems(this.params);
-          this.itemResource.count().then(count => this.itemCount = count);
         }
       },
       error =>{
@@ -170,9 +172,15 @@ export class UpdateStudentComponent implements OnInit {
       });
   }
 
-  reloadItems(params) {
-      console.log("reload");
-      this.itemResource.query(params).then(items => this.items = items);
+  reloadStudentFeeItems(params) {
+      console.log("reload  --> reloadStudentFeeItems");
+      this.studentFeeItemResource.query(params).then(items => this.studentFeeItems = items);
+  }
+
+  reloadStudentPaymentHistoryItems(params) {
+    console.log("reload --> reloadStudentPaymentHistoryItems");
+    this.studentPaymentHistoryItemResource.query(params).then(items => this.studentPaymentHistoryItems = items);
+    
   }
 
   // special properties:
@@ -206,6 +214,11 @@ export class UpdateStudentComponent implements OnInit {
         //this.students = result;
         console.log(result);
         this.studentFee = result;
+        this.studentFeeParams= result.studentFeeParams;
+        this.studentPaymentHistory = result.studentPaymentHistories;
+
+        this.resetStudentFeeAndPaymentGrid();
+
         this.ngProgress.done();
         this.notif.success("Success", "Amount has been paid successfully.");
       },
@@ -215,6 +228,19 @@ export class UpdateStudentComponent implements OnInit {
           this.notif.error("Failure", "While doing payment, please try again.");
         }
       );
+
+  }
+
+  resetStudentFeeAndPaymentGrid()
+  {
+
+    this.studentFeeItemResource = new DataTableResource(this.studentFeeParams);
+    this.reloadStudentFeeItems(this.params);
+    this.studentFeeItemResource.count().then(count => this.studentFeeItemCount = count);
+
+    this.studentPaymentHistoryItemResource = new DataTableResource(this.studentPaymentHistory);
+    this.reloadStudentPaymentHistoryItems(this.params);
+    this.studentPaymentHistoryItemResource.count().then(count => this.studentPaymentHistoryItemCount = count);
 
   }
 

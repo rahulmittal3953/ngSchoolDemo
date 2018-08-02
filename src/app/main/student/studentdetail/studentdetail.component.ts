@@ -29,8 +29,11 @@ export class StudentDetailComponent implements OnInit{
   studentFeeParams: StudentFeeParams[] = [];
   studentPaymentHistories: StudentPaymentHistory[] = [];
   itemResource = new DataTableResource(this.studentFeeParams);
+  itemResourcePayment = new DataTableResource(this.studentPaymentHistories);
   items = [];
   itemCount = 0;
+  itemsPayment = [];
+  itemCountPayment = 0;
   params = {offset: 0, limit: 10};
   
   constructor(
@@ -157,21 +160,27 @@ export class StudentDetailComponent implements OnInit{
         }else{
           this.studentPaymentHistories = result.studentPaymentHistories;
           this.ngProgress.done();
-          this.itemResource = new DataTableResource(this.studentPaymentHistories);
-          this.reloadItems(this.params);
-          this.itemResource.count().then(count => this.itemCount = count);
+          this.itemResourcePayment = new DataTableResource(this.studentPaymentHistories);
+          this.reloadItemsPayment(this.params);
+          this.itemResourcePayment.count().then(count => this.itemCountPayment = count);
         }
       },
       error =>{
         console.log(error);
         this.ngProgress.done();
-        this.notif.error("Failure", "While fetching Student Fee details, please try again.");
+        this.notif.error("Failure", "While fetching Student Payment details, please try again.");
       });
   }
 
   reloadItems(params) {
     console.log("reload");
     this.itemResource.query(params).then(items => this.items = items);
+    this.itemResourcePayment.query(params).then(itemsPayment => this.itemsPayment = itemsPayment);
+}
+
+reloadItemsPayment(params) {
+    console.log("reload Payment");
+    this.itemResourcePayment.query(params).then(itemsPayment => this.itemsPayment = itemsPayment);
 }
 
 // special properties:

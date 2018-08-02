@@ -101,7 +101,7 @@ export class StudentService {
 
   }
 
-  getStudentPayment(studentId: any): Observable<StudentPaymentHistory> {
+  getStudentPayment(studentId: any): Observable<StudentFee> {
     let headers = new Headers({
       'Content-Type': 'application/json'
     });

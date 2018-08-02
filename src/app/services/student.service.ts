@@ -101,6 +101,19 @@ export class StudentService {
 
   }
 
+  getStudentPayment(studentId: any): Observable<StudentPaymentHistory> {
+    let headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+    let options = new RequestOptions({ headers: headers });
+  
+      // get users from api
+      return this.http
+        .get(this.apiURl +"/api/studentfees/"+studentId+"/payment", options)
+        .map((response: Response) => response.json());
+
+  }
+
 
   addStudentPayment(payStudentFee: PayStudentFee): Observable<StudentFee> {
     console.log("we are in the service at addStudent method" + PayStudentFee);

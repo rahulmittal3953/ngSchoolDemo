@@ -150,9 +150,9 @@ export class StudentDetailComponent implements OnInit{
         //console.log("=====PaymentService Start======");
         // console.log(result);
          //console.log("=====PaymentService End======");
-        this.studentFee = (result.studentFeeId) ?  result : null;
+        this.studentPaymentHistories = (result.studentPaymentHistories) ?  result : null;
 
-        if(!this.studentFee){
+        if(!this.studentPaymentHistories){
           this.notif.info("Information", "There are no Student Payment details in the System.");
         }else{
           this.studentPaymentHistories = result.studentPaymentHistories;

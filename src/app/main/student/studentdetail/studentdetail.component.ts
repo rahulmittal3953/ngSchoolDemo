@@ -27,6 +27,7 @@ export class StudentDetailComponent implements OnInit{
   studentFee : StudentFee = new StudentFee();
 
   studentFeeParams: StudentFeeParams[] = [];
+  studentPaymentHistories: StudentPaymentHistory[] = [];
   itemResource = new DataTableResource(this.studentFeeParams);
   items = [];
   itemCount = 0;
@@ -59,6 +60,7 @@ export class StudentDetailComponent implements OnInit{
         if(result){
           this.student = result;
           this.getStudentFee();
+          this.getStudentPayment();
         } else{
           this.notif.info("Information", "No such record not found in the system, please try again.");
         }
@@ -74,6 +76,7 @@ export class StudentDetailComponent implements OnInit{
     //this.notif.info("Good News", "Student detail is loaded successfuly.");
     this.ngProgress.done();
     this.getStudentFee();
+    this.getStudentPayment();
    }
   }
   
@@ -127,6 +130,34 @@ export class StudentDetailComponent implements OnInit{
           this.studentFeeParams = result.studentFeeParams;
           this.ngProgress.done();
           this.itemResource = new DataTableResource(this.studentFeeParams);
+          this.reloadItems(this.params);
+          this.itemResource.count().then(count => this.itemCount = count);
+        }
+      },
+      error =>{
+        console.log(error);
+        this.ngProgress.done();
+        this.notif.error("Failure", "While fetching Student Fee details, please try again.");
+      });
+  }
+
+  getStudentPayment(){
+    console.log("call Student service for student Payment");
+    this.ngProgress.start();
+    this.studentService
+      .getStudentPayment(this.index)
+      .subscribe(result => {
+        //console.log("=====PaymentService Start======");
+        // console.log(result);
+         //console.log("=====PaymentService End======");
+        this.studentFee = (result.studentFeeId) ?  result : null;
+
+        if(!this.studentFee){
+          this.notif.info("Information", "There are no Student Payment details in the System.");
+        }else{
+          this.studentPaymentHistories = result.studentPaymentHistories;
+          this.ngProgress.done();
+          this.itemResource = new DataTableResource(this.studentPaymentHistories);
           this.reloadItems(this.params);
           this.itemResource.count().then(count => this.itemCount = count);
         }

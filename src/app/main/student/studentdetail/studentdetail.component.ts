@@ -16,7 +16,7 @@ import { StudentFeeParams } from "../../../models/studentfeeparams";
 import { FeeTypeService } from "../../../services/feetype.service";
 import {StudentPaymentHistory } from "../../../models/studentpaymenthistory";
 import { PayStudentFee } from "../../../models/paystudentfee";
-import { StudentFine } from "../../../models/StudentFine";
+import { StudentFine } from "../../../models/studentfine";
 
 
 @Component({

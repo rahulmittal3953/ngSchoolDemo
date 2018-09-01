@@ -54,12 +54,18 @@
 		[header]="'Start Date'"
 		[sortable]="true"
 		[resizable]="true">
+		<ng-template #dataTableCell let-item="item">
+			{{item.startDate | date :'dd/MM/yyyy'}}
+		</ng-template>
 	</data-table-column>
 	<data-table-column
 		[property]="'endDate'"
 		[header]="'End Date'"
 		[sortable]="true"
 		[resizable]="true">
+		<ng-template #dataTableCell let-item="item">
+			{{item.endDate | date :'dd/MM/yyyy'}}
+		</ng-template>
 	</data-table-column>
 	<data-table-column
 		[property]="'active'"

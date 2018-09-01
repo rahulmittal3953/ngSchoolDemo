@@ -8,7 +8,7 @@ import { AuthenticationService } from '../../services/authentication.service';
   templateUrl: "./header.component.html"
 })
 export class HeaderComponent  implements OnInit{
-  appTitle = "Admin Console";
+  appTitle = "Student Fee System";
   userfullname :any;
 
   constructor(

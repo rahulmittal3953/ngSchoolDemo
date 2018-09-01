@@ -9,6 +9,7 @@ import { StudentFee } from "../models/studentfee";
 import { serviceBaseURL } from "../models/baseurls";
 import { PayStudentFee } from "../models/paystudentfee";
 import { StudentPaymentHistory } from "../models/studentpaymenthistory";
+import { StudentFine } from "../models/StudentFine";
 
 @Injectable()
 export class StudentService {
@@ -129,6 +130,26 @@ export class StudentService {
       .post(
         this.apiURl + "/api/studentfees/" + payStudentFee.studentFee.studentFeeId + "/payment",
         JSON.stringify(payStudentFee),
+        options
+      ).map((response: Response) => {
+        // login successful if there's a jwt token in the response
+        return response.json();
+      })
+  }
+
+  addStudentFine(studentFine: StudentFine): Observable<StudentFee> {
+    console.log("we are in the service at Add Fine method" + studentFine);
+    console.log(JSON.stringify(studentFine));
+
+    let headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http
+      .post(
+        this.apiURl + "/api/studentfees/" + studentFine.studentFee.studentFeeId + "/addfine",
+        JSON.stringify(studentFine),
         options
       ).map((response: Response) => {
         // login successful if there's a jwt token in the response

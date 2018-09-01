@@ -16,6 +16,7 @@ import { StudentFeeParams } from "../../../models/studentfeeparams";
 import { FeeTypeService } from "../../../services/feetype.service";
 import {StudentPaymentHistory } from "../../../models/studentpaymenthistory";
 import { PayStudentFee } from "../../../models/paystudentfee";
+import { StudentFine } from "../../../models/StudentFine";
 
 
 @Component({
@@ -25,6 +26,7 @@ export class StudentDetailComponent implements OnInit{
   
   student: Student = new Student();
   payStudentFee : PayStudentFee = new PayStudentFee();
+  studentFine : StudentFine = new StudentFine();
   studentFee : StudentFee = new StudentFee();
   
   index: any;
@@ -45,6 +47,9 @@ export class StudentDetailComponent implements OnInit{
 
   payFeeAmount:String;
   payFeeComments:String;
+
+  fineAmount:String;
+  fineComments:String;
   
   constructor(
       private studentService: StudentService, 
@@ -211,6 +216,40 @@ export class StudentDetailComponent implements OnInit{
         }
       );
 
+  }
+
+  
+  addFine(studentFee: StudentFee) 
+  {
+    //alert(this.fineAmount + "==" + this.fineComments);
+
+    this.studentFine.fineAmount = this.fineAmount;
+    this.studentFine.fineComments = this.fineComments;
+    this.studentFine.studentFee = studentFee;
+
+    console.log(this.studentFine);
+
+    this.ngProgress.start();
+    window.scroll(0, 0);
+    this.studentService
+      .addStudentFine(this.studentFine)
+      .subscribe(result => {
+        //this.students = result;
+        console.log(result);
+        this.studentFee = result;
+        this.studentFeeParams= result.studentFeeParams;
+
+        this.resetStudentFeeAndPaymentGrid();
+
+        this.ngProgress.done();
+        this.notif.success("Success", "Fine has been added successfully.");
+      },
+        error => {
+          console.log(error);
+          this.ngProgress.done();
+          this.notif.error("Failure", "While doing Fine, please try again.");
+        }
+      );
   }
 
   resetStudentFeeAndPaymentGrid()

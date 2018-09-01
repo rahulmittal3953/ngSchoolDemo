@@ -1,24 +1,22 @@
 <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
-	<a class="navbar-brand mr-0 mr-md-2" href="#">
-		<img src="assets/img/bootstrap-stack.png" width="40">
-		
+	<a class="navbar-brand mr-0 mr-md-2" [routerLink]="['/app/dashboard']">
+		<img src="assets/img/cup.png" width="42">
+		{{appTitle}}
 	</a>
 	
-	<h5 class="my-0 mr-md-auto font-weight-normal pl-md-3 text-white"> {{appTitle}}</h5>
-
 	<ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex pr-3">
-		<li class="nav-item">
+		<!-- <li class="nav-item">
 			<a class="nav-item nav-link" href="/app/notifications"><i class="fa fa-bell"></i></a>
-		</li>
+		</li> -->
 		<li class="nav-item dropdown">
 			<a class="nav-item nav-link dropdown-toggle mr-md-2" href="https://getbootstrap.com/docs/4.0/components/navbar/#" id="bd-versions"
 			 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				{{userfullname}}
 			</a>
 			<div class="dropdown-menu dropdown-menu-right" aria-labelledby="bd-versions">
-				<a class="dropdown-item" href="#">Profile</a>
-				<div class="dropdown-divider"></div>
-				<a class="dropdown-item" href="#">Change Password</a>
+					<!-- <a class="dropdown-item" href="#">Profile</a>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="#">Change Password</a> -->
 				<a class="dropdown-item"[routerLink]="" (click)="logout()">Logout</a>
 			</div>
 		</li>

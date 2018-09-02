@@ -1,5 +1,4 @@
 import { StudentClass } from "./studentclass";
-import { StudentFeeWaiver } from "./studentfeewaiver";
 import { StudentFee } from "./studentfee";
 
 export class Student {
@@ -27,6 +26,5 @@ export class Student {
     cellno?: string ;
     emailaddress?: string ;
     studentClass?:StudentClass;
-    studenFeeWaivers?:StudentFeeWaiver;
     studentFee?: StudentFee;
 }

@@ -9,7 +9,8 @@ import { StudentFee } from "../models/studentfee";
 import { serviceBaseURL } from "../models/baseurls";
 import { PayStudentFee } from "../models/paystudentfee";
 import { StudentPaymentHistory } from "../models/studentpaymenthistory";
-import { StudentFine } from "../models/StudentFine";
+import { StudentFine } from "../models/studentfine";
+import { StudentWaiver } from "../models/studentwaiver";
 
 @Injectable()
 export class StudentService {
@@ -157,4 +158,23 @@ export class StudentService {
       })
   }
 
+  addStudentWaiver(studentWaiver: StudentWaiver): Observable<StudentFee> {
+    console.log("we are in the service at addwaiver method" + StudentWaiver);
+    console.log(JSON.stringify(studentWaiver));
+
+    let headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http
+      .post(
+        this.apiURl + "/api/studentfees/" + studentWaiver.studentFee.studentFeeId + "/addwaiver",
+        JSON.stringify(studentWaiver),
+        options
+      ).map((response: Response) => {
+        // login successful if there's a jwt token in the response
+        return response.json();
+      })
+  }
 }

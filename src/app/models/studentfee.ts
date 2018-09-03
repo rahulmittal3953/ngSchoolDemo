@@ -3,6 +3,7 @@ import { Student } from "./student";
 import { StudentFeeParams } from "./studentfeeparams";
 import { StudentClass } from "./studentclass";
 import { StudentPaymentHistory } from "./studentpaymenthistory";
+import { StudentFeeWaiverHistory } from "./studentfeewaiverhistory";
 
 export class StudentFee{
     studentFeeId?: String;
@@ -16,5 +17,6 @@ export class StudentFee{
     studentPaidFeeAmt?:number;
     studentBalanceFeeAmt?:number;
     studentFeeParams : StudentFeeParams[];
-    studentPaymentHistories: StudentPaymentHistory[];
+    studentPaymentHistories?: StudentPaymentHistory[];
+    studentFeeWaiverHistories?: StudentFeeWaiverHistory[];
 }

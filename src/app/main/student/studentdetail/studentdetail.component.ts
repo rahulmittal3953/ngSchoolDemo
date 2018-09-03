@@ -156,7 +156,7 @@ export class StudentDetailComponent implements OnInit{
         }else{
           this.studentFeeParams = result.studentFeeParams;
           this.studentPaymentHistory = result.studentPaymentHistories;
-          this.studentFeeWaiverHistory = result.studentPaymentHistories;
+          this.studentFeeWaiverHistory = result.studentFeeWaiverHistories;
           console.log(result);
           this.resetStudentFeeAndPaymentGrid();
 
@@ -241,7 +241,7 @@ export class StudentDetailComponent implements OnInit{
     this.studentWaiver.waiverName = this.waiverName;
     this.studentWaiver.waiverAmount = this.waiverAmount;
     this.studentWaiver.waiverComments = this.waiverComments;
-    this.studentWaiver.studentFee = this.studentFee;
+    this.studentWaiver.studentFee = studentFee;
 
     console.log(this.studentWaiver);
 
@@ -252,6 +252,7 @@ export class StudentDetailComponent implements OnInit{
       .subscribe(result => {
         console.log(result);
         this.studentFee = result;
+        this.studentFeeWaiverHistory = result.studentFeeWaiverHistories;
         //this.studentFeeWaiverHistory = result.studentPaymentHistories;
         this.resetStudentFeeAndPaymentGrid();
 
@@ -310,6 +311,11 @@ export class StudentDetailComponent implements OnInit{
     this.studentPaymentHistoryItemResource = new DataTableResource(this.studentPaymentHistory);
     this.reloadStudentPaymentHistoryItems(this.params);
     this.studentPaymentHistoryItemResource.count().then(count => this.studentPaymentHistoryItemCount = count);
+
+
+    // this.studentFeeWaiverHistoryItemResource = new DataTableResource(this.studentFeeWaiverHistory);
+    // this.reloadStudentFeeWaiverHistoryItems(this.params);
+    // this.studentFeeWaiverHistoryItemResource.count().then(count => this.studentFeeWaiverHistoryItemCount = count);
 
   }
 

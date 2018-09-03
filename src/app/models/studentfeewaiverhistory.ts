@@ -2,7 +2,7 @@ import { StudentFee } from "./studentfee";
 
 export class StudentFeeWaiverHistory
 {
-    studentFeeWaiverId?: String;
+    studentFeeWaiverHistoryId?: String;
     studentFee?: StudentFee;
     waiverDate? : String;
     studentFeeWaiverAmt? : number;

@@ -31,6 +31,7 @@ export class StudentDetailComponent implements OnInit{
   studentWaiver : StudentWaiver = new StudentWaiver();
   studentFee : StudentFee = new StudentFee();
   
+  
   index: any;
   admissionClasses : StudentClass[] =[];
   studentFeeParams: StudentFeeParams[] = [];
@@ -156,18 +157,38 @@ export class StudentDetailComponent implements OnInit{
         }else{
           this.studentFeeParams = result.studentFeeParams;
           this.studentPaymentHistory = result.studentPaymentHistories;
-          this.studentFeeWaiverHistory = result.studentFeeWaiverHistories;
-          console.log(result);
+          
           this.resetStudentFeeAndPaymentGrid();
-
           this.ngProgress.done();
-
+          this.getWaiverDetails(result.studentFeeId);
         }
       },
       error =>{
         console.log(error);
         this.ngProgress.done();
         this.notif.error("Failure", "While fetching Student Fee details, please try again.");
+      });
+  }
+
+
+  getWaiverDetails(studentFeeId:any){
+    console.log("call getWaiverDetails for student Fee");
+    this.ngProgress.start();
+    this.studentService
+      .getWaiversFroStudentFee(studentFeeId)
+      .subscribe(result => {
+        this.studentFeeWaiverHistory = result.studentFeeWaiverHistory;
+
+        this.studentFeeWaiverHistoryItemResource = new DataTableResource(this.studentFeeWaiverHistory);
+        this.reloadStudentFeeWaiverHistoryItems(this.params);
+        this.studentFeeWaiverHistoryItemResource.count().then(count => this.studentFeeWaiverHistoryItemCount = count);
+
+        this.ngProgress.done();
+      },
+      error =>{
+        console.log(error);
+        this.ngProgress.done();
+        this.notif.error("Failure", "While fetching Waiver details, please try again.");
       });
   }
 
@@ -207,7 +228,7 @@ export class StudentDetailComponent implements OnInit{
     //console.log(payStudentFee);
     this.payStudentFee.paymentAmount = this.payFeeAmount;
     this.payStudentFee.paymentComments = this.payFeeComments;
-    this.payStudentFee.studentFee = studentFee;
+    this.payStudentFee.studentFee = this.studentFee;
 
     console.log(this.payStudentFee);
 
@@ -241,7 +262,7 @@ export class StudentDetailComponent implements OnInit{
     this.studentWaiver.waiverName = this.waiverName;
     this.studentWaiver.waiverAmount = this.waiverAmount;
     this.studentWaiver.waiverComments = this.waiverComments;
-    this.studentWaiver.studentFee = studentFee;
+    this.studentWaiver.studentFee = this.studentFee;
 
     console.log(this.studentWaiver);
 
@@ -252,12 +273,11 @@ export class StudentDetailComponent implements OnInit{
       .subscribe(result => {
         console.log(result);
         this.studentFee = result;
-        this.studentFeeWaiverHistory = result.studentFeeWaiverHistories;
-        //this.studentFeeWaiverHistory = result.studentPaymentHistories;
         this.resetStudentFeeAndPaymentGrid();
 
         this.ngProgress.done();
         this.notif.success("Success", "Waiver has been added successfully.");
+        this.getWaiverDetails(this.studentFee.studentFeeId);
       },
         error => {
           console.log(error);
@@ -274,7 +294,7 @@ export class StudentDetailComponent implements OnInit{
 
     this.studentFine.fineAmount = this.fineAmount;
     this.studentFine.fineComments = this.fineComments;
-    this.studentFine.studentFee = studentFee;
+    this.studentFine.studentFee = this.studentFee;
 
     console.log(this.studentFine);
 
@@ -311,13 +331,6 @@ export class StudentDetailComponent implements OnInit{
     this.studentPaymentHistoryItemResource = new DataTableResource(this.studentPaymentHistory);
     this.reloadStudentPaymentHistoryItems(this.params);
     this.studentPaymentHistoryItemResource.count().then(count => this.studentPaymentHistoryItemCount = count);
-
-
-    // this.studentFeeWaiverHistoryItemResource = new DataTableResource(this.studentFeeWaiverHistory);
-    // this.reloadStudentFeeWaiverHistoryItems(this.params);
-    // this.studentFeeWaiverHistoryItemResource.count().then(count => this.studentFeeWaiverHistoryItemCount = count);
-
   }
 
 }
-  

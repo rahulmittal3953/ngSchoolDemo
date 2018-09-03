@@ -11,6 +11,7 @@ import { PayStudentFee } from "../models/paystudentfee";
 import { StudentPaymentHistory } from "../models/studentpaymenthistory";
 import { StudentFine } from "../models/studentfine";
 import { StudentWaiver } from "../models/studentwaiver";
+import { StudentFeeWaiverHistories } from "../models/studentfeewaiverhistories";
 
 @Injectable()
 export class StudentService {
@@ -104,6 +105,19 @@ export class StudentService {
 
   }
 
+   getWaiversFroStudentFee(studentFeeId: any): Observable<StudentFeeWaiverHistories> {
+    let headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+    let options = new RequestOptions({ headers: headers });
+  
+      // get users from api
+      return this.http
+        .get(this.apiURl +"/api/studentfees/"+studentFeeId + "/waiver", options)
+        .map((response: Response) => response.json());
+
+  }
+
   getStudentPayment(studentId: any): Observable<StudentFee> {
     let headers = new Headers({
       'Content-Type': 'application/json'
@@ -159,7 +173,7 @@ export class StudentService {
   }
 
   addStudentWaiver(studentWaiver: StudentWaiver): Observable<StudentFee> {
-    console.log("we are in the service at addwaiver method" + StudentWaiver);
+    console.log("we are in the service at addwaiver method" + studentWaiver);
     console.log(JSON.stringify(studentWaiver));
 
     let headers = new Headers({

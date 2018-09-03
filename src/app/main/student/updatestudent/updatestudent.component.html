@@ -167,16 +167,16 @@
 							</div>
 						</div>
 						<div class="col-xl-3 col-sm-6">
-							<div class="card text-white bg-success o-hidden p-2">
-									<div class="">
-											Fee Paid : 
-											<span class="pull-right" *ngIf="studentFee">
-												<i class="fa fa-inr"></i> {{studentFee.studentPaidFeeAmt || 0}}
-											</span>
-											<span class="pull-right" *ngIf="!studentFee">
-												<i class="fa fa-inr"></i> 0
-											</span>
-									</div>
+							<div class="card text-white bg-warning o-hidden p-2">
+								<div class="">
+									Waiver Amount : 
+									<span class="pull-right" *ngIf="studentFee">
+										<i class="fa fa-inr"></i> {{studentFee.studentWaiverFeeAmt || 0}}
+									</span>
+									<span class="pull-right" *ngIf="!studentFee">
+											<i class="fa fa-inr"></i> 0
+									</span>
+								</div>
 							</div>
 						</div>
 						<div class="col-xl-3 col-sm-6">
@@ -192,6 +192,19 @@
 									</div>
 							</div>
 						</div>
+						<div class="col-xl-3 col-sm-6">
+							<div class="card text-white bg-success o-hidden p-2">
+									<div class="">
+											Fee Paid : 
+											<span class="pull-right" *ngIf="studentFee">
+												<i class="fa fa-inr"></i> {{studentFee.studentPaidFeeAmt || 0}}
+											</span>
+											<span class="pull-right" *ngIf="!studentFee">
+												<i class="fa fa-inr"></i> 0
+											</span>
+									</div>
+							</div>
+						</div>
 						
 					</div>
 					<div class="row">
@@ -199,63 +212,97 @@
 									<div class="">
 										<div class="">
 											<button class="btn btn-bd-primary" data-toggle="modal" data-target="#fineModal">Add Fee/ Fine</button>
-											<button class="btn btn-outline-success" data-toggle="modal" data-target="#paymentModal">Pay Fee</button>
-											<button class="btn btn-outline-danger">Add Discount</button>
+											<button class="btn btn-outline-success" data-toggle="modal" data-target="#paymentModal">Add Payment</button>
+											<button class="btn btn-outline-danger"  data-toggle="modal" data-target="#waiverModal">Add Waiver</button>
 										</div>
 									</div>
 							</div>
 							
 					</div>
-			<div class="table-responsive">
-					<data-table id="persons-grid" class="table table-sm"
-							headerTitle="Student Fee"
-							[limit]="10"
-							[items]="studentFeeItems"
-							[itemCount]="studentFeeItemCount"
-							(reload)="reloadStudentFeeItems($event)"
-							[pagination] = "true"
-							[rowTooltip]="rowTooltip"
-							[indexColumn] = "true"
-							[substituteRows]="false"
-							
-							>
-							<data-table-column
-								[property]="'name'"
-								[header]="'Fee'"
-								[resizable]="true">
-							</data-table-column>
-							<data-table-column
-								[property]="'paramType'"
-								[header]="'Frequency'"
-								[resizable]="true">
-								<ng-template #dataTableCell let-item="item">
-									{{feeTypeService.displayFrequency(item.paramType)}}
-								</ng-template>
-							</data-table-column>
-							<data-table-column
-								[property]="'value'"
-								[header]="'Amount'"
-								[resizable]="true">
-								<ng-template #dataTableCell let-item="item">
-										<i class="fa fa-inr"></i> {{item.value}}
-									</ng-template>
-							</data-table-column>
-							<!-- <data-table-column
-								[property]="'active'"
-								[header]="'Actions'"
-								[resizable]="true">
-								<ng-template #dataTableCell let-item="item">
-									<button class="btn btn-success btn-sm text-white" title="Pay Fee">
-										<i class="fa fa-inr"></i> Pay
-									</button>
-								</ng-template>
-							</data-table-column> -->
-							
-						</data-table>
-					</div>
+					
+						<div>
+							<div class="table-responsive">
+							<data-table id="persons-grid" class="table table-sm"
+									headerTitle="Student Fee"
+									[limit]="10"
+									[items]="studentFeeItems"
+									[itemCount]="studentFeeItemCount"
+									(reload)="reloadStudentFeeItems($event)"
+									[pagination] = "true"
+									[rowTooltip]="rowTooltip"
+									[indexColumn] = "true"
+									[substituteRows]="false"
+									
+									>
+									<data-table-column
+										[property]="'name'"
+										[header]="'Fee'"
+										[resizable]="true">
+									</data-table-column>
+									<data-table-column
+										[property]="'paramType'"
+										[header]="'Frequency'"
+										[resizable]="true">
+										<ng-template #dataTableCell let-item="item">
+											{{feeTypeService.displayFrequency(item.paramType)}}
+										</ng-template>
+									</data-table-column>
+									<data-table-column
+										[property]="'value'"
+										[header]="'Amount'"
+										[resizable]="true">
+										<ng-template #dataTableCell let-item="item">
+												<i class="fa fa-inr"></i> {{item.value}}
+											</ng-template>
+									</data-table-column>
+									<!-- <data-table-column
+										[property]="'active'"
+										[header]="'Actions'"
+										[resizable]="true">
+										<ng-template #dataTableCell let-item="item">
+											<button class="btn btn-success btn-sm text-white" title="Pay Fee">
+												<i class="fa fa-inr"></i> Pay
+											</button>
+										</ng-template>
+									</data-table-column> -->	
+							</data-table>
+							</div>
+						</div>
+						<div class="mt-4 mb-4">
+							<div class="table-responsive">
+							<data-table id="persons-grid" class="table table-sm"
+									headerTitle="Student Waiver"
+									[limit]="10"
+									[items]="studentFeeWaiverHistoryItems"
+									[itemCount]="studentFeeWaiverHistoryItemCount"
+									(reload)="reloadStudentFeeWaiverHistoryItems($event)"
+									[pagination] = "true"
+									[rowTooltip]="rowTooltip"
+									[indexColumn] = "true"
+									[substituteRows]="false"
+									
+									>
+									<data-table-column
+										[property]="'studentFeeWaiverCmt'"
+										[header]="'Waiver Comment'"
+										[resizable]="true">
+									</data-table-column>
+									
+									<data-table-column
+										[property]="'studentFeeWaiverAmt'"
+										[header]="'Waiver Amount'"
+										[resizable]="true">
+										<ng-template #dataTableCell let-item="item">
+												<i class="fa fa-inr"></i> {{item.studentFeeWaiverAmt}}
+											</ng-template>
+									</data-table-column>	
+							</data-table>
+							</div>
+						</div>
+					
 		</div>
 		<div class="tab-pane fade mb-5" id="paymentinfo" role="tabpanel" aria-labelledby="paymentinfo-tab">
-			<button class="btn btn-outline-success" data-toggle="modal" data-target="#paymentModal">Add Payment</button>
+				<button class="btn btn-outline-success" data-toggle="modal" data-target="#paymentModal">Add Payment</button>
 			<br/>
 			<div class="table-responsive">
 					<data-table id="payments-grid" class="table table-sm"
@@ -357,6 +404,44 @@
 								<label class="col-sm-12 col-form-label">Fee/ Fine Comments</label>
 								<div class="col-sm-12">
 									 <input type="text" class="form-control"   name="fineComments" [(ngModel)]="fineComments" #fineCommentsTxt="ngModel" required [ngClass]="{'has-error': fineForm.submitted && !fineCommentsTxt.valid}">
+								</div>
+							</div>
+					</div>
+					<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Save changes</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="waiverModal" tabindex="-1" role="dialog" aria-labelledby="waiverModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<form (ngSubmit)="waiverFeeForm.form.valid && addWaiver(studentFee);" #waiverFeeForm="ngForm" novalidate>
+					<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Add Waiver</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+								<div class="col-md-12 alert alert-danger" role="alert" *ngIf="(waiverFeeForm.submitted && !waiverFeeForm.valid)">
+										Please fill in the highlighted fields.
+								</div>
+								<label class="col-sm-12 col-form-label">Name</label>
+								<div class="col-sm-12">
+									<input type="text" class="form-control" name="waiverName" [(ngModel)]="waiverName" #waiverNameTxt="ngModel" required [ngClass]="{'has-error': waiverFeeForm.submitted && !waiverNameTxt.valid}">
+								</div>
+								<label class="col-sm-12 col-form-label">Amount</label>
+								<div class="col-sm-12">
+									<input type="text" class="form-control"  mask='0000000000' name="waiverAmount" [(ngModel)]="waiverAmount" #waiverAmountTxt="ngModel" required [ngClass]="{'has-error': waiverFeeForm.submitted && !waiverAmountTxt.valid}">
+								</div>
+								<label class="col-sm-12 col-form-label">Comments</label>
+								<div class="col-sm-12">
+									 <input type="text" class="form-control"   name="waiverComments" [(ngModel)]="waiverComments" #waiverCommentsTxt="ngModel" required [ngClass]="{'has-error': waiverFeeForm.submitted && !waiverCommentsTxt.valid}">
 								</div>
 							</div>
 					</div>

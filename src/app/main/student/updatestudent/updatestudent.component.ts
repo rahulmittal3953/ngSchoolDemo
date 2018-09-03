@@ -17,7 +17,8 @@ import { FeeTypeService } from "../../../services/feetype.service";
 import { PayStudentFee } from "../../../models/paystudentfee";
 import { StudentFine } from "../../../models/studentfine";
 import { StudentPaymentHistory } from "../../../models/studentpaymenthistory";
-
+import { StudentWaiver } from "../../../models/studentwaiver";
+import {StudentFeeWaiverHistory } from "../../../models/studentfeewaiverhistory";
 
 @Component({
   templateUrl: "./updatestudent.component.html"
@@ -27,13 +28,15 @@ export class UpdateStudentComponent implements OnInit {
   student: Student = new Student();
   payStudentFee : PayStudentFee = new PayStudentFee();
   studentFine : StudentFine = new StudentFine();
+  studentWaiver : StudentWaiver = new StudentWaiver();
   studentFee : StudentFee = new StudentFee();
   
   index: any;
   admissionClasses : StudentClass[] =[];
   studentFeeParams: StudentFeeParams[] = [];
   studentPaymentHistory: StudentPaymentHistory[] = [];
-  
+  studentFeeWaiverHistory: StudentFeeWaiverHistory[] = [];
+
   studentFeeItemResource = new DataTableResource(this.studentFeeParams);
   studentFeeItems = [];
   studentFeeItemCount = 0;
@@ -42,6 +45,9 @@ export class UpdateStudentComponent implements OnInit {
   studentPaymentHistoryItems = [];
   studentPaymentHistoryItemCount = 0;
 
+  studentFeeWaiverHistoryItemResource = new DataTableResource(this.studentFeeWaiverHistory);
+  studentFeeWaiverHistoryItems = [];
+  studentFeeWaiverHistoryItemCount = 0;
 
   params = {offset: 0, limit: 10};
 
@@ -50,6 +56,11 @@ export class UpdateStudentComponent implements OnInit {
   
   fineAmount:String;
   fineComments:String;
+  
+  waiverName:String;
+  waiverAmount:String;
+  waiverComments:String;
+ 
 
   constructor(
     private studentService: StudentService,
@@ -167,7 +178,7 @@ export class UpdateStudentComponent implements OnInit {
           this.resetStudentFeeAndPaymentGrid();
 
           this.ngProgress.done();
-
+          this.getWaiverDetails(result.studentFeeId);
         }
       },
       error =>{
@@ -177,6 +188,29 @@ export class UpdateStudentComponent implements OnInit {
       });
   }
 
+
+  getWaiverDetails(studentFeeId:any){
+    console.log("call getWaiverDetails for student Fee");
+    this.ngProgress.start();
+    this.studentService
+      .getWaiversFroStudentFee(studentFeeId)
+      .subscribe(result => {
+        this.studentFeeWaiverHistory = result.studentFeeWaiverHistory;
+
+        this.studentFeeWaiverHistoryItemResource = new DataTableResource(this.studentFeeWaiverHistory);
+        this.reloadStudentFeeWaiverHistoryItems(this.params);
+        this.studentFeeWaiverHistoryItemResource.count().then(count => this.studentFeeWaiverHistoryItemCount = count);
+
+        this.ngProgress.done();
+      },
+      error =>{
+        console.log(error);
+        this.ngProgress.done();
+        this.notif.error("Failure", "While fetching Waiver details, please try again.");
+      });
+  }
+
+
   reloadStudentFeeItems(params) {
       console.log("reload  --> reloadStudentFeeItems");
       this.studentFeeItemResource.query(params).then(items => this.studentFeeItems = items);
@@ -185,7 +219,11 @@ export class UpdateStudentComponent implements OnInit {
   reloadStudentPaymentHistoryItems(params) {
     console.log("reload --> reloadStudentPaymentHistoryItems");
     this.studentPaymentHistoryItemResource.query(params).then(items => this.studentPaymentHistoryItems = items);
-    
+  }
+
+  reloadStudentFeeWaiverHistoryItems(params) {
+    console.log("reload --> reloadStudentFeeWaiverHistoryItems");
+    this.studentFeeWaiverHistoryItemResource.query(params).then(items => this.studentFeeWaiverHistoryItems = items);
   }
 
   // special properties:
@@ -207,7 +245,7 @@ export class UpdateStudentComponent implements OnInit {
     //console.log(payStudentFee);
     this.payStudentFee.paymentAmount = this.payFeeAmount;
     this.payStudentFee.paymentComments = this.payFeeComments;
-    this.payStudentFee.studentFee = studentFee;
+    this.payStudentFee.studentFee = this.studentFee;
 
     console.log(this.payStudentFee);
 
@@ -236,13 +274,44 @@ export class UpdateStudentComponent implements OnInit {
 
   }
 
+  addWaiver(studentFee : StudentFee) {
+    
+    this.studentWaiver.waiverName = this.waiverName;
+    this.studentWaiver.waiverAmount = this.waiverAmount;
+    this.studentWaiver.waiverComments = this.waiverComments;
+    this.studentWaiver.studentFee = this.studentFee;
+
+    console.log(this.studentWaiver);
+
+    this.ngProgress.start();
+    window.scroll(0, 0);
+    this.studentService
+      .addStudentWaiver(this.studentWaiver)
+      .subscribe(result => {
+        console.log(result);
+        this.studentFee = result;
+        this.resetStudentFeeAndPaymentGrid();
+
+        this.ngProgress.done();
+        this.notif.success("Success", "Waiver has been added successfully.");
+        this.getWaiverDetails(this.studentFee.studentFeeId);
+      },
+        error => {
+          console.log(error);
+          this.ngProgress.done();
+          this.notif.error("Failure", "While adding waiver, please try again.");
+        }
+      );
+
+  }
+  
   addFine(studentFee: StudentFee) 
   {
     //alert(this.fineAmount + "==" + this.fineComments);
 
     this.studentFine.fineAmount = this.fineAmount;
     this.studentFine.fineComments = this.fineComments;
-    this.studentFine.studentFee = studentFee;
+    this.studentFine.studentFee = this.studentFee;
 
     console.log(this.studentFine);
 

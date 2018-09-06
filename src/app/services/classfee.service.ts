@@ -36,7 +36,14 @@ export class ClassFeeService {
 
   addClassFee(classFee: ClassFee): Observable<ClassFee> {
     console.log("we are in the service at studentClass method" + classFee);
-    console.log(JSON.stringify(classFee));
+    //console.log(JSON.stringify(classFee));
+      function formatDateString(dateobj : String) {
+        if(dateobj.length >=8){
+          return dateobj.substring(0,4) + '-'+dateobj.substring(4,6)+ '-'+dateobj.substring(6,8);
+        }   
+      }
+    classFee.startDate = new Date(formatDateString(classFee.startDate));
+    classFee.endDate = new Date(formatDateString(classFee.endDate));
 
     let headers = new Headers({
       'Content-Type': 'application/json'
@@ -69,8 +76,15 @@ export class ClassFeeService {
 
   updateClassFee(classFee: ClassFee): Observable<ClassFee> {
     console.log("we are in the service at studentClass method" + classFee);
-    console.log(JSON.stringify(classFee));
-
+    //console.log(JSON.stringify(classFee));
+      function formatDateString(dateobj : String) {
+        if(dateobj.length >=8){
+          return dateobj.substring(0,4) + '-'+dateobj.substring(4,6)+ '-'+dateobj.substring(6,8);
+        }   
+      }
+    classFee.startDate = new Date(formatDateString(classFee.startDate));
+    classFee.endDate = new Date(formatDateString(classFee.endDate));
+    
     let headers = new Headers({
       'Content-Type': 'application/json'
     });

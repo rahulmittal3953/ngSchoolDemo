@@ -55,7 +55,7 @@
 		[sortable]="true"
 		[resizable]="true">
 		<ng-template #dataTableCell let-item="item">
-			{{item.startDate | date :'dd/MM/yyyy'}}
+			{{item.startDate | date :'yyyy-MM-dd'}}
 		</ng-template>
 	</data-table-column>
 	<data-table-column
@@ -64,7 +64,7 @@
 		[sortable]="true"
 		[resizable]="true">
 		<ng-template #dataTableCell let-item="item">
-			{{item.endDate | date :'dd/MM/yyyy'}}
+			{{item.endDate | date :'yyyy-MM-dd'}}
 		</ng-template>
 	</data-table-column>
 	<data-table-column

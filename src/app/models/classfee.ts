@@ -4,7 +4,7 @@ export class ClassFee{
     classFeeId? : String;
     name? : String;
     description? : String;
-    startDate? : String;
-    endDate? : String;
+    startDate? : Date;
+    endDate? : Date;
     classFeeParams?: ClassFeeParams[];
 }

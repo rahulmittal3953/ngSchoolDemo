@@ -37,9 +37,20 @@ export class StudentService {
 
   }
 
+
+
   addStudent(student: Student): Observable<Student> {
     console.log("we are in the service at addStudent method" + student);
-    console.log(JSON.stringify(student));
+    //console.log(JSON.stringify(student));
+      function formatDateString(dateobj : String) {
+        if(dateobj.length >=8){
+          return dateobj.substring(0,4) + '-'+dateobj.substring(4,6)+ '-'+dateobj.substring(6,8);
+        }   
+      }
+    student.studentdob = new Date(formatDateString(student.studentdob));
+    student.fatherdob = new Date(formatDateString(student.fatherdob));
+    student.motherdob = new Date(formatDateString(student.motherdob));
+    student.startDate = new Date();
 
     let headers = new Headers({
       'Content-Type': 'application/json'
@@ -73,8 +84,16 @@ export class StudentService {
 
   updateStudent(student: Student): Observable<Student> {
     console.log("we are in the service at addStudent method" + student);
-    console.log(JSON.stringify(student));
-
+    //console.log(JSON.stringify(student));
+      function formatDateString(dateobj : String) {
+        if(dateobj.length >=8){
+          return dateobj.substring(0,4) + '-'+dateobj.substring(4,6)+ '-'+dateobj.substring(6,8);
+        }   
+      }
+    student.studentdob = new Date(formatDateString(student.studentdob));
+    student.fatherdob = new Date(formatDateString(student.fatherdob));
+    student.motherdob = new Date(formatDateString(student.motherdob));
+    
     let headers = new Headers({
       'Content-Type': 'application/json'
     });

@@ -38,13 +38,21 @@ export class ClassFeeService {
     console.log("we are in the service at studentClass method" + classFee);
     //console.log(JSON.stringify(classFee));
       function formatDateString(dateobj : String) {
-        if(dateobj.length >=8){
+        if(dateobj !=null){
           return dateobj.substring(0,4) + '-'+dateobj.substring(4,6)+ '-'+dateobj.substring(6,8);
         }   
       }
-    classFee.startDate = new Date(formatDateString(classFee.startDate));
-    classFee.endDate = new Date(formatDateString(classFee.endDate));
-
+    if(typeof classFee.startDate ===  "string"){
+      classFee.startDate = new Date(formatDateString(classFee.startDate));
+    }else{  
+      classFee.startDate = new Date(classFee.startDate);
+    }
+    if(typeof classFee.endDate ===  "string"){
+      classFee.endDate = new Date(formatDateString(classFee.endDate));
+    }else{  
+      classFee.endDate = new Date(classFee.endDate);
+    }
+    
     let headers = new Headers({
       'Content-Type': 'application/json'
     });
@@ -82,8 +90,16 @@ export class ClassFeeService {
           return dateobj.substring(0,4) + '-'+dateobj.substring(4,6)+ '-'+dateobj.substring(6,8);
         }   
       }
-    classFee.startDate = new Date(formatDateString(classFee.startDate));
-    classFee.endDate = new Date(formatDateString(classFee.endDate));
+    if(typeof classFee.startDate ===  "string"){
+      classFee.startDate = new Date(formatDateString(classFee.startDate));
+    }else{  
+      classFee.startDate = new Date(classFee.startDate);
+    }
+    if(typeof classFee.endDate ===  "string"){
+      classFee.endDate = new Date(formatDateString(classFee.endDate));
+    }else{  
+      classFee.endDate = new Date(classFee.endDate);
+    }
     
     let headers = new Headers({
       'Content-Type': 'application/json'

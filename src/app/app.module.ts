@@ -25,6 +25,7 @@ import { AuthenticationService } from './services/authentication.service';
 import { UserService } from './services/user.service';
 import { StudentService } from './services/student.service';
 import { ClassService } from './services/class.service';
+import { DashboardService } from './services/dashboard.service';
 import { FeeTypeService } from './services/feetype.service';
 import { ClassFeeService } from './services/classfee.service';
 
@@ -97,7 +98,8 @@ import { GenerateClassFeeComponent } from './main/generateclassfee/generateclass
     StudentService,
     ClassService,
     FeeTypeService,
-    ClassFeeService//s,
+    ClassFeeService,
+    DashboardService //s,
     // providers used to create fake backend
     //fakeBackendProvider,
     //MockBackend,

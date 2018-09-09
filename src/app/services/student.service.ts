@@ -47,9 +47,22 @@ export class StudentService {
           return dateobj.substring(0,4) + '-'+dateobj.substring(4,6)+ '-'+dateobj.substring(6,8);
         }   
       }
-    student.studentdob = new Date(formatDateString(student.studentdob));
-    student.fatherdob = new Date(formatDateString(student.fatherdob));
-    student.motherdob = new Date(formatDateString(student.motherdob));
+
+    if(typeof student.studentdob ===  "string"){
+      student.studentdob = new Date(formatDateString(student.studentdob));
+    }else{
+      student.studentdob = new Date(student.studentdob); 
+    }
+    if(typeof student.fatherdob ===  "string"){
+      student.fatherdob = new Date(formatDateString(student.fatherdob));
+    }else{  
+      student.fatherdob = new Date(student.fatherdob);
+    }
+    if(typeof student.motherdob ===  "string"){
+      student.motherdob = new Date(formatDateString(student.motherdob));
+    }else{  
+      student.motherdob = new Date(student.motherdob);
+    }
     student.startDate = new Date();
 
     let headers = new Headers({
@@ -90,9 +103,21 @@ export class StudentService {
           return dateobj.substring(0,4) + '-'+dateobj.substring(4,6)+ '-'+dateobj.substring(6,8);
         }   
       }
-    student.studentdob = new Date(formatDateString(student.studentdob));
-    student.fatherdob = new Date(formatDateString(student.fatherdob));
-    student.motherdob = new Date(formatDateString(student.motherdob));
+    if(typeof student.studentdob ===  "string"){
+      student.studentdob = new Date(formatDateString(student.studentdob));
+    }else{
+      student.studentdob = new Date(student.studentdob); 
+    }
+    if(typeof student.fatherdob ===  "string"){
+      student.fatherdob = new Date(formatDateString(student.fatherdob));
+    }else{  
+      student.fatherdob = new Date(student.fatherdob);
+    }
+    if(typeof student.motherdob ===  "string"){
+      student.motherdob = new Date(formatDateString(student.motherdob));
+    }else{  
+      student.motherdob = new Date(student.motherdob);
+    }
     
     let headers = new Headers({
       'Content-Type': 'application/json'

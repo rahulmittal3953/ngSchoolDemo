@@ -6,7 +6,7 @@ export class Student {
     admissionno?: string ;
     firstName?: string ;
     lastName?: string ;
-    studentAdharId ?: string ;
+    studentAdharId?: string ;
     studentdob?: Date ;
     gender?: string ;
     startDate?: Date ;

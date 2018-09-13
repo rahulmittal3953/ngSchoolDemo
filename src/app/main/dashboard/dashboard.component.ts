@@ -13,24 +13,20 @@ export class DashboardComponent  implements OnInit{
 	totalStudents  = 0;
 	newStudents = 0;
 
+  constructor( private dashboardService: DashboardService) { 
+  }
   ngOnInit() {
-   this.getDashboardData();
-  }
-
-  constructor(
-      private dashboardService: DashboardService) { 
-  }
-
+    this.getDashboardData();
+   }
   getDashboardData() {
     this.dashboardService
       .getDashboardData()
       .subscribe(result => {
         //this.map = result;
-
         this.activeStudents = result.ACTIVE_STUDENTS;
-		this.inactiveStudents = result.INACTIVE_STUDENTS;
-		this.totalStudents = result.TOTAL_STUDENTS;
-		this.newStudents = result.NEW_STUDENTS;
+        this.inactiveStudents = result.INACTIVE_STUDENTS;
+        this.totalStudents = result.TOTAL_STUDENTS;
+        this.newStudents = result.NEW_STUDENTS;
       },
       error =>{
         console.log(error);

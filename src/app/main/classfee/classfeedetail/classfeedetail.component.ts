@@ -58,6 +58,8 @@ ngOnInit() {
      .subscribe(result => {
        if(result){
          this.classFee = result;
+         this.classFee.startDate = new Date (this.classFee.startDate);
+         this.classFee.endDate = new Date (this.classFee.endDate);
          this.setFormControlsValues();
        } else{
          this.notif.info("Information", "No such record not found in the system, please try again.");
@@ -71,6 +73,8 @@ ngOnInit() {
      });
   }else {
    this.classFee=this.classFeeService.classFee;
+   this.classFee.startDate = new Date (this.classFee.startDate);
+   this.classFee.endDate = new Date (this.classFee.endDate);
     this.setFormControlsValues();
    this.ngProgress.done();
   }

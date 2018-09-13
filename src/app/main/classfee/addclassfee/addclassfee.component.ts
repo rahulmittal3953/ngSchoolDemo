@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 import { NgProgress } from 'ngx-progressbar';
 import {NgForm} from '@angular/forms';
 import { NotificationsService } from "angular2-notifications";
+import * as enLocale from 'date-fns/locale/en';
 
 
 import { ClassFeeService } from "../../../services/classfee.service";

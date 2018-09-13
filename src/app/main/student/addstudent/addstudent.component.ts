@@ -3,6 +3,8 @@ import { NotificationsService } from "angular2-notifications";
 import {NgForm} from '@angular/forms';
 import { NgProgress } from 'ngx-progressbar';
 
+import * as enLocale from 'date-fns/locale/en';
+
 import { StudentService } from "../../../services/student.service";
 import { Student } from '../../../models/student';
 
@@ -16,7 +18,6 @@ export class AddStudentComponent implements OnInit{
   model: any = {};
   student : Student = new Student();
   admissionClasses : StudentClass[] =[];
-  //private notif: NotificationsService;
 
   constructor(
     private notif : NotificationsService,

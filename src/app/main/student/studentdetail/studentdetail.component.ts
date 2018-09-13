@@ -6,6 +6,8 @@ import { NotificationsService } from "angular2-notifications";
 import {NgForm} from '@angular/forms';
 import { DataTableResource } from 'angular5-data-table';
 
+import * as enLocale from 'date-fns/locale/en';
+
 import { StudentService } from "../../../services/student.service";
 import { Student } from "../../../models/student";
 
@@ -24,6 +26,7 @@ import {StudentFeeWaiverHistory } from "../../../models/studentfeewaiverhistory"
   templateUrl: "./studentdetail.component.html"
 })
 export class StudentDetailComponent implements OnInit{
+  
   
   student: Student = new Student();
   payStudentFee : PayStudentFee = new PayStudentFee();

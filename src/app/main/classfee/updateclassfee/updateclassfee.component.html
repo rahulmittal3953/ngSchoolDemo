@@ -37,13 +37,15 @@
 			<div class="form-group row">
 					<label class="col-sm-2 col-form-label">Start Date</label>
 					<div class="col-sm-3">
-						<input type="text" class="form-control" formControlName="startDate" required
-						 [ngClass]="{'has-error': !classFeeForm.controls.startDate.valid}" placeholder="YYYY-MM-DD" mask='0000-00-00'>
+							<input placeholder="MM/DD/YYY" class="form-control" formControlName="startDate" required [ngClass]="{'has-error': !classFeeForm.controls.startDate.valid}"
+							[owlDateTimeTrigger]="startDate" [owlDateTime]="startDate" >
+						<owl-date-time [pickerType]="'calendar'" #startDate></owl-date-time>
 					</div>
 					<label class="col-sm-2 col-form-label">End Data</label>
 					<div class="col-sm-3">
-						<input type="text" class="form-control" formControlName="endDate" required 
-						[ngClass]="{'has-error': !classFeeForm.controls.endDate.valid}" placeholder="YYYY-MM-DD" mask='0000-00-00'/>
+						<input placeholder="MM/DD/YYY" class="form-control" formControlName="endDate" required [ngClass]="{'has-error': !classFeeForm.controls.endDate.valid}"
+							[owlDateTimeTrigger]="endDate" [owlDateTime]="endDate" >
+						<owl-date-time [pickerType]="'calendar'" #endDate></owl-date-time>
 					</div>
 			</div>
 

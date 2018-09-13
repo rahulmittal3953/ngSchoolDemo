@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { NgProgress } from 'ngx-progressbar';
 import { Validators, FormGroup, FormArray, FormBuilder,NgForm } from '@angular/forms';
 import { NotificationsService } from "angular2-notifications";
-
+import * as enLocale from 'date-fns/locale/en';
 
 import { ClassFeeService } from "../../../services/classfee.service";
 import { ClassFee } from "../../../models/classfee";
@@ -58,6 +58,8 @@ ngOnInit() {
      .subscribe(result => {
        if(result){
          this.classFee = result;
+         this.classFee.startDate = new Date (this.classFee.startDate);
+         this.classFee.endDate = new Date (this.classFee.endDate);
          this.setFormControlsValues();
        } else{
          this.notif.info("Information", "No such record not found in the system, please try again.");
@@ -71,6 +73,8 @@ ngOnInit() {
      });
   }else {
    this.classFee=this.classFeeService.classFee;
+   this.classFee.startDate = new Date (this.classFee.startDate);
+    this.classFee.endDate = new Date (this.classFee.endDate);
     this.setFormControlsValues();
    this.ngProgress.done();
   }

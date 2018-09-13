@@ -9,6 +9,9 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { DataTableModule } from 'angular5-data-table';
 import { NgProgressModule } from 'ngx-progressbar';
 
+ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+
+
 // Routing
 import { AppRouting } from './app.routing.module';
 
@@ -25,7 +28,6 @@ import { AuthenticationService } from './services/authentication.service';
 import { UserService } from './services/user.service';
 import { StudentService } from './services/student.service';
 import { ClassService } from './services/class.service';
-import { DashboardService } from './services/dashboard.service';
 import { FeeTypeService } from './services/feetype.service';
 import { ClassFeeService } from './services/classfee.service';
 
@@ -65,6 +67,7 @@ import { ClassFeeDetailComponent } from './main/classfee/classfeedetail/classfee
 import { UpdateClassFeeComponent } from './main/classfee/updateclassfee/updateclassfee.component';
 
 import { GenerateClassFeeComponent } from './main/generateclassfee/generateclassfee.component';
+import { DashboardService } from './services/dashboard.service';
 
 
 
@@ -89,7 +92,9 @@ import { GenerateClassFeeComponent } from './main/generateclassfee/generateclass
         maxLength: 250,
         preventDuplicates:true
       }),BrowserAnimationsModule,DataTableModule.forRoot(),
-      NgProgressModule
+      NgProgressModule,
+      OwlDateTimeModule, 
+      OwlNativeDateTimeModule
     ],
   providers: [
     AuthGuard,
@@ -99,7 +104,7 @@ import { GenerateClassFeeComponent } from './main/generateclassfee/generateclass
     ClassService,
     FeeTypeService,
     ClassFeeService,
-    DashboardService //s,
+    DashboardService//,
     // providers used to create fake backend
     //fakeBackendProvider,
     //MockBackend,

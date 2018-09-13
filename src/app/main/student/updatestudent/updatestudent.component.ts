@@ -6,6 +6,8 @@ import { NotificationsService } from "angular2-notifications";
 import {NgForm} from '@angular/forms';
 import { DataTableResource } from 'angular5-data-table';
 
+import * as enLocale from 'date-fns/locale/en';
+
 import { StudentService } from "../../../services/student.service";
 import { Student } from "../../../models/student";
 
@@ -25,6 +27,7 @@ import {StudentFeeWaiverHistory } from "../../../models/studentfeewaiverhistory"
 })
 export class UpdateStudentComponent implements OnInit {
 
+  
   student: Student = new Student();
   payStudentFee : PayStudentFee = new PayStudentFee();
   studentFine : StudentFine = new StudentFine();
@@ -89,6 +92,13 @@ export class UpdateStudentComponent implements OnInit {
         .subscribe(result => {
           if(result){
             this.student = result;
+            this.student.studentdob = new Date(this.student.studentdob);
+            if(this.student.fatherdob){
+              this.student.fatherdob = new Date(this.student.fatherdob);
+            }
+            if(this.student.motherdob){
+              this.student.motherdob = new Date(this.student.motherdob);
+            }
             this.getStudentFee();
           } else{
             this.notif.info("Information", "No such record not found in the system, please try again.");
@@ -102,8 +112,16 @@ export class UpdateStudentComponent implements OnInit {
           });
   } else {
       this.student = this.studentService.studentData
+      this.student.studentdob = new Date(this.student.studentdob);
+      if(this.student.fatherdob){
+        this.student.fatherdob = new Date(this.student.fatherdob);
+      }
+      if(this.student.motherdob){
+        this.student.motherdob = new Date(this.student.motherdob);
+      }
+      
       this.ngProgress.done();
-       this.getStudentFee();
+      this.getStudentFee();
     }
   }
 

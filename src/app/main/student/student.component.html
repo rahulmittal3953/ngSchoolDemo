@@ -19,7 +19,8 @@
 <div class="table-responsive">
 <data-table id="persons-grid" class="table table-sm"
         headerTitle="Students"
-        [limit]="10"
+		[title]="'Students'"
+		[limit]="10"
         [items]="items"
         [itemCount]="itemCount"
         (reload)="reloadItems($event)"
@@ -70,6 +71,20 @@
 			<ng-template #dataTableCell let-item="item">
 				{{item.studentClass.name}}
             </ng-template>
+		</data-table-column>
+		<data-table-column
+			[property]="'active'"
+			[header]="'Active/ Inactive'"
+			[sortable]="true"
+			[resizable]="true">
+			<ng-template #dataTableCell let-item="item">
+				<span *ngIf="item.active" class="badge-success">
+					Active
+				</span>
+				<span *ngIf="!item.active" class="badge-danger">
+						In-Active
+				</span>
+			</ng-template>
 		</data-table-column>
 		<data-table-column
             [property]="'active'"

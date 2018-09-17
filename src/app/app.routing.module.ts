@@ -33,7 +33,7 @@ import { AddClassFeeComponent } from './main/classfee/addclassfee/addclassfee.co
 import { ClassFeeDetailComponent } from './main/classfee/classfeedetail/classfeedetail.component';
 import { UpdateClassFeeComponent } from './main/classfee/updateclassfee/updateclassfee.component';
 
-import { GenerateClassFeeComponent } from './main/generateclassfee/generateclassfee.component';
+import { GenerateClassFeeComponent , GenerateNewStudentFeeComponent } from './main/generateclassfee/generateclassfee.component';
 
 
 const routes = [
@@ -69,7 +69,8 @@ const routes = [
         { path: "classfeedetail/:id", component: ClassFeeDetailComponent },
         { path: "updateclassfee/:id", component: UpdateClassFeeComponent },
 
-        { path: "generateclassfee", component: GenerateClassFeeComponent }
+        { path: "generateclassfee", component: GenerateClassFeeComponent },
+        { path: "generatenewstudentfee", component: GenerateNewStudentFeeComponent }
         
         
         

@@ -22,7 +22,6 @@ export class DashboardComponent  implements OnInit{
     this.dashboardService
       .getDashboardData()
       .subscribe(result => {
-        //this.map = result;
         this.activeStudents = result.ACTIVE_STUDENTS;
         this.inactiveStudents = result.INACTIVE_STUDENTS;
         this.totalStudents = result.TOTAL_STUDENTS;

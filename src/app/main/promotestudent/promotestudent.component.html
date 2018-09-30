@@ -1,0 +1,20 @@
+<h2 class="mt-2">Promote Student</h2>
+<hr/>
+<div>
+    <label for="" class="h4 title">Select an .csv file to get json</label>
+</div>
+<div class="form-group row">
+    <div class="col-sm-3">
+            <input type="file" class="form-control" (change)="handleFile($event)" />
+    </div>
+        <div class="col-sm-6">
+                <input type="button" (click)="downloadFile()" value="DownloadExcel" class="btn btn-bd-primary" />
+        </div>
+</div>
+<!-- <div class="result-container" *ngIf="result && result.length>0">
+        <h2>
+            Result :
+            <br>
+        </h2>
+        {{result}}
+    </div> -->

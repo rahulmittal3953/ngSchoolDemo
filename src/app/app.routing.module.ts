@@ -34,6 +34,7 @@ import { ClassFeeDetailComponent } from './main/classfee/classfeedetail/classfee
 import { UpdateClassFeeComponent } from './main/classfee/updateclassfee/updateclassfee.component';
 
 import { GenerateClassFeeComponent , GenerateNewStudentFeeComponent } from './main/generateclassfee/generateclassfee.component';
+import { PromoteStudentComponent } from "./main/promotestudent/promotestudent.component";
 
 
 const routes = [
@@ -70,7 +71,8 @@ const routes = [
         { path: "updateclassfee/:id", component: UpdateClassFeeComponent },
 
         { path: "generateclassfee", component: GenerateClassFeeComponent },
-        { path: "generatenewstudentfee", component: GenerateNewStudentFeeComponent }
+        { path: "generatenewstudentfee", component: GenerateNewStudentFeeComponent },
+        {path: "promotestudent", component: PromoteStudentComponent }
         
         
         

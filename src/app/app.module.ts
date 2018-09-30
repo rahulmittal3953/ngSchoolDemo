@@ -70,6 +70,8 @@ import { GenerateClassFeeComponent } from './main/generateclassfee/generateclass
 import { GenerateNewStudentFeeComponent } from './main/generateclassfee/generateclassfee.component';
 import { DashboardService } from './services/dashboard.service';
 
+import { PromoteStudentComponent } from "./main/promotestudent/promotestudent.component";
+
 
 
 @NgModule({
@@ -81,7 +83,7 @@ import { DashboardService } from './services/dashboard.service';
     StudentComponent, AddStudentComponent, UpdateStudentComponent, StudentDetailComponent,
     FeeTypeComponent, AddFeeTypeComponent, UpdateFeeTypeComponent, FeeTypeDetailComponent,
     ClassFeeComponent, AddClassFeeComponent, ClassFeeDetailComponent, UpdateClassFeeComponent,
-    GenerateClassFeeComponent, GenerateNewStudentFeeComponent
+    GenerateClassFeeComponent, GenerateNewStudentFeeComponent, PromoteStudentComponent
   ],
   imports: [
       BrowserModule, AppRouting, FormsModule, ReactiveFormsModule, HttpModule,NgxMaskModule.forRoot(),

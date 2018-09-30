@@ -200,10 +200,54 @@ getClassFeeData(){
 
      console.log("Download excel ended");
   }
+
+
+
+  generateFeeFornewStudent(model: FormGroup) {
+    if (this.generateClassFeeForm.valid) {
+  
+  
+      let tempStudentClasses: StudentClass[] = model.controls.studentClasses.value;
+      let outStudentClasses: StudentClass[]=[];
+      tempStudentClasses.forEach(element => {
+        outStudentClasses.push(element[0]);
+      });
+  
+  
+      this.generateFee.classFee = model.controls.classFee.value
+      this.generateFee.studentClasses = outStudentClasses;
+      console.log(this.generateFee);
+  
+      this.ngProgress.start();
+      window.scroll(0,0);
+  
+      this.classFeeService
+        .generateFeeFornewStudent(this.generateFee)
+        .subscribe(result => {
+          //this.students = result;
+          console.log(result);
+          this.ngProgress.done();
+          this.notif.success("Success", "Generate Fee for New Student has been submitted successfully.");
+        },
+        error =>{
+          console.log(error);
+          this.ngProgress.done();
+          this.notif.error("Failure", "While proceesing the Generate Fee for New Student, please try again.");
+        }
+      );
+  
+    }
+  
+  }
+  
+  closeFee(model: FormGroup) {
+    console.log(model);
+  }
+  
 }
 
 
-
+  
 @Component({
   templateUrl: "./generatenewstudentfee.component.html"
 })
@@ -293,6 +337,10 @@ generateFeeFornewStudent(model: FormGroup) {
 
   }
 
+}
+
+closeFee(model: FormGroup) {
+  console.log(model);
 }
 
 ClearAll(){

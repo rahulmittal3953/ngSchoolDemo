@@ -241,9 +241,37 @@ getClassFeeData(){
   }
   
   closeFee(model: FormGroup) {
-    console.log(model);
-  }
+      let tempStudentClasses: StudentClass[] = model.controls.studentClasses.value;
+      let outStudentClasses: StudentClass[]=[];
+      tempStudentClasses.forEach(element => {
+        outStudentClasses.push(element[0]);
+      });
   
+  
+      this.generateFee.classFee = model.controls.classFee.value
+      this.generateFee.studentClasses = outStudentClasses;
+      console.log(this.generateFee);
+  
+      this.ngProgress.start();
+      window.scroll(0,0);
+
+     // console.log(model);
+
+      this.classFeeService
+        .closeFee(this.generateFee)
+        .subscribe(result => {
+          //this.students = result;
+          console.log(result);
+          this.ngProgress.done();
+          this.notif.success("Success", "Closed Fee for the Student successfully.");
+        },
+        error =>{
+          console.log(error);
+          this.ngProgress.done();
+          this.notif.error("Failure", "While proceesing the Closed Fee for the Student, please try again.");
+        }
+      );
+  } 
 }
 
 

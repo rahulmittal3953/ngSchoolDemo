@@ -173,4 +173,28 @@ export class ClassFeeService {
       .get(this.apiURl +"/api/studentpromoteclass", options)
       .map((response: Response) => response.json());
   }
+
+
+  closeFee(generateFee: GenerateFee): Observable<GenerateFee> {
+    console.log("we are in the service at closeFee method" + generateFee);
+    console.log(JSON.stringify(generateFee));
+
+    let headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http
+      .post(
+        this.apiURl + "/api/closefee",
+        generateFee,
+        options
+      ).map((response: Response) => {
+        // login successful if there's a jwt token in the response
+        return response.json();
+      })
+  }
 }
+
+
+  
